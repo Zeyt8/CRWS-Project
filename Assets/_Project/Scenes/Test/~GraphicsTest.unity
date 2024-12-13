@@ -248,6 +248,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5870695979930333998, guid: ff63b0a2a76305f418eac6f15d340dad, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8651515420689546929, guid: ff63b0a2a76305f418eac6f15d340dad, type: 3}
       propertyPath: m_LocalPosition.x
       value: -9
@@ -305,6 +309,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2515539181847402010, guid: c4a69e964de31604a9267bcc59bbbc1b, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8203889226637907145, guid: c4a69e964de31604a9267bcc59bbbc1b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5
@@ -406,6 +414,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8590653121884721980, guid: 38300d189f3d2d345a7da78a139754c4, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -419,6 +431,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5110086601664849342, guid: b0e8c80702d87fb4f9c231b669dcffd3, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7520341672977343540, guid: b0e8c80702d87fb4f9c231b669dcffd3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9
@@ -476,6 +492,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4681256521139385223, guid: 7778632bf67024a46b1f78e3c03c216e, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6455139829038169830, guid: 7778632bf67024a46b1f78e3c03c216e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1
@@ -577,6 +597,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 2Handed Warrior
       objectReference: {fileID: 0}
+    - target: {fileID: 7915026842304430744, guid: 338097dc3c0187f42a8a49e673ed32d4, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -590,6 +614,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 482195381441858175, guid: 98474833b4f2d9643a6babba392d58dd, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1736375893503295327, guid: 98474833b4f2d9643a6babba392d58dd, type: 3}
       propertyPath: m_LocalPosition.x
       value: -11
@@ -784,6 +812,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3009907526352514746, guid: dd9d3d7655ac3934d9096722ca483868, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9186795781410057772, guid: dd9d3d7655ac3934d9096722ca483868, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3
@@ -841,6 +873,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5194344674372705966, guid: e9b12993f89c9de4ba3618afe11b0c78, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6455139829038169830, guid: e9b12993f89c9de4ba3618afe11b0c78, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5
@@ -884,6 +920,10 @@ PrefabInstance:
     - target: {fileID: 6455139829038195398, guid: e9b12993f89c9de4ba3618afe11b0c78, type: 3}
       propertyPath: m_Name
       value: Crossbow Warrior
+      objectReference: {fileID: 0}
+    - target: {fileID: 7076102449631085672, guid: e9b12993f89c9de4ba3618afe11b0c78, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -941,6 +981,10 @@ PrefabInstance:
     - target: {fileID: 4182289164326664698, guid: 1f0406ed2b3e96f40ae51101a101f31a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4512073272749822090, guid: 1f0406ed2b3e96f40ae51101a101f31a, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1064,6 +1108,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1132827618451993296, guid: 9f99667d4375379408bd10638de087bc, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6735336076760675005, guid: 9f99667d4375379408bd10638de087bc, type: 3}
       propertyPath: m_Name
       value: Karate Warrior
@@ -1164,6 +1212,14 @@ PrefabInstance:
     - target: {fileID: 910660656960625906, guid: 19241c63182d7eb4aa7b0def9422b53b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3433262624112864604, guid: 19241c63182d7eb4aa7b0def9422b53b, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4142424076734655974, guid: 19241c63182d7eb4aa7b0def9422b53b, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
