@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Swordsman Warrior Animation Controller
+  m_Controller: {fileID: 9100000, guid: 1b4752494a9ae7a4bbb62ef8dadda9e8, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: dbbdcfdc751ca1146932bd6bc3dda730, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 388866d801cf0f34daa7a600517209b2, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 5a3da40707712d84c9c79fd9056679a4, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: e95fe9ca520639b488a8e7ec26bfa1f7, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: c26ff68d987e6654eae7ac997df4d3bc, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: e7a422cb608bd3e409aeb5651e68e16d, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 82108c6a220ef70448d2f035af5ee478, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 37a7fb7f208613048afcfc713dc0a4e9, type: 3}
+  - m_OriginalClip: {fileID: -7497848331705974981, guid: 82108c6a220ef70448d2f035af5ee478, type: 3}
+    m_OverrideClip: {fileID: 7400002, guid: 37a7fb7f208613048afcfc713dc0a4e9, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: f8a7c8447d8c15740964c9bfcb761d70, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 0626e44600709ab4788de7419c037a8d, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 6aa2008e4fe28b443b5c93d5b9f768d7, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 1222763b677cd78418c968c8707c94bf, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 7c64bd10551274d4aa48072bca44bfce, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: ab03966efca191f46ba77126b6a03230, type: 3}
