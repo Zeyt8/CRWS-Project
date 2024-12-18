@@ -14,14 +14,17 @@ partial struct UnitSpawnerSystem : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        // spawn here when UI button pressed
-        // How? I dunno
-        if (SystemAPI.TryGetSingleton<UnitSpawner>(out UnitSpawner unitSpawner))
+        if (SystemAPI.TryGetSingleton(out UnitSpawner unitSpawner))
         {
-            if (UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.Space))
+            if (unitSpawner.UnitToSpawn.HasValue)
             {
                 Entity unit = state.EntityManager.Instantiate(unitSpawner.UnitPrefabEntity);
                 SystemAPI.SetComponent(unit, LocalTransform.FromPosition(new float3(0, 0, 0)));
+                Movement ms = SystemAPI.GetComponent<Movement>(unit);
+                ms.Target = new float3(100, 0, 0);
+                SystemAPI.SetComponent(unit, ms);
+                unitSpawner.UnitToSpawn = null;
+                SystemAPI.SetSingleton(unitSpawner);
             }
         }
     }

@@ -9,10 +9,11 @@ public class UnitSpawnerAuthoring : MonoBehaviour
     {
         public override void Bake(UnitSpawnerAuthoring authoring)
         {
-            Entity entity = GetEntity(TransformUsageFlags.Dynamic);
+            Entity entity = GetEntity(TransformUsageFlags.None);
             AddComponent(entity, new UnitSpawner
             {
-                UnitPrefabEntity = GetEntity(authoring.UnitPrefab, TransformUsageFlags.Dynamic)
+                UnitPrefabEntity = GetEntity(authoring.UnitPrefab, TransformUsageFlags.Dynamic),
+                UnitToSpawn = null
             });
         }
     }
@@ -21,4 +22,5 @@ public class UnitSpawnerAuthoring : MonoBehaviour
 public struct UnitSpawner : IComponentData
 {
     public Entity UnitPrefabEntity;
+    public UnitTypes? UnitToSpawn;
 }
