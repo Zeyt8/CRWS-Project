@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Brute Warrior Animation Controller
+  m_Controller: {fileID: 9100000, guid: 1b4752494a9ae7a4bbb62ef8dadda9e8, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: dbbdcfdc751ca1146932bd6bc3dda730, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 63c447cc6fb0954459f35c43b5966da2, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 5a3da40707712d84c9c79fd9056679a4, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 6d3fdfaf6fb0b744abb6dfc9fb1bb766, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: c26ff68d987e6654eae7ac997df4d3bc, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 743b2f433ce9dc34fa40bbc53b94319f, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 82108c6a220ef70448d2f035af5ee478, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 7d6361bc6c3a91a47a6ae4ffef381b3f, type: 3}
+  - m_OriginalClip: {fileID: -7497848331705974981, guid: 82108c6a220ef70448d2f035af5ee478, type: 3}
+    m_OverrideClip: {fileID: 7400002, guid: 7d6361bc6c3a91a47a6ae4ffef381b3f, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: f8a7c8447d8c15740964c9bfcb761d70, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: d01bc7c7263ec8d4aa3f7947c2ddf0cb, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 6aa2008e4fe28b443b5c93d5b9f768d7, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 979c23f9f029cca4d9f7d7abe96e3e69, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 7c64bd10551274d4aa48072bca44bfce, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 30fa7d7448a4e8c42839ad4c2f36c6a1, type: 3}

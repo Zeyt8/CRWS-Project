@@ -283,6 +283,7 @@ GameObject:
   - component: {fileID: 6718588461118409735}
   - component: {fileID: 7176300833385260308}
   - component: {fileID: 7176300833385260311}
+  - component: {fileID: 307353563050164191}
   m_Layer: 0
   m_Name: 2Handed Warrior
   m_TagString: Player
@@ -356,6 +357,19 @@ CapsuleCollider:
   m_Height: 2.5
   m_Direction: 1
   m_Center: {x: 0, y: 1.25, z: 0}
+--- !u!114 &307353563050164191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6718588461118902311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1e447fc41536174183805f414e152e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MovementSpeed: 5
 --- !u!1 &7915026842311831794
 GameObject:
   m_ObjectHideFlags: 0
@@ -531,7 +545,7 @@ Animator:
   m_GameObject: {fileID: 7915026842311831806}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 781a15e490c144941adf6440cf6b6cdd, type: 3}
-  m_Controller: {fileID: 9100000, guid: eedd95950d7c15e4eb7d88267e566406, type: 2}
+  m_Controller: {fileID: 22100000, guid: 9535c1e9610e52640bb7e7132e33c824, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
