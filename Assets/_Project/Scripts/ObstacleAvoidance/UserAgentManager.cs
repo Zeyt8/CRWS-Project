@@ -4,20 +4,18 @@ using UnityEngine.AI;
 
 public class UserAgentManager : MonoBehaviour
 {
-    //private Simulator rvoSimulator;  // RVO simulator instance
-    private List<int> agentIDs = new List<int>(); // List to store agent IDs
 
+    private List<int> agentIDs = new List<int>(); // List to store agent ID
     public GameObject agentPrefab; // Prefab for agents
     public BoxCollider goalArea;  // Goal area for agents
     public BoxCollider spawnArea;
     public GameObject floor;
 
     // Parameters for RVO simulation
-    public float separationDistance = 2f;
 
     void Start()
     {
-        SpawnAgents(1000);  // Spawn 100 agents (adjust as needed)
+        SpawnAgents(1000);
     }
 
     void SpawnAgents(int numAgents)
@@ -49,7 +47,7 @@ public class UserAgentManager : MonoBehaviour
         // Generate a random starting position within the spawn area
         Vector3 randomPosition = new Vector3(
             Random.Range(spawnArea.bounds.min.x, spawnArea.bounds.max.x),
-            floor.transform.position.y + 1f, // Ensure the Y position aligns with the spawn area height
+            floor.transform.position.y + 1f,
             Random.Range(spawnArea.bounds.min.z, spawnArea.bounds.max.z)
         );
 

@@ -6,12 +6,6 @@ using UnityEngine.Rendering;
 
 public class UserObstacleAvoidance : MonoBehaviour {
 
-    // Avoid static obstacles
-    // Avoid team mates
-    // Fight opposite team if they aren't fighting someone else
-    // Avoid opposite team if they are fighting someone else
-    // Reach goal within opposite section
-
     public float separationDistance = 1f;
     private NavMeshAgent agent;
     private Vector3 goal;
