@@ -48,6 +48,11 @@ public struct Movement : IComponentData
     public float Velocity;
 }
 
+public struct GoalFollow : IComponentData
+{
+    public float3 Target;
+}
+
 public struct Avoidance : IComponentData
 {
     public float SeparationDistance;

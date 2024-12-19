@@ -3,12 +3,14 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [CreateAssetMenu(fileName = "InputHandler", menuName = "Scriptable Objects/InputHandler")]
-public class InputHandler: ScriptableObject, InputSystem_Actions.IPlayerActions
+public class InputHandler : ScriptableObject, InputSystem_Actions.IPlayerActions
 {
     private static InputSystem_Actions PlayerControls;
 
     public Vector2 MousePosition { get; private set; }
     public Action OnSelect { get; set; } = delegate { };
+    public Vector2 CameraPan { get; private set; }
+    public Action<float> OnCameraZoom { get; set; } = delegate { };
 
     private void OnEnable()
     {
@@ -35,6 +37,19 @@ public class InputHandler: ScriptableObject, InputSystem_Actions.IPlayerActions
         if (context.performed)
         {
             OnSelect.Invoke();
+        }
+    }
+
+    void InputSystem_Actions.IPlayerActions.OnCameraMove(InputAction.CallbackContext context)
+    {
+        CameraPan = context.ReadValue<Vector2>();
+    }
+
+    void InputSystem_Actions.IPlayerActions.OnCameraZoom(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            OnCameraZoom.Invoke(context.ReadValue<float>());
         }
     }
 }

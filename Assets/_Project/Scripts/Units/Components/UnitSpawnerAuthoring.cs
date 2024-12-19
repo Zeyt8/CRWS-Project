@@ -1,41 +1,25 @@
 using Unity.Entities;
 using UnityEngine;
 
-//public class UnitSpawnerAuthoring : MonoBehaviour
-//{
-//    public UnitAuthoring UnitPrefab;
-
-//    public class Baker : Baker<UnitSpawnerAuthoring>
-//    {
-//        public override void Bake(UnitSpawnerAuthoring authoring)
-//        {
-//            Entity entity = GetEntity(TransformUsageFlags.None);
-//            AddComponent(entity, new UnitSpawner
-//            {
-//                UnitPrefabEntity = GetEntity(authoring.UnitPrefab, TransformUsageFlags.Dynamic),
-//                UnitToSpawn = null
-//            });
-//        }
-//    }
-//}
-
 public class UnitSpawnerAuthoring : MonoBehaviour
 {
     public UnitAuthoring UnitPrefab;
+    public float SpawnWidth;
+    public float SpawnLength;
 
     public class Baker : Baker<UnitSpawnerAuthoring>
     {
         public override void Bake(UnitSpawnerAuthoring authoring)
         {
-            // Create an entity for the spawner
-            Entity entity = GetEntity(TransformUsageFlags.None);
+            Entity entity = GetEntity(TransformUsageFlags.Dynamic);
 
-            // Add the UnitSpawner component with no collider set initially
             AddComponent(entity, new UnitSpawner
             {
                 UnitPrefabEntity = GetEntity(authoring.UnitPrefab, TransformUsageFlags.Dynamic),
                 UnitToSpawn = null,
-                TargetColliderEntity = Entity.Null, // Initially set to null, will be updated by system
+                SpawnWidth = authoring.SpawnWidth,
+                SpawnLength = authoring.SpawnLength,
+                Random = new Unity.Mathematics.Random((uint)UnityEngine.Random.Range(1, 100000))
             });
         }
     }
@@ -45,6 +29,8 @@ public struct UnitSpawner : IComponentData
 {
     public Entity UnitPrefabEntity;
     public UnitTypes? UnitToSpawn;
-    public Entity TargetColliderEntity;
+    public float SpawnWidth;
+    public float SpawnLength;
+    public Unity.Mathematics.Random Random;
 }
 
