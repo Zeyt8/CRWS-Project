@@ -1,9 +1,11 @@
 using Unity.Entities;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class UnitSpawnerAuthoring : MonoBehaviour
 {
-    public UnitAuthoring UnitPrefab;
+    public List<UnitAuthoring> UnitPrefabs = new List<UnitAuthoring>();
+    public List<uint> UnitGroupCount = new List<uint>();
     public float SpawnWidth;
     public float SpawnLength;
 
@@ -12,10 +14,19 @@ public class UnitSpawnerAuthoring : MonoBehaviour
         public override void Bake(UnitSpawnerAuthoring authoring)
         {
             Entity entity = GetEntity(TransformUsageFlags.Dynamic);
+            DynamicBuffer<UnitPrefabBufferElement> buffer = AddBuffer<UnitPrefabBufferElement>(entity);
+
+            for (int i = 0; i < authoring.UnitPrefabs.Count; i++)
+            {
+                buffer.Add(new UnitPrefabBufferElement
+                {
+                    UnitPrefabEntity = GetEntity(authoring.UnitPrefabs[i], TransformUsageFlags.Dynamic),
+                    Count = authoring.UnitGroupCount[i]
+                });
+            }
 
             AddComponent(entity, new UnitSpawner
             {
-                UnitPrefabEntity = GetEntity(authoring.UnitPrefab, TransformUsageFlags.Dynamic),
                 UnitToSpawn = null,
                 SpawnWidth = authoring.SpawnWidth,
                 SpawnLength = authoring.SpawnLength,
@@ -25,12 +36,17 @@ public class UnitSpawnerAuthoring : MonoBehaviour
     }
 }
 
-public struct UnitSpawner : IComponentData
+[InternalBufferCapacity(12)]
+public struct UnitPrefabBufferElement : IBufferElementData
 {
     public Entity UnitPrefabEntity;
+    public uint Count;
+}
+
+public struct UnitSpawner : IComponentData
+{
     public UnitTypes? UnitToSpawn;
     public float SpawnWidth;
     public float SpawnLength;
     public Unity.Mathematics.Random Random;
 }
-
