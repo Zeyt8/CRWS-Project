@@ -4053,7 +4053,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inputHandler: {fileID: 11400000, guid: 388994a0f63dccb4596231f028bcf1c5, type: 2}
-  _speed: 10
+  _speed: 20
   _zoomSpeed: 5
 --- !u!1 &1736462447
 GameObject:

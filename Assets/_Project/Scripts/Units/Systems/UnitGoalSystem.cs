@@ -21,7 +21,7 @@ public partial struct UnitGoalSystem : ISystem
             foreach ((RefRO<GoalFollow> Follower, RefRW<Movement> mov, RefRO<LocalTransform> transform)
                 in SystemAPI.Query<RefRO<GoalFollow>, RefRW<Movement>, RefRO<LocalTransform>>())
             {
-                mov.ValueRW.DesiredVelocity += math.normalize(Follower.ValueRO.Target - transform.ValueRO.Position);
+                mov.ValueRW.DesiredVelocity = math.normalize(Follower.ValueRO.Target - transform.ValueRO.Position);
             }
         }
     }
