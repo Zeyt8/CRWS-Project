@@ -23,7 +23,7 @@ partial struct UnitSpawnerSystem : ISystem
                 float3 spawnPosition = new float3(0, 0, 0);
                 SystemAPI.SetComponent(unit, LocalTransform.FromPosition(spawnPosition));
 
-                float3 targetPosition = new float3(-3, 0, -200);
+                float3 targetPosition = new float3(130, 0, -50);
 
                 if (!SystemAPI.HasBuffer<PathBufferElement>(unit))
                     state.EntityManager.AddBuffer<PathBufferElement>(unit);

@@ -6,6 +6,8 @@ using Unity.Transforms;
 using Unity.Physics;
 using Unity.Collections;
 
+[UpdateInGroup(typeof(MovementSystemGroup))]
+[UpdateAfter(typeof(UnitGoalSystem))]
 partial struct UnitAvoidanceSystem : ISystem
 {
     [BurstCompile]
@@ -25,19 +27,13 @@ partial struct UnitAvoidanceSystem : ISystem
             {
                 LocalTransform otherUnitTransform = SystemAPI.GetComponent<LocalTransform>(unit.Entity);
                 Team otherUnitTeam = SystemAPI.GetComponent<Team>(unit.Entity);
-                if (team.ValueRO.Value != otherUnitTeam.Value)
-                {
-                    ms.ValueRW.DesiredVelocity = Vector3.zero;
-                }
-                else
+                if (team.ValueRO.Value == otherUnitTeam.Value)
                 {
                     float3 awayFromFollower = localTransform.ValueRO.Position - otherUnitTransform.Position;
                     ms.ValueRW.DesiredVelocity += math.normalize(awayFromFollower) * 0.05f;
                 }
             }
             hits.Dispose();
-            ms.ValueRW.DesiredVelocity += ms.ValueRO.Target - localTransform.ValueRO.Position;
-            ms.ValueRW.DesiredVelocity = math.normalize(ms.ValueRO.DesiredVelocity);
         }
     }
 }

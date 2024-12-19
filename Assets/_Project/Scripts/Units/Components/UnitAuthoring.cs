@@ -49,6 +49,11 @@ public struct Movement : IComponentData
     public int CurrentPathIndex;
 }
 
+public struct GoalFollow : IComponentData
+{
+    public float3 Target;
+}
+
 public struct Avoidance : IComponentData
 {
     public float SeparationDistance;
