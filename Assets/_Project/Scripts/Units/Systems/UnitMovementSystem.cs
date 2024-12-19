@@ -3,20 +3,34 @@ using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 
-[UpdateInGroup(typeof(MovementSystemGroup))]
-[UpdateAfter(typeof(UnitAvoidanceSystem))]
+[BurstCompile]
 partial struct UnitMovementSystem : ISystem
 {
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        foreach ((RefRW<LocalTransform> localTransform, RefRW<Movement> ms) in SystemAPI.Query<RefRW<LocalTransform>, RefRW<Movement>>())
+        foreach ((RefRW<LocalTransform> localTransform, RefRW<Movement> movement, DynamicBuffer<PathBufferElement> pathBuffer)
+                 in SystemAPI.Query<RefRW<LocalTransform>, RefRW<Movement>, DynamicBuffer<PathBufferElement>>())
         {
-            float3 movement = math.normalize(ms.ValueRO.DesiredVelocity) * ms.ValueRO.MovementSpeed;
-            localTransform.ValueRW.Position += movement * SystemAPI.Time.DeltaTime;
-            localTransform.ValueRW.Rotation = quaternion.LookRotationSafe(ms.ValueRO.DesiredVelocity, math.up());
-            ms.ValueRW.IsMoving = math.length(movement) > 0.01f;
-            ms.ValueRW.Velocity = math.length(movement);
+            if (movement.ValueRW.CurrentPathIndex >= pathBuffer.Length)
+            {
+                movement.ValueRW.IsMoving = false;
+                movement.ValueRW.Velocity = 0;
+                continue;
+            }
+
+            float3 targetPosition = pathBuffer[movement.ValueRW.CurrentPathIndex].Position;
+            float3 direction = math.normalize(targetPosition - localTransform.ValueRW.Position);
+            float3 movementVector = direction * movement.ValueRW.MovementSpeed * SystemAPI.Time.DeltaTime;
+
+            localTransform.ValueRW.Position += movementVector;
+            localTransform.ValueRW.Rotation = quaternion.LookRotationSafe(direction, math.up());
+
+            if (math.distance(localTransform.ValueRW.Position, targetPosition) < 0.1f)
+                movement.ValueRW.CurrentPathIndex++;
+
+            movement.ValueRW.IsMoving = true;
+            movement.ValueRW.Velocity = math.length(movementVector);
         }
     }
 }

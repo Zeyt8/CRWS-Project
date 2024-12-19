@@ -46,6 +46,7 @@ public struct Movement : IComponentData
     public float3 DesiredVelocity;
     public bool IsMoving;
     public float Velocity;
+    public int CurrentPathIndex;
 }
 
 public struct GoalFollow : IComponentData
