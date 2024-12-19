@@ -36,24 +36,13 @@ partial struct UnitSpawnerSystem : ISystem
                 for (int i = 0; i < count; i++)
                 {
                     Entity unit = state.EntityManager.Instantiate(prefabElement);
+                    if (!SystemAPI.HasBuffer<PathBufferElement>(unit))
+                        state.EntityManager.AddBuffer<PathBufferElement>(unit);
                     float3 pos = basePos;
                     pos.x += (i % width) * DISTANCE_IN_FORMATION - (width - 1) * DISTANCE_IN_FORMATION / 2;
                     pos.z += (i / width) * DISTANCE_IN_FORMATION - (length - 1) * DISTANCE_IN_FORMATION / 2;
                     SystemAPI.SetComponent(unit, LocalTransform.FromPosition(pos));
                 }
-
-                float3 targetPosition = new float3(130, 0, -50);
-
-                if (!SystemAPI.HasBuffer<PathBufferElement>(unit))
-                    state.EntityManager.AddBuffer<PathBufferElement>(unit);
-
-                var pathBuffer = SystemAPI.GetBuffer<PathBufferElement>(unit);
-                NavMeshUtility.CalculatePath(spawnPosition, targetPosition, pathBuffer);
-
-                Movement ms = SystemAPI.GetComponent<Movement>(unit);
-                ms.Target = targetPosition;
-                ms.CurrentPathIndex = 0; 
-                SystemAPI.SetComponent(unit, ms);
 
                 unitSpawner.UnitToSpawn = null;
                 SystemAPI.SetSingleton(unitSpawner);

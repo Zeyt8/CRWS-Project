@@ -25,9 +25,11 @@ public class UnitAuthoring : MonoBehaviour
                 MovementSpeed = authoring.MovementSpeed,
                 Target = float3.zero,
                 DesiredVelocity = float3.zero,
-                IsMoving = false
+                IsMoving = false,
+                Velocity = 0,
+                CurrentPathIndex = 0,
+                SeparationDistance = authoring.SeparationDistance
             });
-            AddComponent(entity, new Avoidance { SeparationDistance = authoring.SeparationDistance });
             AddComponent(entity, new Health { Value = authoring.Health });
             AddComponent(entity, new AttackData { Strength = authoring.AttackStrength, Range = authoring.AttackRange, IsAttacking = false });
         }
@@ -47,15 +49,6 @@ public struct Movement : IComponentData
     public bool IsMoving;
     public float Velocity;
     public int CurrentPathIndex;
-}
-
-public struct GoalFollow : IComponentData
-{
-    public float3 Target;
-}
-
-public struct Avoidance : IComponentData
-{
     public float SeparationDistance;
 }
 
@@ -69,4 +62,9 @@ public struct AttackData : IComponentData
     public float Strength;
     public float Range;
     public bool IsAttacking;
+}
+
+public struct EnemyBaseReference : IComponentData
+{
+    public float3 Location;
 }

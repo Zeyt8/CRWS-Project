@@ -4,7 +4,7 @@ using Unity.Entities;
 using Unity.Transforms;
 
 [UpdateInGroup(typeof(MovementSystemGroup))]
-public partial struct GoalSetterSystem : ISystem
+public partial struct EnemyBaseSetterSystem : ISystem
 {
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
@@ -13,11 +13,11 @@ public partial struct GoalSetterSystem : ISystem
         {
             LocalTransform goalTransform = SystemAPI.GetComponent<LocalTransform>(goal);
             EntityCommandBuffer ecb = new EntityCommandBuffer(Allocator.Temp);
-            foreach ((RefRW<Movement> mov, Entity entity) in SystemAPI.Query<RefRW<Movement>>().WithNone<GoalFollow>().WithEntityAccess())
+            foreach ((RefRW<Movement> mov, Entity entity) in SystemAPI.Query<RefRW<Movement>>().WithNone<EnemyBaseReference>().WithEntityAccess())
             {
-                ecb.AddComponent(entity, new GoalFollow
+                ecb.AddComponent(entity, new EnemyBaseReference
                 {
-                    Target = goalTransform.Position
+                    Location = goalTransform.Position
                 });
             }
             ecb.Playback(state.EntityManager);
