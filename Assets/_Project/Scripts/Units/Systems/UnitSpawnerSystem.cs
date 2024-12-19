@@ -1,7 +1,7 @@
 using Unity.Burst;
 using Unity.Entities;
-using Unity.Transforms;
 using Unity.Mathematics;
+using Unity.Transforms;
 
 partial struct UnitSpawnerSystem : ISystem
 {
@@ -11,18 +11,20 @@ partial struct UnitSpawnerSystem : ISystem
         state.RequireForUpdate<UnitSpawner>();
     }
 
-    [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
         if (SystemAPI.TryGetSingleton(out UnitSpawner unitSpawner))
         {
             if (unitSpawner.UnitToSpawn.HasValue)
             {
+                Entity spawnerEntity = SystemAPI.GetSingletonEntity<UnitSpawner>();
                 Entity unit = state.EntityManager.Instantiate(unitSpawner.UnitPrefabEntity);
-                SystemAPI.SetComponent(unit, LocalTransform.FromPosition(new float3(0, 0, 0)));
-                Movement ms = SystemAPI.GetComponent<Movement>(unit);
-                ms.Target = new float3(100, 0, 0);
-                SystemAPI.SetComponent(unit, ms);
+                float3 pos = float3.zero;
+                pos.x = unitSpawner.Random.NextFloat(-unitSpawner.SpawnWidth, unitSpawner.SpawnWidth);
+                pos.z = unitSpawner.Random.NextFloat(-unitSpawner.SpawnLength, unitSpawner.SpawnLength);
+                pos += SystemAPI.GetComponent<LocalTransform>(spawnerEntity).Position;
+                SystemAPI.SetComponent(unit, LocalTransform.FromPosition(pos));
+
                 unitSpawner.UnitToSpawn = null;
                 SystemAPI.SetSingleton(unitSpawner);
             }

@@ -1,4 +1,3 @@
-using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Transforms;
@@ -25,8 +24,7 @@ partial struct UnitAnimateSystem : ISystem
         foreach ((LocalTransform transform, UnitAnimatorReference animatorReference, Movement mov) in
                  SystemAPI.Query<LocalTransform, UnitAnimatorReference, Movement>())
         {
-            animatorReference.Value.transform.position = transform.Position;
-            animatorReference.Value.transform.rotation = transform.Rotation;
+            animatorReference.Value.transform.SetPositionAndRotation(transform.Position, transform.Rotation);
             animatorReference.Value.SetBool("IsMoving", mov.IsMoving);
             animatorReference.Value.SetFloat("Velocity", mov.Velocity);
         }
