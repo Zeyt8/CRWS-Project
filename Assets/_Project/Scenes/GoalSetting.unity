@@ -635,10 +635,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6328432843151222409, guid: be742898cbc53b141b795a4cfa43dcb4, type: 3}
-      propertyPath: m_TagString
-      value: GoalColliderEntity
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -164,6 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UnitPrefab: {fileID: 2986358756692638610, guid: 1566c5fc24b8da0449ae86f79cde8455, type: 3}
+  TargetCollider: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

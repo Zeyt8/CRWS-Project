@@ -8,6 +8,7 @@ TagManager:
   - TeamMate
   - Enemy
   - Interact
+  - GoalColliderEntity
   layers:
   - Default
   - TransparentFX
