@@ -176,8 +176,8 @@ MonoBehaviour:
   - {fileID: 2986358756692638610, guid: 25193100e72f17645943605317f60dbd, type: 3}
   - {fileID: 2986358756692638610, guid: ea52cdc281c9a6f4597d4914e32cf491, type: 3}
   - {fileID: 2986358756692638610, guid: 0bbc7ef6bb01ece478d0aa61502232ed, type: 3}
-  UnitGroupCount: 0a00000014000000040000000a0000000100000001000000010000000100000001000000010000000100000001000000
-  SpawnWidth: 100
+  UnitGroupCount: 080000000c000000040000000c0000000200000006000000080000000100000006000000010000000c00000006000000
+  SpawnWidth: 80
   SpawnLength: 10
 --- !u!1 &497983466
 GameObject:
@@ -218,7 +218,7 @@ Transform:
   m_GameObject: {fileID: 497983466}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 85}
+  m_LocalPosition: {x: 0, y: 0, z: -85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -311,8 +311,9 @@ MonoBehaviour:
   - {fileID: 2986358756692638610, guid: 25193100e72f17645943605317f60dbd, type: 3}
   - {fileID: 2986358756692638610, guid: ea52cdc281c9a6f4597d4914e32cf491, type: 3}
   - {fileID: 2986358756692638610, guid: 0bbc7ef6bb01ece478d0aa61502232ed, type: 3}
-  SpawnWidth: 100
+  SpawnWidth: 80
   SpawnLength: 10
+  Count: 1000
 --- !u!4 &1045087738
 Transform:
   m_ObjectHideFlags: 0
@@ -333,6 +334,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 311545501}
+  - {fileID: 1045087738}
   - {fileID: 550597988}
   - {fileID: 497983468}
-  - {fileID: 1045087738}
