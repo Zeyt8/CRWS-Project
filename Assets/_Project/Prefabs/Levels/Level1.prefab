@@ -9,12 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3942704606515005957}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Level1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3942704606515005957
 Transform:
@@ -26,8 +26,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2802.5493, y: 113.42131, z: 2494.6658}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3105898277492238019}
   - {fileID: 8384424541611156971}
@@ -46,12 +46,13 @@ GameObject:
   - component: {fileID: 5361493099162809376}
   - component: {fileID: 1475706655831460416}
   - component: {fileID: 8168509586605548943}
-  m_Layer: 0
+  - component: {fileID: 4784160784920375283}
+  m_Layer: 3
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3105898277492238019
 Transform:
@@ -63,7 +64,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 375, y: 2, z: 425}
+  m_LocalScale: {x: 500, y: 2, z: 500}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3942704606515005957}
@@ -169,6 +170,38 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &4784160784920375283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5237568549903814360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SerializedVersion: 0
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.26666668
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: d6375474a80c4bb40ad70f1541ec9207, type: 2}
+  m_BuildHeightMesh: 1
 --- !u!1 &9177351436073489568
 GameObject:
   m_ObjectHideFlags: 0
@@ -178,12 +211,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8384424541611156971}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Obstacles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8384424541611156971
 Transform:
@@ -194,7 +227,7 @@ Transform:
   m_GameObject: {fileID: 9177351436073489568}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -222,6 +255,14 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 709a65d5b687bf3479d7ab28f3f78d90, type: 3}
       propertyPath: m_Name
       value: mountain_canyon_05 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 709a65d5b687bf3479d7ab28f3f78d90, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 709a65d5b687bf3479d7ab28f3f78d90, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 709a65d5b687bf3479d7ab28f3f78d90, type: 3}
       propertyPath: m_LocalScale.x
@@ -285,7 +326,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: 709a65d5b687bf3479d7ab28f3f78d90, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5793502682818845263}
+      addedObject: {fileID: 8996949243964065359}
   m_SourcePrefab: {fileID: 100100000, guid: 709a65d5b687bf3479d7ab28f3f78d90, type: 3}
 --- !u!4 &885238077006140138 stripped
 Transform:
@@ -297,8 +338,8 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 709a65d5b687bf3479d7ab28f3f78d90, type: 3}
   m_PrefabInstance: {fileID: 885238077006530666}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &5793502682818845263
-BoxCollider:
+--- !u!64 &8996949243964065359
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -315,9 +356,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 9.248361, y: 5.398147, z: 11.697978}
-  m_Center: {x: -0.026106367, y: 0.24891368, z: 0.0027570734}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 709a65d5b687bf3479d7ab28f3f78d90, type: 3}
 --- !u!1001 &2990654776766262296
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -329,6 +371,14 @@ PrefabInstance:
     - target: {fileID: 100000, guid: bd9a43100a429264ea0a74b8b15b8500, type: 3}
       propertyPath: m_Name
       value: mountain_canyon_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: bd9a43100a429264ea0a74b8b15b8500, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: bd9a43100a429264ea0a74b8b15b8500, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: bd9a43100a429264ea0a74b8b15b8500, type: 3}
       propertyPath: m_LocalScale.x
@@ -392,15 +442,15 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: bd9a43100a429264ea0a74b8b15b8500, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5266299541376962783}
+      addedObject: {fileID: 3765047377254746959}
   m_SourcePrefab: {fileID: 100100000, guid: bd9a43100a429264ea0a74b8b15b8500, type: 3}
 --- !u!1 &2990654776766360248 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: bd9a43100a429264ea0a74b8b15b8500, type: 3}
   m_PrefabInstance: {fileID: 2990654776766262296}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &5266299541376962783
-BoxCollider:
+--- !u!64 &3765047377254746959
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -417,9 +467,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 8.094221, y: 7.353274, z: 10.790299}
-  m_Center: {x: -0.209832, y: 2.2517216, z: -0.16441755}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: bd9a43100a429264ea0a74b8b15b8500, type: 3}
 --- !u!4 &2990654776766396056 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: bd9a43100a429264ea0a74b8b15b8500, type: 3}
@@ -436,6 +487,14 @@ PrefabInstance:
     - target: {fileID: 100000, guid: bd9a43100a429264ea0a74b8b15b8500, type: 3}
       propertyPath: m_Name
       value: mountain_canyon_02 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: bd9a43100a429264ea0a74b8b15b8500, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: bd9a43100a429264ea0a74b8b15b8500, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: bd9a43100a429264ea0a74b8b15b8500, type: 3}
       propertyPath: m_LocalScale.x
@@ -499,7 +558,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: bd9a43100a429264ea0a74b8b15b8500, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2085565427740749879}
+      addedObject: {fileID: 2340258729588072665}
   m_SourcePrefab: {fileID: 100100000, guid: bd9a43100a429264ea0a74b8b15b8500, type: 3}
 --- !u!4 &3240991804501323681 stripped
 Transform:
@@ -511,8 +570,8 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: bd9a43100a429264ea0a74b8b15b8500, type: 3}
   m_PrefabInstance: {fileID: 3240991804501718305}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &2085565427740749879
-BoxCollider:
+--- !u!64 &2340258729588072665
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -529,9 +588,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 8.094219, y: 7.3532743, z: 10.790297}
-  m_Center: {x: -0.20983195, y: 2.2517219, z: -0.1644175}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: bd9a43100a429264ea0a74b8b15b8500, type: 3}
 --- !u!1001 &3455376343247660918
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -543,6 +603,14 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 69978e1cb3bbf214498224022715490f, type: 3}
       propertyPath: m_Name
       value: mountain_canyon_01 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 69978e1cb3bbf214498224022715490f, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 69978e1cb3bbf214498224022715490f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 69978e1cb3bbf214498224022715490f, type: 3}
       propertyPath: m_LocalScale.x
@@ -606,15 +674,15 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: 69978e1cb3bbf214498224022715490f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8064399168248381272}
+      addedObject: {fileID: 3228874160392263276}
   m_SourcePrefab: {fileID: 100100000, guid: 69978e1cb3bbf214498224022715490f, type: 3}
 --- !u!1 &3455376343247692246 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 69978e1cb3bbf214498224022715490f, type: 3}
   m_PrefabInstance: {fileID: 3455376343247660918}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &8064399168248381272
-BoxCollider:
+--- !u!64 &3228874160392263276
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -631,9 +699,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 7.1318426, y: 5.755891, z: 11.393201}
-  m_Center: {x: 0.049063798, y: 0.5026735, z: -0.007835862}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 69978e1cb3bbf214498224022715490f, type: 3}
 --- !u!4 &3455376343248059894 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 69978e1cb3bbf214498224022715490f, type: 3}
@@ -650,6 +719,14 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 69978e1cb3bbf214498224022715490f, type: 3}
       propertyPath: m_Name
       value: mountain_canyon_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 69978e1cb3bbf214498224022715490f, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 69978e1cb3bbf214498224022715490f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 69978e1cb3bbf214498224022715490f, type: 3}
       propertyPath: m_LocalScale.x
@@ -713,7 +790,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: 69978e1cb3bbf214498224022715490f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7157054115802916631}
+      addedObject: {fileID: 8408483846826046210}
   m_SourcePrefab: {fileID: 100100000, guid: 69978e1cb3bbf214498224022715490f, type: 3}
 --- !u!4 &3677667765882761981 stripped
 Transform:
@@ -725,8 +802,8 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 69978e1cb3bbf214498224022715490f, type: 3}
   m_PrefabInstance: {fileID: 3677667765883152509}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &7157054115802916631
-BoxCollider:
+--- !u!64 &8408483846826046210
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -743,9 +820,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 7.1318426, y: 5.755891, z: 11.393202}
-  m_Center: {x: 0.0490638, y: 0.5026735, z: -0.007835865}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 69978e1cb3bbf214498224022715490f, type: 3}
 --- !u!1001 &3830792056791352384
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -757,6 +835,14 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 1f4f4b608ebba404988b7eb3f0abaf88, type: 3}
       propertyPath: m_Name
       value: mountain_canyon_03
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 1f4f4b608ebba404988b7eb3f0abaf88, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 1f4f4b608ebba404988b7eb3f0abaf88, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 1f4f4b608ebba404988b7eb3f0abaf88, type: 3}
       propertyPath: m_LocalScale.x
@@ -820,7 +906,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: 1f4f4b608ebba404988b7eb3f0abaf88, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4273775306655371506}
+      addedObject: {fileID: 7912568410974327279}
   m_SourcePrefab: {fileID: 100100000, guid: 1f4f4b608ebba404988b7eb3f0abaf88, type: 3}
 --- !u!4 &3830792056790965952 stripped
 Transform:
@@ -832,8 +918,8 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 1f4f4b608ebba404988b7eb3f0abaf88, type: 3}
   m_PrefabInstance: {fileID: 3830792056791352384}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &4273775306655371506
-BoxCollider:
+--- !u!64 &7912568410974327279
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -850,9 +936,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 9.980307, y: 5.460913, z: 11.266021}
-  m_Center: {x: 0.1128035, y: 0.6593835, z: -0.28377256}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 1f4f4b608ebba404988b7eb3f0abaf88, type: 3}
 --- !u!1001 &3999800443805466242
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -864,6 +951,14 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 709a65d5b687bf3479d7ab28f3f78d90, type: 3}
       propertyPath: m_Name
       value: mountain_canyon_05
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 709a65d5b687bf3479d7ab28f3f78d90, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 709a65d5b687bf3479d7ab28f3f78d90, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 709a65d5b687bf3479d7ab28f3f78d90, type: 3}
       propertyPath: m_LocalScale.x
@@ -927,15 +1022,15 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: 709a65d5b687bf3479d7ab28f3f78d90, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2646776874289568830}
+      addedObject: {fileID: 8775515723436456394}
   m_SourcePrefab: {fileID: 100100000, guid: 709a65d5b687bf3479d7ab28f3f78d90, type: 3}
 --- !u!1 &3999800443805431842 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 709a65d5b687bf3479d7ab28f3f78d90, type: 3}
   m_PrefabInstance: {fileID: 3999800443805466242}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &2646776874289568830
-BoxCollider:
+--- !u!64 &8775515723436456394
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -952,9 +1047,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 9.24836, y: 5.398146, z: 11.697977}
-  m_Center: {x: -0.026106363, y: 0.24891363, z: 0.0027570731}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 709a65d5b687bf3479d7ab28f3f78d90, type: 3}
 --- !u!4 &3999800443805852674 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 709a65d5b687bf3479d7ab28f3f78d90, type: 3}
@@ -971,6 +1067,14 @@ PrefabInstance:
     - target: {fileID: 100000, guid: aed201f64af1d404d932a8c7ceb3f57c, type: 3}
       propertyPath: m_Name
       value: mountain_canyon_04
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: aed201f64af1d404d932a8c7ceb3f57c, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: aed201f64af1d404d932a8c7ceb3f57c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: aed201f64af1d404d932a8c7ceb3f57c, type: 3}
       propertyPath: m_LocalScale.x
@@ -1034,15 +1138,15 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: aed201f64af1d404d932a8c7ceb3f57c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 192462919400311924}
+      addedObject: {fileID: 8180514959614930306}
   m_SourcePrefab: {fileID: 100100000, guid: aed201f64af1d404d932a8c7ceb3f57c, type: 3}
 --- !u!1 &4068029013587851415 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: aed201f64af1d404d932a8c7ceb3f57c, type: 3}
   m_PrefabInstance: {fileID: 4068029013587885623}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &192462919400311924
-BoxCollider:
+--- !u!64 &8180514959614930306
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1059,9 +1163,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 8.64697, y: 7.306159, z: 11.393205}
-  m_Center: {x: 0.10569861, y: 1.2778074, z: -0.007836582}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: aed201f64af1d404d932a8c7ceb3f57c, type: 3}
 --- !u!4 &4068029013588010167 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: aed201f64af1d404d932a8c7ceb3f57c, type: 3}
@@ -1078,6 +1183,14 @@ PrefabInstance:
     - target: {fileID: 100000, guid: aed201f64af1d404d932a8c7ceb3f57c, type: 3}
       propertyPath: m_Name
       value: mountain_canyon_04 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: aed201f64af1d404d932a8c7ceb3f57c, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: aed201f64af1d404d932a8c7ceb3f57c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: aed201f64af1d404d932a8c7ceb3f57c, type: 3}
       propertyPath: m_LocalScale.x
@@ -1141,7 +1254,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: aed201f64af1d404d932a8c7ceb3f57c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 335886361379630567}
+      addedObject: {fileID: 5077996394538094232}
   m_SourcePrefab: {fileID: 100100000, guid: aed201f64af1d404d932a8c7ceb3f57c, type: 3}
 --- !u!4 &4857045864832569658 stripped
 Transform:
@@ -1153,8 +1266,8 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: aed201f64af1d404d932a8c7ceb3f57c, type: 3}
   m_PrefabInstance: {fileID: 4857045864832961466}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &335886361379630567
-BoxCollider:
+--- !u!64 &5077996394538094232
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1171,9 +1284,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 8.64697, y: 7.3061595, z: 11.393205}
-  m_Center: {x: 0.10569861, y: 1.2778075, z: -0.007836582}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: aed201f64af1d404d932a8c7ceb3f57c, type: 3}
 --- !u!1001 &5140422478499731337
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1185,6 +1299,14 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 1f4f4b608ebba404988b7eb3f0abaf88, type: 3}
       propertyPath: m_Name
       value: mountain_canyon_03 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 1f4f4b608ebba404988b7eb3f0abaf88, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 1f4f4b608ebba404988b7eb3f0abaf88, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 1f4f4b608ebba404988b7eb3f0abaf88, type: 3}
       propertyPath: m_LocalScale.x
@@ -1248,15 +1370,15 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: 1f4f4b608ebba404988b7eb3f0abaf88, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7230819934651127385}
+      addedObject: {fileID: 1697216752035085684}
   m_SourcePrefab: {fileID: 100100000, guid: 1f4f4b608ebba404988b7eb3f0abaf88, type: 3}
 --- !u!1 &5140422478499762473 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 1f4f4b608ebba404988b7eb3f0abaf88, type: 3}
   m_PrefabInstance: {fileID: 5140422478499731337}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &7230819934651127385
-BoxCollider:
+--- !u!64 &1697216752035085684
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1273,9 +1395,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 9.980304, y: 5.4609127, z: 11.266018}
-  m_Center: {x: 0.11280347, y: 0.6593834, z: -0.2837725}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 1f4f4b608ebba404988b7eb3f0abaf88, type: 3}
 --- !u!4 &5140422478500121865 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 1f4f4b608ebba404988b7eb3f0abaf88, type: 3}
@@ -1292,6 +1415,14 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 709a65d5b687bf3479d7ab28f3f78d90, type: 3}
       propertyPath: m_Name
       value: mountain_canyon_05 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 709a65d5b687bf3479d7ab28f3f78d90, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 709a65d5b687bf3479d7ab28f3f78d90, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 709a65d5b687bf3479d7ab28f3f78d90, type: 3}
       propertyPath: m_LocalScale.x
@@ -1355,15 +1486,15 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: 709a65d5b687bf3479d7ab28f3f78d90, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5233609743669022363}
+      addedObject: {fileID: 7760299665685380265}
   m_SourcePrefab: {fileID: 100100000, guid: 709a65d5b687bf3479d7ab28f3f78d90, type: 3}
 --- !u!1 &6746885574160521547 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 709a65d5b687bf3479d7ab28f3f78d90, type: 3}
   m_PrefabInstance: {fileID: 6746885574160424939}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &5233609743669022363
-BoxCollider:
+--- !u!64 &7760299665685380265
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1380,9 +1511,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 9.248358, y: 5.3981466, z: 11.697974}
-  m_Center: {x: -0.026106358, y: 0.24891365, z: 0.0027570724}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 709a65d5b687bf3479d7ab28f3f78d90, type: 3}
 --- !u!4 &6746885574160549227 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 709a65d5b687bf3479d7ab28f3f78d90, type: 3}

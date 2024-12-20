@@ -20,48 +20,40 @@ public class UnitAuthoring : MonoBehaviour
         public override void Bake(UnitAuthoring authoring)
         {
             Entity entity = GetEntity(TransformUsageFlags.Dynamic);
-            AddComponent(entity, new Team { Value = authoring.Team });
-            AddComponent(entity, new Movement {
+            AddComponent(entity, new TeamData { Value = authoring.Team });
+            AddComponent(entity, new MovementData {
                 MovementSpeed = authoring.MovementSpeed,
                 Target = float3.zero,
-                DesiredVelocity = float3.zero,
                 IsMoving = false,
-                Velocity = 0,
+                DesiredVelocity = 0,
+                CurrentVelocity = 0,
                 CurrentPathIndex = 0,
                 SeparationDistance = authoring.SeparationDistance
             });
-            AddComponent(entity, new Health { Value = authoring.Health });
-            AddComponent(entity, new AttackData { Strength = authoring.AttackStrength, Range = authoring.AttackRange, IsAttacking = false });
+            AddComponent(entity, new HealthData { Value = authoring.Health });
         }
     }
 }
 
-public struct Team : IComponentData
+public struct TeamData : IComponentData
 {
     public int Value;
 }
 
-public struct Movement : IComponentData
+public struct MovementData : IComponentData
 {
     public float MovementSpeed;
     public float3 Target;
-    public float3 DesiredVelocity;
     public bool IsMoving;
-    public float Velocity;
+    public float DesiredVelocity;
+    public float CurrentVelocity;
     public int CurrentPathIndex;
     public float SeparationDistance;
 }
 
-public struct Health : IComponentData
+public struct HealthData : IComponentData
 {
     public float Value;
-}
-
-public struct AttackData : IComponentData
-{
-    public float Strength;
-    public float Range;
-    public bool IsAttacking;
 }
 
 public struct EnemyBaseReference : IComponentData
