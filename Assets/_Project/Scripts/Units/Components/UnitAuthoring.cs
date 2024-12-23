@@ -1,6 +1,7 @@
 using UnityEngine;
 using Unity.Entities;
 using Unity.Mathematics;
+using System.ComponentModel;
 
 public class UnitAuthoring : MonoBehaviour
 {
@@ -25,10 +26,9 @@ public class UnitAuthoring : MonoBehaviour
                 MovementSpeed = authoring.MovementSpeed,
                 Target = float3.zero,
                 IsMoving = false,
-                DesiredVelocity = 0,
                 CurrentVelocity = 0,
                 CurrentPathIndex = 0,
-                SeparationDistance = authoring.SeparationDistance
+                SeparationDistances = new float3(authoring.SeparationDistance, authoring.SeparationDistance * 1.25f, authoring.SeparationDistance * 1.5f)
             });
             AddComponent(entity, new HealthData { Value = authoring.Health });
         }
@@ -37,18 +37,17 @@ public class UnitAuthoring : MonoBehaviour
 
 public struct TeamData : IComponentData
 {
-    public int Value;
+    [ReadOnly(true)] public int Value;
 }
 
 public struct MovementData : IComponentData
 {
-    public float MovementSpeed;
+    [ReadOnly(true)] public float MovementSpeed;
     public float3 Target;
     public bool IsMoving;
-    public float DesiredVelocity;
     public float CurrentVelocity;
     public int CurrentPathIndex;
-    public float SeparationDistance;
+    [ReadOnly(true)] public float3 SeparationDistances;
 }
 
 public struct HealthData : IComponentData
