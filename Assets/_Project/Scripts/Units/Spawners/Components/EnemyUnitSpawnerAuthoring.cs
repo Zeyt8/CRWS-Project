@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class EnemyUnitSpawnerAuthoring : MonoBehaviour
 {
-    public List<UnitAuthoring> UnitPrefabs = new List<UnitAuthoring>();
+    public List<GameObject> UnitPrefabs = new List<GameObject>();
     public float SpawnWidth;
     public float SpawnLength;
     public int Count;

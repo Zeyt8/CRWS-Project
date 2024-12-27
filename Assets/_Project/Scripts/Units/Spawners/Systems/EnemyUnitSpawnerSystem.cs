@@ -19,27 +19,30 @@ partial struct EnemyUnitSpawnerSystem : ISystem
             if (unitSpawner.Count > 0)
             {
                 Entity spawnerEntity = SystemAPI.GetSingletonEntity<EnemyUnitSpawner>();
+                for (int i = 0; i < 10; i++)
+                {
+                    // Spawn Unit
+                    DynamicBuffer<UnitPrefabBufferElement> unitPrefabsBuffer = state.EntityManager.GetBuffer<UnitPrefabBufferElement>(spawnerEntity);
+                    Entity unit = state.EntityManager.Instantiate(unitPrefabsBuffer[(int)unitSpawner.Random.NextFloat(0f, 12f)].UnitPrefabEntity);
+                    if (!SystemAPI.HasBuffer<PathBufferElement>(unit))
+                        state.EntityManager.AddBuffer<PathBufferElement>(unit);
 
-                // Spawn Unit
-                DynamicBuffer<UnitPrefabBufferElement> unitPrefabsBuffer = state.EntityManager.GetBuffer<UnitPrefabBufferElement>(spawnerEntity);
-                Entity unit = state.EntityManager.Instantiate(unitPrefabsBuffer[(int)unitSpawner.Random.NextFloat(0f, 12f)].UnitPrefabEntity);
-                if (!SystemAPI.HasBuffer<PathBufferElement>(unit))
-                    state.EntityManager.AddBuffer<PathBufferElement>(unit);
+                    // Set team
+                    var teamValue = SystemAPI.GetComponent<TeamData>(unit);
+                    teamValue.Value = 1;
+                    SystemAPI.SetComponent<TeamData>(unit, teamValue);
 
-                // Set team
-                var teamValue = SystemAPI.GetComponent<TeamData>(unit);
-                teamValue.Value = 1;
-                SystemAPI.SetComponent<TeamData>(unit, teamValue);
+                    // Set spawn position
+                    float3 pos = float3.zero;
+                    pos.x = unitSpawner.Random.NextFloat(-unitSpawner.SpawnWidth, unitSpawner.SpawnWidth);
+                    pos.z = unitSpawner.Random.NextFloat(-unitSpawner.SpawnLength, unitSpawner.SpawnLength);
+                    pos += SystemAPI.GetComponent<LocalTransform>(spawnerEntity).Position;
+                    SystemAPI.SetComponent(unit, LocalTransform.FromPosition(pos));
 
-                // Set spawn position
-                float3 pos = float3.zero;
-                pos.x = unitSpawner.Random.NextFloat(-unitSpawner.SpawnWidth, unitSpawner.SpawnWidth);
-                pos.z = unitSpawner.Random.NextFloat(-unitSpawner.SpawnLength, unitSpawner.SpawnLength);
-                pos += SystemAPI.GetComponent<LocalTransform>(spawnerEntity).Position;
-                SystemAPI.SetComponent(unit, LocalTransform.FromPosition(pos));
+                    // Update spawner
+                    unitSpawner.Count--;
+                }
 
-                // Update spawner
-                unitSpawner.Count--;
                 SystemAPI.SetSingleton(unitSpawner);
             }
         }
