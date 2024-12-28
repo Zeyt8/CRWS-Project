@@ -19,7 +19,7 @@ partial struct EnemyUnitSpawnerSystem : ISystem
             if (unitSpawner.Count > 0)
             {
                 Entity spawnerEntity = SystemAPI.GetSingletonEntity<EnemyUnitSpawner>();
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 100; i++)
                 {
                     // Spawn Unit
                     DynamicBuffer<UnitPrefabBufferElement> unitPrefabsBuffer = state.EntityManager.GetBuffer<UnitPrefabBufferElement>(spawnerEntity);
