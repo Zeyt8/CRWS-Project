@@ -1,7 +1,6 @@
 using Latios.Mimic.Addons.Mecanim;
 using Unity.Burst;
 using Unity.Entities;
-using Unity.Jobs;
 
 [BurstCompile]
 partial struct UnitAnimationSystem : ISystem
@@ -9,7 +8,7 @@ partial struct UnitAnimationSystem : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        var job = new UnitAnimationJob();
+        UnitAnimationJob job = new UnitAnimationJob();
         state.Dependency = job.ScheduleParallel(state.Dependency);
     }
 

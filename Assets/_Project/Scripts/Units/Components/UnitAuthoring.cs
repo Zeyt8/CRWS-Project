@@ -46,6 +46,7 @@ public struct LeaderPathfinding : IComponentData
 {
     public int CurrentPathIndex;
     public float3 Target;
+    public float3 CurrentPosition;
 }
 
 public struct FollowerPathfinding : IComponentData

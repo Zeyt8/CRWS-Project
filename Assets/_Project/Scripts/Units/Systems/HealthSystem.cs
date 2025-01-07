@@ -8,14 +8,30 @@ partial struct HealthSystem : ISystem
     public void OnUpdate(ref SystemState state)
     {
         EntityCommandBuffer ecb = new EntityCommandBuffer(Allocator.TempJob);
-        foreach ((RefRO<HealthData> health, Entity entity) in SystemAPI.Query<RefRO<HealthData>>().WithEntityAccess())
+
+        HealthJob job = new HealthJob
         {
-            if (health.ValueRO.Value <= 0)
-            {
-                ecb.DestroyEntity(entity);
-            }
-        }
+            ECB = ecb.AsParallelWriter()
+        };
+
+        state.Dependency = job.ScheduleParallel(state.Dependency);
+        state.Dependency.Complete();
+
         ecb.Playback(state.EntityManager);
         ecb.Dispose();
+    }
+
+    [BurstCompile]
+    private partial struct HealthJob : IJobEntity
+    {
+        public EntityCommandBuffer.ParallelWriter ECB;
+
+        public void Execute([EntityIndexInQuery] int entityInQueryIndex, in HealthData health, Entity entity)
+        {
+            if (health.Value <= 0)
+            {
+                ECB.DestroyEntity(entityInQueryIndex, entity);
+            }
+        }
     }
 }

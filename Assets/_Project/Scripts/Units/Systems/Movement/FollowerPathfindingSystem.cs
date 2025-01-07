@@ -5,55 +5,83 @@ using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Transforms;
 
+[UpdateInGroup(typeof(MovementSystemGroup))]
+[UpdateAfter(typeof(LeaderPathfindingSystem))]
 partial struct FollowerPathfindingSystem : ISystem
 {
+    private ComponentLookup<LeaderPathfinding> _leaders;
+
+    [BurstCompile]
+    public void OnCreate(ref SystemState state)
+    {
+        _leaders = state.GetComponentLookup<LeaderPathfinding>(true);
+    }
+
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        foreach (
-            (RefRW<LocalTransform> transform, RefRO<FollowerPathfinding> pf, RefRW<MovementData> movement, RefRO<TeamData> team, Entity entity) in
-            SystemAPI.Query<RefRW<LocalTransform>, RefRO<FollowerPathfinding>, RefRW<MovementData>, RefRO<TeamData>>().WithEntityAccess())
-        {
-            float3 leaderPosition = SystemAPI.GetComponent<LocalTransform>(pf.ValueRO.Leader).Position;
-            float3 targetPosition = leaderPosition + pf.ValueRO.FormationOffset;
+        _leaders.Update(ref state);
+        var physicsWorld = SystemAPI.GetSingleton<PhysicsWorldSingleton>();
 
-            NativeList<DistanceHit> hits = new NativeList<DistanceHit>(100, Allocator.Temp);
+        var job = new FollowerPathfindingJob
+        {
+            PhysicsWorld = physicsWorld,
+            DeltaTime = SystemAPI.Time.DeltaTime,
+            Leaders = _leaders
+        };
+
+        state.Dependency = job.ScheduleParallel(state.Dependency);
+    }
+
+    [BurstCompile]
+    private partial struct FollowerPathfindingJob : IJobEntity
+    {
+        [ReadOnly] public PhysicsWorldSingleton PhysicsWorld;
+        public float DeltaTime;
+        [ReadOnly] public ComponentLookup<LeaderPathfinding> Leaders;
+
+        public void Execute(ref LocalTransform transform, in FollowerPathfinding pf, ref MovementData movement, in TeamData team, Entity entity)
+        {
+            float3 leaderPosition = Leaders.GetRefRO(pf.Leader).ValueRO.CurrentPosition;
+            float3 targetPosition = leaderPosition + pf.FormationOffset;
+
+            /*NativeList<DistanceHit> hits = new NativeList<DistanceHit>(100, Allocator.Temp);
             CollisionFilter filter = new CollisionFilter()
             {
                 BelongsTo = 1 << 0,
                 CollidesWith = 1 << 0
-            };
-
-            movement.ValueRW.DesiredVelocity = 1;
+            };*/
 
             // If units kinda close, move slower
-            /*SystemAPI.GetSingleton<PhysicsWorldSingleton>().OverlapSphere(transform.ValueRO.Position, pf.ValueRO.SeparationDistances.z, ref hits, filter);
+            /*PhysicsWorld.OverlapSphere(transform.Position, pf.SeparationDistances.z, ref hits, filter);
             if (hits.Length > 1)
             {
-                movement.ValueRW.DesiredVelocity = 0.25f;
+                movement.DesiredVelocity = 0.25f;
             }*/
 
             // If even closer, just stop
-            /*SystemAPI.GetSingleton<PhysicsWorldSingleton>().OverlapSphere(transform.ValueRO.Position, pf.ValueRO.SeparationDistances.y, ref hits, filter);
+            /*PhysicsWorld.OverlapSphere(transform.Position, pf.SeparationDistances.y, ref hits, filter);
             if (hits.Length > 1)
             {
-                movement.ValueRW.DesiredVelocity = 0;
+                movement.DesiredVelocity = 0;
             }*/
 
-            //SystemAPI.GetSingleton<PhysicsWorldSingleton>().OverlapSphere(transform.ValueRO.Position, pf.ValueRO.SeparationDistances.x, ref hits, filter);
-            
+            //PhysicsWorld.OverlapSphere(transform.Position, pf.SeparationDistances.x, ref hits, filter);
+
             // TODO: Boids
-            
-            if (math.distance(transform.ValueRO.Position, targetPosition) < 0.01f)
+
+            if (math.distance(transform.Position, targetPosition) < 0.01f)
             {
-                movement.ValueRW.IsMoving = false;
-                movement.ValueRW.DesiredVelocity = 0;
-                continue;
+                movement.IsMoving = false;
+                movement.DesiredVelocity = 0;
+                return;
             }
-            movement.ValueRW.Direction = math.normalize(targetPosition - transform.ValueRO.Position);
-            movement.ValueRW.IsMoving = true;
+            movement.DesiredVelocity = 1;
+            movement.Direction = math.normalize(targetPosition - transform.Position);
+            movement.IsMoving = true;
 
             //hits.Dispose();
         }
     }
 }
+

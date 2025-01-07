@@ -2,6 +2,7 @@ using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 
+[UpdateInGroup(typeof(MovementSystemGroup))]
 partial struct LeaderPathfindingSystem : ISystem
 {
     public void OnUpdate(ref SystemState state)
@@ -10,6 +11,7 @@ partial struct LeaderPathfindingSystem : ISystem
             (RefRO<LocalTransform> transform, RefRW<LeaderPathfinding> pf, RefRW<MovementData> movement, RefRO<EnemyBaseReference> ebr, DynamicBuffer<PathBufferElement> pathBuffer) in
             SystemAPI.Query<RefRO<LocalTransform>, RefRW<LeaderPathfinding>, RefRW<MovementData>, RefRO<EnemyBaseReference>, DynamicBuffer<PathBufferElement>>())
         {
+            pf.ValueRW.CurrentPosition = transform.ValueRO.Position;
             float3 targetPosition = ebr.ValueRO.Location;
 
             // Recalculate path if target has changed

@@ -57,6 +57,7 @@ partial struct UnitSpawnerSystem : ISystem
         {
             CurrentPathIndex = 0,
             Target = float3.zero,
+            CurrentPosition = basePos,
         });
         SystemAPI.SetComponent(leader, LocalTransform.FromPosition(basePos));
 
