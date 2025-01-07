@@ -1,7 +1,15 @@
 fileFormatVersion: 2
 guid: 417a287abb2cab94889f1f1ddd91f928
+AssetOrigin:
+  serializedVersion: 1
+  productId: 42454
+  packageName: Warrior Pack Bundle 2 FREE
+  packageVersion: 1.2
+  assetPath: Assets/ExplosiveLLC/Warrior Pack Bundle 2 FREE/Knight Warrior Mecanim
+    Animation Pack/Characters/Knight.FBX
+  uploadId: 430006
 ModelImporter:
-  serializedVersion: 25
+  serializedVersion: 22200
   internalIDToNameTable:
   - first:
       1: 100000
@@ -394,7 +402,7 @@ ModelImporter:
       name: Karate
     second: {fileID: 2100000, guid: cc40f1b9a8fbd6642ad5b1f7b08366e7, type: 2}
   materials:
-    importMaterials: 1
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 0
@@ -402,10 +410,9 @@ ModelImporter:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
     resampleCurves: 1
-    optimizeGameObjects: 0
+    optimizeGameObjects: 1
+    removeConstantScaleCurves: 0
     motionNodeName: 
-    rigImportErrors: 
-    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -449,33 +456,43 @@ ModelImporter:
       maskType: 3
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 0.01
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
     importVisibility: 0
     importBlendShapes: 0
     importCameras: 0
     importLights: 0
+    nodeNameCollisionStrategy: 0
+    fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 0
+    bakeAxisConversion: 0
     preserveHierarchy: 0
     skinWeightsMode: 0
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
-    meshOptimizationFlags: 0
+    optimizeBones: 1
+    meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 0
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 0
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 0
     normalImportMode: 1
@@ -486,7 +503,6 @@ ModelImporter:
     normalSmoothingSource: 0
   referencedClips: []
   importAnimation: 1
-  copyAvatar: 0
   humanDescription:
     serializedVersion: 3
     human:
@@ -977,8 +993,7 @@ ModelImporter:
     - name: B_Spine1
       parentName: 
       position: {x: -0.2152304, y: -0.00023167043, z: -4.216225e-10}
-      rotation: {x: 0.000000029802315, y: 0.000000029802312, z: 0.000000029802326,
-        w: 1}
+      rotation: {x: 0.000000029802315, y: 0.000000029802312, z: 0.000000029802326, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: B_L_Clavicle
       parentName: 
@@ -1083,8 +1098,7 @@ ModelImporter:
     - name: B_Head
       parentName: 
       position: {x: -0.12820907, y: -0.000000020861625, z: 2.842171e-16}
-      rotation: {x: 0.000000029802305, y: 0.000000029802301, z: 0.000000029802344,
-        w: 1}
+      rotation: {x: 0.000000029802305, y: 0.000000029802301, z: 0.000000029802344, w: 1}
       scale: {x: 1, y: 1, z: 0.9999999}
     - name: B_R_Clavicle
       parentName: 
@@ -1194,17 +1208,14 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  importBlendShapeDeformPercent: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 42454
-  packageName: Warrior Pack Bundle 2 FREE
-  packageVersion: 1.2
-  assetPath: Assets/ExplosiveLLC/Warrior Pack Bundle 2 FREE/Knight Warrior Mecanim
-    Animation Pack/Characters/Knight.FBX
-  uploadId: 430006
