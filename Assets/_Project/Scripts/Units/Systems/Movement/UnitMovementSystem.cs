@@ -4,16 +4,14 @@ using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Transforms;
-using UnityEngine;
 
 [UpdateInGroup(typeof(MovementSystemGroup))]
 [UpdateAfter(typeof(EnemyBaseSetterSystem))]
 partial struct UnitMovementSystem : ISystem
 {
-    [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        /*foreach (
+        foreach (
             (RefRW<LocalTransform> localTransform, RefRW<MovementData> movement, RefRO<TeamData> team, RefRO<EnemyBaseReference> ebr, DynamicBuffer<PathBufferElement> pathBuffer, Entity entity) in
             SystemAPI.Query<RefRW<LocalTransform>, RefRW<MovementData>, RefRO<TeamData>, RefRO<EnemyBaseReference>, DynamicBuffer<PathBufferElement>>().WithEntityAccess())
         {
@@ -81,6 +79,6 @@ partial struct UnitMovementSystem : ISystem
 
             movement.ValueRW.IsMoving = true;
             movement.ValueRW.Target = targetPosition;
-        }*/
+        }
     }
 }

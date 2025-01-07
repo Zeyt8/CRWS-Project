@@ -23,7 +23,7 @@ partial struct EnemyUnitSpawnerSystem : ISystem
                 {
                     // Spawn Unit
                     DynamicBuffer<UnitPrefabBufferElement> unitPrefabsBuffer = state.EntityManager.GetBuffer<UnitPrefabBufferElement>(spawnerEntity);
-                    Entity unit = state.EntityManager.Instantiate(unitPrefabsBuffer[(int)unitSpawner.Random.NextFloat(0f, 12f)].UnitPrefabEntity);
+                    Entity unit = state.EntityManager.Instantiate(unitPrefabsBuffer[unitSpawner.Random.NextInt(0, 12)].UnitPrefabEntity);
                     if (!SystemAPI.HasBuffer<PathBufferElement>(unit))
                         state.EntityManager.AddBuffer<PathBufferElement>(unit);
 
@@ -37,8 +37,6 @@ partial struct EnemyUnitSpawnerSystem : ISystem
                     pos.x = unitSpawner.Random.NextFloat(-unitSpawner.SpawnWidth, unitSpawner.SpawnWidth);
                     pos.z = unitSpawner.Random.NextFloat(-unitSpawner.SpawnLength, unitSpawner.SpawnLength);
                     pos += SystemAPI.GetComponent<LocalTransform>(spawnerEntity).Position;
-                    pos.x = (i % 70) * 4 - 140;
-                    pos.z = (i / 70) * 4 - 140;
                     SystemAPI.SetComponent(unit, LocalTransform.FromPosition(pos));
 
                     // Update spawner
