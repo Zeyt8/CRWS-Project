@@ -313,7 +313,7 @@ MonoBehaviour:
   - {fileID: 2983736419166168061, guid: 0bbc7ef6bb01ece478d0aa61502232ed, type: 3}
   SpawnWidth: 80
   SpawnLength: 10
-  Count: 5000
+  Count: 20000
 --- !u!4 &1045087738
 Transform:
   m_ObjectHideFlags: 0
