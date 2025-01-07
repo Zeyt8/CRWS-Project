@@ -2,6 +2,8 @@ using Unity.Burst;
 using Unity.Entities;
 using Unity.Transforms;
 using Unity.Mathematics;
+using UnityEngine.UIElements;
+using Unity.Collections;
 
 partial struct UnitSpawnerSystem : ISystem
 {
@@ -23,30 +25,57 @@ partial struct UnitSpawnerSystem : ISystem
                 Entity spawnerEntity = SystemAPI.GetSingletonEntity<UnitSpawner>();
 
                 DynamicBuffer<UnitPrefabBufferElement> unitPrefabsBuffer = state.EntityManager.GetBuffer<UnitPrefabBufferElement>(spawnerEntity);
-                Entity prefabElement = unitPrefabsBuffer[(int)unitSpawner.UnitToSpawn.Value].UnitPrefabEntity;
-                uint count = unitPrefabsBuffer[(int)unitSpawner.UnitToSpawn.Value].Count;
-                int length = (int)math.ceil(math.sqrt(count / 2.0f));
-                int width = length * 2;
+                UnitPrefabBufferElement unit = unitPrefabsBuffer[(int)unitSpawner.UnitToSpawn.Value];
 
-                float3 basePos = float3.zero;
-                basePos.x = unitSpawner.Random.NextFloat(-unitSpawner.SpawnWidth, unitSpawner.SpawnWidth);
-                basePos.z = unitSpawner.Random.NextFloat(-unitSpawner.SpawnLength, unitSpawner.SpawnLength);
-                basePos += SystemAPI.GetComponent<LocalTransform>(spawnerEntity).Position;
+                float3 basePos = SystemAPI.GetComponent<LocalTransform>(spawnerEntity).Position;
+                basePos.x += unitSpawner.Random.NextFloat(-unitSpawner.SpawnWidth, unitSpawner.SpawnWidth);
+                basePos.z += unitSpawner.Random.NextFloat(-unitSpawner.SpawnLength, unitSpawner.SpawnLength);
 
-                for (int i = 0; i < count; i++)
-                {
-                    Entity unit = state.EntityManager.Instantiate(prefabElement);
-                    if (!SystemAPI.HasBuffer<PathBufferElement>(unit))
-                        state.EntityManager.AddBuffer<PathBufferElement>(unit);
-                    float3 pos = basePos;
-                    pos.x += (i % width) * DISTANCE_IN_FORMATION - (width - 1) * DISTANCE_IN_FORMATION / 2;
-                    pos.z += (i / width) * DISTANCE_IN_FORMATION - (length - 1) * DISTANCE_IN_FORMATION / 2;
-                    SystemAPI.SetComponent(unit, LocalTransform.FromPosition(pos));
-                }
+                SpawnFormation(ref state, unit, basePos);
 
                 unitSpawner.UnitToSpawn = null;
                 SystemAPI.SetSingleton(unitSpawner);
             }
         }
+    }
+
+    [BurstCompile]
+    private void SpawnFormation(ref SystemState state, UnitPrefabBufferElement unit, float3 basePos)
+    {
+        Entity prefabElement = unit.UnitPrefabEntity;
+        uint count = unit.Count;
+        int length = (int)math.ceil(math.sqrt(count / 2.0f));
+        int width = length * 2;
+
+        EntityCommandBuffer ecb = new EntityCommandBuffer(Allocator.Temp);
+
+        // Spawn leader
+        Entity leader = state.EntityManager.Instantiate(prefabElement);
+        if (!SystemAPI.HasBuffer<PathBufferElement>(leader))
+            state.EntityManager.AddBuffer<PathBufferElement>(leader);
+        ecb.AddComponent(leader, new LeaderPathfinding
+        {
+            CurrentPathIndex = 0,
+            Target = float3.zero,
+        });
+        SystemAPI.SetComponent(leader, LocalTransform.FromPosition(basePos));
+
+        for (int i = 0; i < count; i++)
+        {
+            Entity follower = state.EntityManager.Instantiate(prefabElement);
+            float3 pos = basePos;
+            pos.x += (i % width) * DISTANCE_IN_FORMATION - (width - 1) * DISTANCE_IN_FORMATION / 2;
+            pos.z -= (i / width) * DISTANCE_IN_FORMATION + DISTANCE_IN_FORMATION;
+            ecb.AddComponent(follower, new FollowerPathfinding
+            {
+                Leader = leader,
+                FormationOffset = pos - basePos,
+                SeparationDistances = new float3(1, 1.25f, 1.5f),
+            });
+            SystemAPI.SetComponent(follower, LocalTransform.FromPosition(pos));
+        }
+
+        ecb.Playback(state.EntityManager);
+        ecb.Dispose();
     }
 }

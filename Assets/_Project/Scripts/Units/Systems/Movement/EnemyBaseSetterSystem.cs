@@ -13,7 +13,7 @@ public partial struct EnemyBaseSetterSystem : ISystem
 
         foreach ((RefRO<Goal> index, RefRO<LocalTransform> transform) in SystemAPI.Query<RefRO<Goal>, RefRO<LocalTransform>>())
         {
-            foreach ((RefRW<MovementData> mov, RefRO<TeamData> team, Entity entity) in SystemAPI.Query<RefRW<MovementData>, RefRO<TeamData>>().WithNone<EnemyBaseReference>().WithEntityAccess())
+            foreach ((RefRO<LeaderPathfinding> pf, RefRO<TeamData> team, Entity entity) in SystemAPI.Query<RefRO<LeaderPathfinding>, RefRO<TeamData>>().WithNone<EnemyBaseReference>().WithEntityAccess())
             {
                 if (index.ValueRO.Index == team.ValueRO.Value)
                 {

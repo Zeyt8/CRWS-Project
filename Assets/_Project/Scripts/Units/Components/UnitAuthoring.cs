@@ -9,7 +9,8 @@ public class UnitAuthoring : MonoBehaviour
     public int Team = 0;
     [Header("Movement")]
     public float MovementSpeed = 5f;
-    public float SeparationDistance = 1f;
+    public float TurningSpeed = 1f;
+    public float Acceleration = 10f;
     [Header("Health")]
     public float Health = 5f;
     [Header("Attack")]
@@ -24,11 +25,12 @@ public class UnitAuthoring : MonoBehaviour
             AddComponent(entity, new TeamData { Value = authoring.Team });
             AddComponent(entity, new MovementData {
                 MovementSpeed = authoring.MovementSpeed,
-                Target = float3.zero,
+                TurningSpeed = authoring.TurningSpeed,
+                Acceleration = authoring.Acceleration,
+                Direction = float3.zero,
                 IsMoving = false,
+                DesiredVelocity = 0,
                 CurrentVelocity = 0,
-                CurrentPathIndex = 0,
-                SeparationDistances = new float3(authoring.SeparationDistance, authoring.SeparationDistance * 1.25f, authoring.SeparationDistance * 1.5f)
             });
             AddComponent(entity, new HealthData { Value = authoring.Health });
         }
@@ -40,14 +42,28 @@ public struct TeamData : IComponentData
     [ReadOnly(true)] public int Value;
 }
 
+public struct LeaderPathfinding : IComponentData
+{
+    public int CurrentPathIndex;
+    public float3 Target;
+}
+
+public struct FollowerPathfinding : IComponentData
+{
+    [ReadOnly(true)] public float3 SeparationDistances;
+    [ReadOnly(true)] public Entity Leader;
+    [ReadOnly(true)] public float3 FormationOffset;
+}
+
 public struct MovementData : IComponentData
 {
     [ReadOnly(true)] public float MovementSpeed;
-    public float3 Target;
+    [ReadOnly(true)] public float TurningSpeed;
+    [ReadOnly(true)] public float Acceleration;
+    public float3 Direction;
     public bool IsMoving;
+    public float DesiredVelocity;
     public float CurrentVelocity;
-    public int CurrentPathIndex;
-    [ReadOnly(true)] public float3 SeparationDistances;
 }
 
 public struct HealthData : IComponentData
