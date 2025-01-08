@@ -57,7 +57,6 @@ partial struct UnitSpawnerSystem : ISystem
         {
             CurrentPathIndex = 0,
             Target = float3.zero,
-            CurrentPosition = basePos,
         });
         SystemAPI.SetComponent(leader, LocalTransform.FromPosition(basePos));
 
@@ -71,7 +70,8 @@ partial struct UnitSpawnerSystem : ISystem
             {
                 Leader = leader,
                 FormationOffset = pos - basePos,
-                SeparationDistances = new float3(1, 1.25f, 1.5f),
+                ViewRadius = 5,
+                AvoidanceRadius = 1,
             });
             SystemAPI.SetComponent(follower, LocalTransform.FromPosition(pos));
         }

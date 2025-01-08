@@ -46,12 +46,12 @@ public struct LeaderPathfinding : IComponentData
 {
     public int CurrentPathIndex;
     public float3 Target;
-    public float3 CurrentPosition;
 }
 
 public struct FollowerPathfinding : IComponentData
 {
-    [ReadOnly(true)] public float3 SeparationDistances;
+    [ReadOnly(true)] public float ViewRadius;
+    [ReadOnly(true)] public float AvoidanceRadius;
     [ReadOnly(true)] public Entity Leader;
     [ReadOnly(true)] public float3 FormationOffset;
 }
