@@ -1,10 +1,13 @@
 using Unity.Burst;
+using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
 
 partial struct EnemyUnitSpawnerSystem : ISystem
 {
+    private const float DISTANCE_IN_FORMATION = 2;
+
     [BurstCompile]
     public void OnCreate(ref SystemState state)
     {
@@ -19,32 +22,70 @@ partial struct EnemyUnitSpawnerSystem : ISystem
             if (unitSpawner.Count > 0)
             {
                 Entity spawnerEntity = SystemAPI.GetSingletonEntity<EnemyUnitSpawner>();
-                for (int i = 0; i < 5000; i++)
-                {
-                    // Spawn Unit
-                    DynamicBuffer<UnitPrefabBufferElement> unitPrefabsBuffer = state.EntityManager.GetBuffer<UnitPrefabBufferElement>(spawnerEntity);
-                    Entity unit = state.EntityManager.Instantiate(unitPrefabsBuffer[unitSpawner.Random.NextInt(0, 12)].UnitPrefabEntity);
-                    if (!SystemAPI.HasBuffer<PathBufferElement>(unit))
-                        state.EntityManager.AddBuffer<PathBufferElement>(unit);
+                // Spawn Unit
+                DynamicBuffer<UnitPrefabBufferElement> unitPrefabsBuffer = state.EntityManager.GetBuffer<UnitPrefabBufferElement>(spawnerEntity);
+                UnitPrefabBufferElement unit = unitPrefabsBuffer[unitSpawner.Random.NextInt(0, 12)];
 
-                    // Set team
-                    var teamValue = SystemAPI.GetComponent<TeamData>(unit);
-                    teamValue.Value = 1;
-                    SystemAPI.SetComponent<TeamData>(unit, teamValue);
+                // Set spawn position
+                float3 basePos = SystemAPI.GetComponent<LocalTransform>(spawnerEntity).Position;
+                basePos.x += unitSpawner.Random.NextFloat(-unitSpawner.SpawnWidth, unitSpawner.SpawnWidth);
+                basePos.z += unitSpawner.Random.NextFloat(-unitSpawner.SpawnLength, unitSpawner.SpawnLength);
+                SpawnFormation(ref state, unit, basePos, 1);
 
-                    // Set spawn position
-                    float3 pos = float3.zero;
-                    pos.x = unitSpawner.Random.NextFloat(-unitSpawner.SpawnWidth, unitSpawner.SpawnWidth);
-                    pos.z = unitSpawner.Random.NextFloat(-unitSpawner.SpawnLength, unitSpawner.SpawnLength);
-                    pos += SystemAPI.GetComponent<LocalTransform>(spawnerEntity).Position;
-                    SystemAPI.SetComponent(unit, LocalTransform.FromPosition(pos));
-
-                    // Update spawner
-                    unitSpawner.Count--;
-                }
+                // Update spawner
+                unitSpawner.Count -= unit.Count;
 
                 SystemAPI.SetSingleton(unitSpawner);
             }
         }
+    }
+
+    [BurstCompile]
+    private void SpawnFormation(ref SystemState state, UnitPrefabBufferElement unit, float3 basePos, int team)
+    {
+        Entity prefabElement = unit.UnitPrefabEntity;
+        int count = unit.Count;
+        int length = (int)math.ceil(math.sqrt(count / 2.0f));
+        int width = length * 2;
+
+        EntityCommandBuffer ecb = new EntityCommandBuffer(Allocator.Temp);
+
+        // Spawn leader
+        Entity leader = state.EntityManager.Instantiate(prefabElement);
+        if (!SystemAPI.HasBuffer<PathBufferElement>(leader))
+            state.EntityManager.AddBuffer<PathBufferElement>(leader);
+        ecb.AddComponent(leader, new LeaderPathfinding
+        {
+            CurrentPathIndex = 0,
+            Target = float3.zero,
+        });
+        ecb.AddComponent(leader, new TeamData
+        {
+            Value = team,
+        });
+        SystemAPI.SetComponent(leader, LocalTransform.FromPosition(basePos));
+
+        for (int i = 0; i < count; i++)
+        {
+            Entity follower = state.EntityManager.Instantiate(prefabElement);
+            float3 pos = basePos;
+            pos.x += (i % width) * DISTANCE_IN_FORMATION - (width - 1) * DISTANCE_IN_FORMATION / 2;
+            pos.z -= (i / width) * DISTANCE_IN_FORMATION + DISTANCE_IN_FORMATION;
+            ecb.AddComponent(follower, new FollowerPathfinding
+            {
+                Leader = leader,
+                FormationOffset = pos - basePos,
+                ViewRadius = 5,
+                AvoidanceRadius = 1,
+            });
+            ecb.AddComponent(follower, new TeamData
+            {
+                Value = team,
+            });
+            SystemAPI.SetComponent(follower, LocalTransform.FromPosition(pos));
+        }
+
+        ecb.Playback(state.EntityManager);
+        ecb.Dispose();
     }
 }

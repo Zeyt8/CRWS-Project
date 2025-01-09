@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class UnitSpawnerAuthoring : MonoBehaviour
 {
     public List<GameObject> UnitPrefabs = new List<GameObject>();
-    public List<uint> UnitGroupCount = new List<uint>();
+    public List<int> UnitGroupCount = new List<int>();
     public float SpawnWidth;
     public float SpawnLength;
 
@@ -40,7 +40,7 @@ public class UnitSpawnerAuthoring : MonoBehaviour
 public struct UnitPrefabBufferElement : IBufferElementData
 {
     public Entity UnitPrefabEntity;
-    public uint Count;
+    public int Count;
 }
 
 public struct UnitSpawner : IComponentData
