@@ -4,7 +4,6 @@ using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Transforms;
-using UnityEngine;
 
 [UpdateInGroup(typeof(MovementSystemGroup))]
 [UpdateAfter(typeof(LeaderPathfindingSystem))]
@@ -64,7 +63,7 @@ partial struct FollowerPathfindingSystem : ISystem
             NativeList<DistanceHit> hits = new NativeList<DistanceHit>(100, Allocator.Temp);
             CollisionFilter filter = new CollisionFilter()
             {
-                BelongsTo = 1 << 0,
+                BelongsTo = 1 << 3,
                 CollidesWith = 1 << 0
             };
 
@@ -109,7 +108,17 @@ partial struct FollowerPathfindingSystem : ISystem
                 for (float angle = 0; angle < math.radians(360); angle += angleIncrement)
                 {
                     float3 rayDirection = math.mul(quaternion.AxisAngle(math.up(), angle), selfTransform.Forward());
-                    if (!IsHeadingForCollision(PhysicsWorld, selfTransform.Position, BoundsRadius, rayDirection, AvoidanceDistance))
+                    RaycastInput input = new RaycastInput()
+                    {
+                        Start = selfTransform.Position,
+                        End = selfTransform.Position + rayDirection * AvoidanceDistance,
+                        Filter = new CollisionFilter()
+                            {
+                                BelongsTo = 1 << 3,
+                                CollidesWith = 1 << 2
+                            }
+                    };
+                    if (PhysicsWorld.CastRay(input))
                     {
                         collisionAvoidDir = rayDirection;
                         break;
