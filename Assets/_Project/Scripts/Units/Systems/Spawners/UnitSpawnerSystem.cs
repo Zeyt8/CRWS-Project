@@ -2,7 +2,6 @@ using Unity.Burst;
 using Unity.Entities;
 using Unity.Transforms;
 using Unity.Mathematics;
-using UnityEngine.UIElements;
 using Unity.Collections;
 
 partial struct UnitSpawnerSystem : ISystem
@@ -31,7 +30,7 @@ partial struct UnitSpawnerSystem : ISystem
                 basePos.x += unitSpawner.Random.NextFloat(-unitSpawner.SpawnWidth, unitSpawner.SpawnWidth);
                 basePos.z += unitSpawner.Random.NextFloat(-unitSpawner.SpawnLength, unitSpawner.SpawnLength);
 
-                SpawnFormation(ref state, unit, basePos);
+                SpawnFormation(ref state, unit, basePos, 0);
 
                 unitSpawner.UnitToSpawn = null;
                 SystemAPI.SetSingleton(unitSpawner);
@@ -40,10 +39,10 @@ partial struct UnitSpawnerSystem : ISystem
     }
 
     [BurstCompile]
-    private void SpawnFormation(ref SystemState state, UnitPrefabBufferElement unit, float3 basePos)
+    private void SpawnFormation(ref SystemState state, UnitPrefabBufferElement unit, float3 basePos, int team)
     {
         Entity prefabElement = unit.UnitPrefabEntity;
-        uint count = unit.Count;
+        int count = unit.Count;
         int length = (int)math.ceil(math.sqrt(count / 2.0f));
         int width = length * 2;
 
@@ -57,6 +56,10 @@ partial struct UnitSpawnerSystem : ISystem
         {
             CurrentPathIndex = 0,
             Target = float3.zero,
+        });
+        ecb.AddComponent(leader, new TeamData
+        {
+            Value = team,
         });
         SystemAPI.SetComponent(leader, LocalTransform.FromPosition(basePos));
 
@@ -72,6 +75,10 @@ partial struct UnitSpawnerSystem : ISystem
                 FormationOffset = pos - basePos,
                 ViewRadius = 5,
                 AvoidanceRadius = 1,
+            });
+            ecb.AddComponent(follower, new TeamData
+            {
+                Value = team,
             });
             SystemAPI.SetComponent(follower, LocalTransform.FromPosition(pos));
         }

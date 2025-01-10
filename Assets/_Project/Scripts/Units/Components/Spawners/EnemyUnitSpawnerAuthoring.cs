@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class EnemyUnitSpawnerAuthoring : MonoBehaviour
 {
     public List<GameObject> UnitPrefabs = new List<GameObject>();
+    public List<int> UnitGroupCount = new List<int>();
     public float SpawnWidth;
     public float SpawnLength;
     public int Count;
@@ -20,7 +21,8 @@ public class EnemyUnitSpawnerAuthoring : MonoBehaviour
             {
                 buffer.Add(new UnitPrefabBufferElement
                 {
-                    UnitPrefabEntity = GetEntity(authoring.UnitPrefabs[i], TransformUsageFlags.Dynamic)
+                    UnitPrefabEntity = GetEntity(authoring.UnitPrefabs[i], TransformUsageFlags.Dynamic),
+                    Count = authoring.UnitGroupCount[i]
                 });
             }
 
@@ -33,12 +35,6 @@ public class EnemyUnitSpawnerAuthoring : MonoBehaviour
             });
         }
     }
-}
-
-[InternalBufferCapacity(10)] // Adjust the capacity as needed
-public struct EnemyUnitPrefabBufferElement : IBufferElementData
-{
-    public Entity EnemyUnitPrefabEntity;
 }
 
 public struct EnemyUnitSpawner : IComponentData
