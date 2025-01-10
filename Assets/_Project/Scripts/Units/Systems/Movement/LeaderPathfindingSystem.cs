@@ -37,7 +37,8 @@ partial struct LeaderPathfindingSystem : ISystem
 
             movement.ValueRW.Direction = direction;
             movement.ValueRW.IsMoving = true;
-            movement.ValueRW.DesiredVelocity = 1;
+            movement.ValueRW.DesiredVelocity = 0.4f;
+            // TODO: when detecting enemy, run at full speed towards them
         }
     }
 }

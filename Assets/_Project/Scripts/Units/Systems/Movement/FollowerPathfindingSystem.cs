@@ -129,7 +129,8 @@ partial struct FollowerPathfindingSystem : ISystem
             }
 
             dir = math.normalize(dir);
-            movement.DesiredVelocity = 1;
+            float distance = math.distance(selfTransform.Position, targetPosition);
+            movement.DesiredVelocity = 0.4f + math.min(distance, 6) / 10;
             movement.Direction = dir;
             movement.IsMoving = true;
 
