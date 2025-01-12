@@ -61,13 +61,13 @@ public class PlayerObject : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(_inputHandler.MousePosition);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, 500, LayerMask.NameToLayer("WorldMap")))
+        if (Physics.Raycast(ray, out RaycastHit hit, 500, LayerMask.GetMask("WorldMap")))
         {
             MeshCollider mc = hit.collider as MeshCollider;
             mc.GetComponent<MapObject>().SelectRegion(hit.textureCoord);
         }
 
-        if (Physics.Raycast(ray, out hit, 500, LayerMask.NameToLayer("SpawnArea")) && _currentMoney >= _unitCosts[(int)_unitToSpawn])
+        if (Physics.Raycast(ray, out hit, 500, LayerMask.GetMask("SpawnArea")) && _currentMoney >= _unitCosts[(int)_unitToSpawn])
         {
             Vector3 pos = hit.point;
             EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;

@@ -6,8 +6,7 @@ public class EnemyUnitSpawnerAuthoring : MonoBehaviour
 {
     public List<GameObject> UnitPrefabs = new List<GameObject>();
     public List<int> UnitGroupCount = new List<int>();
-    public float SpawnWidth;
-    public float SpawnLength;
+    public Vector2 SpawnBounds;
     public int Count;
 
     public class Baker : Baker<EnemyUnitSpawnerAuthoring>
@@ -28,8 +27,7 @@ public class EnemyUnitSpawnerAuthoring : MonoBehaviour
 
             AddComponent(entity, new EnemyUnitSpawner
             {
-                SpawnWidth = authoring.SpawnWidth,
-                SpawnLength = authoring.SpawnLength,
+                SpawnBounds = new Unity.Mathematics.float2(authoring.SpawnBounds.x, authoring.SpawnBounds.y),
                 Random = new Unity.Mathematics.Random((uint)UnityEngine.Random.Range(1, 100000)),
                 Count = authoring.Count
             });
@@ -39,8 +37,7 @@ public class EnemyUnitSpawnerAuthoring : MonoBehaviour
 
 public struct EnemyUnitSpawner : IComponentData
 {
-    public float SpawnWidth;
-    public float SpawnLength;
+    public Unity.Mathematics.float2 SpawnBounds;
     public Unity.Mathematics.Random Random;
     public int Count;
 }

@@ -11,12 +11,17 @@ partial struct UnitMovementSystem : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        UnitMovementJob job = new UnitMovementJob
+        if (SystemAPI.TryGetSingleton(out Level level))
         {
-            DeltaTime = SystemAPI.Time.DeltaTime
-        };
-
-        state.Dependency = job.ScheduleParallel(state.Dependency);
+            if (level.HasStarted)
+            {
+                UnitMovementJob job = new UnitMovementJob
+                {
+                    DeltaTime = SystemAPI.Time.DeltaTime
+                };
+                state.Dependency = job.ScheduleParallel(state.Dependency);
+            }
+        }
     }
 
     [BurstCompile]

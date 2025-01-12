@@ -28,8 +28,8 @@ partial struct EnemyUnitSpawnerSystem : ISystem
 
                 // Set spawn position
                 float3 basePos = SystemAPI.GetComponent<LocalTransform>(spawnerEntity).Position;
-                basePos.x += unitSpawner.Random.NextFloat(-unitSpawner.SpawnWidth, unitSpawner.SpawnWidth);
-                basePos.z += unitSpawner.Random.NextFloat(-unitSpawner.SpawnLength, unitSpawner.SpawnLength);
+                basePos.x += unitSpawner.Random.NextFloat(-unitSpawner.SpawnBounds.x, unitSpawner.SpawnBounds.x);
+                basePos.z += unitSpawner.Random.NextFloat(-unitSpawner.SpawnBounds.y, unitSpawner.SpawnBounds.y);
                 SpawnFormation(ref state, unit, basePos, 1);
 
                 // Update spawner
