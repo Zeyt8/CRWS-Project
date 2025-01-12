@@ -1,9 +1,11 @@
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
+using Unity.Entities.UniversalDelegates;
 using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Transforms;
+using UnityEngine;
 
 [UpdateInGroup(typeof(MovementSystemGroup))]
 [UpdateAfter(typeof(LeaderPathfindingSystem))]
@@ -39,15 +41,18 @@ partial struct FollowerPathfindingSystem : ISystem
         [ReadOnly] public PhysicsWorldSingleton PhysicsWorld;
         public float DeltaTime;
         [ReadOnly] public ComponentLookup<LocalTransform> Transforms;
-        private const float AvoidanceDistance = 2f;
-        private const float BoundsRadius = 0.5f;
-
+        private const float AvoidanceDistance = 3f; //lenght of ray cast (both thick and others)
+        private const float BoundsRadius = 3f; //how thick the first one is, (might need to increase)
+        private const float TargetWeight = 1f;
+        private const float UnitAvoidanceWeight = 1f;
+        private const float UnitAlignmentWeight = 1f;
+        private const float TerrainAvoidanceWeight = 10f;
         public void Execute(in FollowerPathfinding pf, ref MovementData movement, in TeamData team, Entity entity)
         {
             LocalTransform selfTransform = Transforms.GetRefRO(entity).ValueRO;
             float3 leaderPosition = Transforms.GetRefRO(pf.Leader).ValueRO.Position;
             float3 targetPosition = leaderPosition + pf.FormationOffset;
-
+            
             float3 dir = targetPosition - selfTransform.Position;
             if (math.length(dir) < 0.01f)
             {
@@ -57,7 +62,7 @@ partial struct FollowerPathfindingSystem : ISystem
             }
             else
             {
-                dir = math.normalize(dir);
+                dir = math.normalize(dir) * TargetWeight;
             }
 
             NativeList<DistanceHit> hits = new NativeList<DistanceHit>(100, Allocator.Temp);
@@ -93,46 +98,76 @@ partial struct FollowerPathfindingSystem : ISystem
                 alignmentDir /= (hits.Length - 1);
 
                 alignmentDir.y = 0;
-                dir += math.normalize(alignmentDir);
+                dir += math.normalize(alignmentDir) * UnitAlignmentWeight;
                 separationDir.y = 0;
                 if (!separationDir.Equals(float3.zero))
                 {
-                    dir += math.normalize(separationDir);
+                    dir += math.normalize(separationDir) * UnitAvoidanceWeight;
                 }
             }
 
-            if (IsHeadingForCollision(PhysicsWorld, selfTransform.Position, BoundsRadius, selfTransform.Forward(), AvoidanceDistance))
+            //if (IsHeadingForCollision(PhysicsWorld, selfTransform.Position + new float3(0f, 1f, 0f), BoundsRadius, selfTransform.Forward(), AvoidanceDistance))
             {
+                float maxDistance = 0;
                 float3 collisionAvoidDir = float3.zero;
-                float angleIncrement = math.radians(30);
-                for (float angle = 0; angle < math.radians(360); angle += angleIncrement)
+                float angleIncrement = 10f; // probably change this, not too small for optimization
+                bool castHit = false;
+                for (float angle = 0; angle <= 180; angle += angleIncrement) // Change to 90
                 {
-                    float3 rayDirection = math.mul(quaternion.AxisAngle(math.up(), angle), selfTransform.Forward());
+                    float realAngle = angle;
+
+                    if(realAngle > 90)
+                    {
+                        realAngle = 90 - realAngle;
+                    }
+                    float3 rayDirection = math.mul(quaternion.AxisAngle(math.up(), math.radians(realAngle)), selfTransform.Forward());
+                    
                     RaycastInput input = new RaycastInput()
                     {
-                        Start = selfTransform.Position,
-                        End = selfTransform.Position + rayDirection * AvoidanceDistance,
+                        Start = selfTransform.Position + new float3(0f, 1f, 0f),
+                        End = selfTransform.Position + rayDirection * AvoidanceDistance + new float3(0f, 1f, 0f),
                         Filter = new CollisionFilter()
-                            {
-                                BelongsTo = 1 << 3,
-                                CollidesWith = 1 << 2
-                            }
+                        {
+                            BelongsTo = 1 << 3,
+                            CollidesWith = 1 << 2
+                        }
                     };
-                    if (PhysicsWorld.CastRay(input))
+
+                    Debug.DrawLine(selfTransform.Position + new float3(0f, 1f, 0f), selfTransform.Position + rayDirection * AvoidanceDistance + new float3(0f, 1f, 0f));
+
+                    if (PhysicsWorld.CastRay(input, out Unity.Physics.RaycastHit hit))
+                    {
+                        float candidateDistance = math.distance(selfTransform.Position, hit.Position);
+                        Debug.DrawLine(selfTransform.Position + new float3(0f, 1f, 0f), hit.Position, Color.green);
+                        castHit = true;
+                        if (candidateDistance > maxDistance)
+                        {
+                            maxDistance = candidateDistance;
+                            collisionAvoidDir = rayDirection;
+                        }
+                    }
+                    else if (maxDistance != float.MaxValue) 
                     {
                         collisionAvoidDir = rayDirection;
-                        break;
+                        maxDistance = float.MaxValue;
                     }
+                        
                 }
+
+
                 collisionAvoidDir.y = 0;
-                dir += math.normalize(collisionAvoidDir);
+                if (!collisionAvoidDir.Equals(float3.zero) && castHit)
+                {
+                   dir += math.normalize(collisionAvoidDir) * TerrainAvoidanceWeight;
+                   //Debug.Log("Direction :: line 155 :: " + dir);
+                }
             }
 
             dir = math.normalize(dir);
+            
             movement.DesiredVelocity = 1;
             movement.Direction = dir;
             movement.IsMoving = true;
-
             hits.Dispose();
         }
 
@@ -143,6 +178,7 @@ partial struct FollowerPathfindingSystem : ISystem
                 BelongsTo = 1 << 0,
                 CollidesWith = 1 << 2
             };
+            Debug.DrawLine(center, center + direction * distance, Color.red);
             return physicsWorld.SphereCast(center, radius, direction, distance, filter);
         }
     }
