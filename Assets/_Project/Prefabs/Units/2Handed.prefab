@@ -775,9 +775,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1e447fc41536174183805f414e152e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Team: 0
   MovementSpeed: 5
-  TurningSpeed: 1
+  TurningSpeed: 0.5
   Acceleration: 10
   Health: 5
   AttackStrength: 5

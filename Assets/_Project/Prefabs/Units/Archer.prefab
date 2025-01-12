@@ -104,7 +104,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MovementSpeed: 7
-  TurningSpeed: 1
+  TurningSpeed: 0.5
   Acceleration: 10
   Health: 5
   AttackStrength: 5
