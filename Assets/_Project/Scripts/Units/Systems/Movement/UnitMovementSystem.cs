@@ -30,9 +30,9 @@ partial struct UnitMovementSystem : ISystem
     {
         public float DeltaTime;
 
-        public void Execute(ref LocalTransform transform, ref MovementData movement)
+        public void Execute(ref LocalTransform transform, ref MovementData movement, in AttackerData attacker)
         {
-            if (!movement.IsMoving) return;
+            if (!movement.IsMoving || attacker.IsAttacking) return;
 
             float3 forward = transform.Forward();
             float3 direction = movement.Direction;

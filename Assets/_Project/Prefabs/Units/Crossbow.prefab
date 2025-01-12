@@ -76,6 +76,9 @@ PrefabInstance:
       insertIndex: 1
       addedObject: {fileID: 1244645760325002625}
     - targetCorrespondingSourceObject: {fileID: 100102, guid: 8745dcecb0eafec409964dd1f0b7bb67, type: 3}
+      insertIndex: 2
+      addedObject: {fileID: -5058774854373665395}
+    - targetCorrespondingSourceObject: {fileID: 100102, guid: 8745dcecb0eafec409964dd1f0b7bb67, type: 3}
       insertIndex: -1
       addedObject: {fileID: -3071530337099397018}
     - targetCorrespondingSourceObject: {fileID: 100102, guid: 8745dcecb0eafec409964dd1f0b7bb67, type: 3}
@@ -103,8 +106,23 @@ MonoBehaviour:
   TurningSpeed: 0.5
   Acceleration: 10
   Health: 5
-  AttackStrength: 5
-  AttackRange: 5
+--- !u!114 &-5058774854373665395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7339173022871151988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fd8ada97b4446f43ac1e6e86d7a8e84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Projectile: {fileID: 4860554062750913226, guid: e1a183d2d2fbab44c8d9d9506a86e2dc, type: 3}
+  Range: 0
+  Cooldown: 0
+  Timer: 0
+  IsAttacking: 0
 --- !u!114 &-3071530337099397018
 MonoBehaviour:
   m_ObjectHideFlags: 0

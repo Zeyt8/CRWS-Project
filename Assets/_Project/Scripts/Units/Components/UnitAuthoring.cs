@@ -11,9 +11,6 @@ public class UnitAuthoring : MonoBehaviour
     public float Acceleration = 10f;
     [Header("Health")]
     public float Health = 5f;
-    [Header("Attack")]
-    public float AttackStrength = 5f;
-    public float AttackRange = 5f;
 
     public class Baker : Baker<UnitAuthoring>
     {
@@ -30,6 +27,7 @@ public class UnitAuthoring : MonoBehaviour
                 CurrentVelocity = 0,
             });
             AddComponent(entity, new HealthData { Value = authoring.Health });
+            AddComponent(entity, new AttackerData { IsAttacking = false });
         }
     }
 }
@@ -67,6 +65,11 @@ public struct MovementData : IComponentData
 public struct HealthData : IComponentData
 {
     public float Value;
+}
+
+public struct AttackerData : IComponentData
+{
+    public bool IsAttacking;
 }
 
 public struct EnemyBaseReference : IComponentData
