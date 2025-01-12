@@ -19,20 +19,17 @@ partial struct UnitSpawnerSystem : ISystem
     {
         if (SystemAPI.TryGetSingleton(out UnitSpawner unitSpawner))
         {
-            if (unitSpawner.UnitToSpawn.HasValue)
+            if (unitSpawner.SpawnPosition.HasValue)
             {
                 Entity spawnerEntity = SystemAPI.GetSingletonEntity<UnitSpawner>();
+                float3 basePos = SystemAPI.GetComponent<LocalTransform>(spawnerEntity).Position;
 
                 DynamicBuffer<UnitPrefabBufferElement> unitPrefabsBuffer = state.EntityManager.GetBuffer<UnitPrefabBufferElement>(spawnerEntity);
-                UnitPrefabBufferElement unit = unitPrefabsBuffer[(int)unitSpawner.UnitToSpawn.Value];
+                UnitPrefabBufferElement unit = unitPrefabsBuffer[(int)unitSpawner.UnitToSpawn];
 
-                float3 basePos = SystemAPI.GetComponent<LocalTransform>(spawnerEntity).Position;
-                basePos.x += unitSpawner.Random.NextFloat(-unitSpawner.SpawnWidth, unitSpawner.SpawnWidth);
-                basePos.z += unitSpawner.Random.NextFloat(-unitSpawner.SpawnLength, unitSpawner.SpawnLength);
+                SpawnFormation(ref state, unit, unitSpawner.SpawnPosition.Value, 0);
 
-                SpawnFormation(ref state, unit, basePos, 0);
-
-                unitSpawner.UnitToSpawn = null;
+                unitSpawner.SpawnPosition = null;
                 SystemAPI.SetSingleton(unitSpawner);
             }
         }
