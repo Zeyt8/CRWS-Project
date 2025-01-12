@@ -22,6 +22,6 @@ public class MoneyView : MonoBehaviour
 
     private void UpdateText(int currentMoney)
     {
-        _text.text = currentMoney.ToString();
+        _text.text = $"{currentMoney.ToString()} gold";
     }
 }

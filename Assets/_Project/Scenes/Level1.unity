@@ -328,7 +328,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 100 money
+  m_text: 100 gold
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2244,6 +2244,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inputHandler: {fileID: 11400000, guid: 388994a0f63dccb4596231f028bcf1c5, type: 2}
   _startingMoney: 100
+  _unitCosts: 0a00000005000000140000000a0000000a0000000a0000000f0000001400000014000000140000000a0000000f000000
 --- !u!4 &1000265971
 Transform:
   m_ObjectHideFlags: 0
@@ -5538,7 +5539,7 @@ SceneRoots:
   - {fileID: 1919408740}
   - {fileID: 1427341813}
   - {fileID: 289746946}
+  - {fileID: 1000265971}
   - {fileID: 1987790194}
   - {fileID: 943350838}
   - {fileID: 1504343662}
-  - {fileID: 1000265971}
