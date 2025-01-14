@@ -17,8 +17,8 @@ partial struct UnitAnimationSystem : ISystem
     {
         public void Execute(MecanimAspect anim, in MovementData mov, ref AttackerData attacker)
         {
-            anim.SetBool("IsMoving", /*mov.IsMoving*/true);
-            anim.SetFloat("Velocity", /*mov.CurrentVelocity*/0f);
+            anim.SetBool("IsMoving", mov.IsMoving);
+            anim.SetFloat("Velocity", mov.CurrentVelocity);
             if (attacker.AttackAnimTrigger)
             {
                 anim.SetTrigger("Attack");

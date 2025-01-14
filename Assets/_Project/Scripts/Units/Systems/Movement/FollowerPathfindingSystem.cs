@@ -50,7 +50,7 @@ partial struct FollowerPathfindingSystem : ISystem
         private const float TargetWeight = 1f;
         private const float UnitAvoidanceWeight = 1f;
         private const float UnitAlignmentWeight = 1f;
-        private const float TerrainAvoidanceWeight = 10f;
+        private const float TerrainAvoidanceWeight = 5f;
 
         public void Execute(in LocalTransform selfTransform, in FollowerPathfinding pf, ref MovementData movement, in TeamData team, Entity entity)
         {
@@ -59,10 +59,13 @@ partial struct FollowerPathfindingSystem : ISystem
             float3 targetPosition = leaderPosition + pf.FormationOffset;
             
             float3 dir = targetPosition - selfTransform.Position;
-            if (math.length(dir) < 0.01f && !leader.IsMoving)
+            if (math.length(dir) < 0.01f)
             {
-                movement.IsMoving = false;
-                movement.DesiredVelocity = 0;
+                if (!leader.IsMoving)
+                {
+                    movement.IsMoving = false;
+                    movement.DesiredVelocity = 0;
+                }
                 return;
             }
             else
