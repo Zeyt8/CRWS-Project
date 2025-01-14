@@ -44,10 +44,10 @@ partial struct FollowerPathfindingSystem : ISystem
         private const float AvoidanceDistance = 5f; //lenght of ray cast (both thick and others)
         private const float BoundsRadius = 3f; //how thick the first one is, (might need to increase)
         private const float TargetWeight = 1f;
-        private const float UnitAvoidanceWeight = 1f;
+        private const float UnitAvoidanceWeight = 5f;
         private const float UnitAlignmentWeight = 1f;
-        private const float TerrainAvoidanceWeight = 10f;
-        private const float oppositeAvoidForce = 5f;
+        private const float TerrainAvoidanceWeight = 15f;
+        private const float oppositeAvoidForce = 10f;
         public void Execute(in FollowerPathfinding pf, ref MovementData movement, in TeamData team, Entity entity)
         {
             LocalTransform selfTransform = Transforms.GetRefRO(entity).ValueRO;
