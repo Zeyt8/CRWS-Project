@@ -1,11 +1,12 @@
 using Unity.Entities;
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.Mathematics;
 
 public class UnitSpawnerAuthoring : MonoBehaviour
 {
     public List<GameObject> UnitPrefabs = new List<GameObject>();
-    public List<uint> UnitGroupCount = new List<uint>();
+    public List<int> UnitGroupCount = new List<int>();
     public float SpawnWidth;
     public float SpawnLength;
 
@@ -13,7 +14,7 @@ public class UnitSpawnerAuthoring : MonoBehaviour
     {
         public override void Bake(UnitSpawnerAuthoring authoring)
         {
-            Entity entity = GetEntity(TransformUsageFlags.Dynamic);
+            Entity entity = GetEntity(TransformUsageFlags.Renderable);
             DynamicBuffer<UnitPrefabBufferElement> buffer = AddBuffer<UnitPrefabBufferElement>(entity);
 
             for (int i = 0; i < authoring.UnitPrefabs.Count; i++)
@@ -27,10 +28,8 @@ public class UnitSpawnerAuthoring : MonoBehaviour
 
             AddComponent(entity, new UnitSpawner
             {
-                UnitToSpawn = null,
-                SpawnWidth = authoring.SpawnWidth,
-                SpawnLength = authoring.SpawnLength,
-                Random = new Unity.Mathematics.Random((uint)UnityEngine.Random.Range(1, 100000))
+                UnitToSpawn = UnitTypes.TwoHandedSword,
+                SpawnPosition = null,
             });
         }
     }
@@ -40,13 +39,11 @@ public class UnitSpawnerAuthoring : MonoBehaviour
 public struct UnitPrefabBufferElement : IBufferElementData
 {
     public Entity UnitPrefabEntity;
-    public uint Count;
+    public int Count;
 }
 
 public struct UnitSpawner : IComponentData
 {
-    public UnitTypes? UnitToSpawn;
-    public float SpawnWidth;
-    public float SpawnLength;
-    public Unity.Mathematics.Random Random;
+    public UnitTypes UnitToSpawn;
+    public float3? SpawnPosition;
 }

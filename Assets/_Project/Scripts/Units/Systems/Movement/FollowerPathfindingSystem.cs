@@ -173,8 +173,6 @@ partial struct FollowerPathfindingSystem : ISystem
             }
 
             dir = math.normalize(dir);
-            
-            movement.DesiredVelocity = 1;
             movement.Direction = dir;
             movement.IsMoving = true;
             hits.Dispose();

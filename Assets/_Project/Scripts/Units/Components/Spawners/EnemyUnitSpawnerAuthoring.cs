@@ -5,8 +5,8 @@ using System.Collections.Generic;
 public class EnemyUnitSpawnerAuthoring : MonoBehaviour
 {
     public List<GameObject> UnitPrefabs = new List<GameObject>();
-    public float SpawnWidth;
-    public float SpawnLength;
+    public List<int> UnitGroupCount = new List<int>();
+    public Vector2 SpawnBounds;
     public int Count;
 
     public class Baker : Baker<EnemyUnitSpawnerAuthoring>
@@ -20,14 +20,14 @@ public class EnemyUnitSpawnerAuthoring : MonoBehaviour
             {
                 buffer.Add(new UnitPrefabBufferElement
                 {
-                    UnitPrefabEntity = GetEntity(authoring.UnitPrefabs[i], TransformUsageFlags.Dynamic)
+                    UnitPrefabEntity = GetEntity(authoring.UnitPrefabs[i], TransformUsageFlags.Dynamic),
+                    Count = authoring.UnitGroupCount[i]
                 });
             }
 
             AddComponent(entity, new EnemyUnitSpawner
             {
-                SpawnWidth = authoring.SpawnWidth,
-                SpawnLength = authoring.SpawnLength,
+                SpawnBounds = new Unity.Mathematics.float2(authoring.SpawnBounds.x, authoring.SpawnBounds.y),
                 Random = new Unity.Mathematics.Random((uint)UnityEngine.Random.Range(1, 100000)),
                 Count = authoring.Count
             });
@@ -35,16 +35,9 @@ public class EnemyUnitSpawnerAuthoring : MonoBehaviour
     }
 }
 
-[InternalBufferCapacity(10)] // Adjust the capacity as needed
-public struct EnemyUnitPrefabBufferElement : IBufferElementData
-{
-    public Entity EnemyUnitPrefabEntity;
-}
-
 public struct EnemyUnitSpawner : IComponentData
 {
-    public float SpawnWidth;
-    public float SpawnLength;
+    public Unity.Mathematics.float2 SpawnBounds;
     public Unity.Mathematics.Random Random;
     public int Count;
 }

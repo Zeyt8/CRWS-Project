@@ -5,8 +5,6 @@ using System.ComponentModel;
 
 public class UnitAuthoring : MonoBehaviour
 {
-    [Header("Team")]
-    public int Team = 0;
     [Header("Movement")]
     public float MovementSpeed = 5f;
     public float TurningSpeed = 1f;
@@ -22,7 +20,6 @@ public class UnitAuthoring : MonoBehaviour
         public override void Bake(UnitAuthoring authoring)
         {
             Entity entity = GetEntity(TransformUsageFlags.Dynamic);
-            AddComponent(entity, new TeamData { Value = authoring.Team });
             AddComponent(entity, new MovementData {
                 MovementSpeed = authoring.MovementSpeed,
                 TurningSpeed = authoring.TurningSpeed,

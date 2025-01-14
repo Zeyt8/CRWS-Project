@@ -753,7 +753,7 @@ GameObject:
   - component: {fileID: 1645377961}
   - component: {fileID: 1645377960}
   - component: {fileID: 1645377964}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Map
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -893,6 +893,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inputHandler: {fileID: 11400000, guid: 388994a0f63dccb4596231f028bcf1c5, type: 2}
+  _startingMoney: 100
 --- !u!4 &1826428296
 Transform:
   m_ObjectHideFlags: 0

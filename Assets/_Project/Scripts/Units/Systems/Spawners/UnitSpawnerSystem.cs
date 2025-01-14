@@ -2,7 +2,6 @@ using Unity.Burst;
 using Unity.Entities;
 using Unity.Transforms;
 using Unity.Mathematics;
-using UnityEngine.UIElements;
 using Unity.Collections;
 
 partial struct UnitSpawnerSystem : ISystem
@@ -20,30 +19,27 @@ partial struct UnitSpawnerSystem : ISystem
     {
         if (SystemAPI.TryGetSingleton(out UnitSpawner unitSpawner))
         {
-            if (unitSpawner.UnitToSpawn.HasValue)
+            if (unitSpawner.SpawnPosition.HasValue)
             {
                 Entity spawnerEntity = SystemAPI.GetSingletonEntity<UnitSpawner>();
+                float3 basePos = SystemAPI.GetComponent<LocalTransform>(spawnerEntity).Position;
 
                 DynamicBuffer<UnitPrefabBufferElement> unitPrefabsBuffer = state.EntityManager.GetBuffer<UnitPrefabBufferElement>(spawnerEntity);
-                UnitPrefabBufferElement unit = unitPrefabsBuffer[(int)unitSpawner.UnitToSpawn.Value];
+                UnitPrefabBufferElement unit = unitPrefabsBuffer[(int)unitSpawner.UnitToSpawn];
 
-                float3 basePos = SystemAPI.GetComponent<LocalTransform>(spawnerEntity).Position;
-                basePos.x += unitSpawner.Random.NextFloat(-unitSpawner.SpawnWidth, unitSpawner.SpawnWidth);
-                basePos.z += unitSpawner.Random.NextFloat(-unitSpawner.SpawnLength, unitSpawner.SpawnLength);
+                SpawnFormation(ref state, unit, unitSpawner.SpawnPosition.Value, 0);
 
-                SpawnFormation(ref state, unit, basePos);
-
-                unitSpawner.UnitToSpawn = null;
+                unitSpawner.SpawnPosition = null;
                 SystemAPI.SetSingleton(unitSpawner);
             }
         }
     }
 
     [BurstCompile]
-    private void SpawnFormation(ref SystemState state, UnitPrefabBufferElement unit, float3 basePos)
+    private void SpawnFormation(ref SystemState state, UnitPrefabBufferElement unit, float3 basePos, int team)
     {
         Entity prefabElement = unit.UnitPrefabEntity;
-        uint count = unit.Count;
+        int count = unit.Count;
         int length = (int)math.ceil(math.sqrt(count / 2.0f));
         int width = length * 2;
 
@@ -57,6 +53,10 @@ partial struct UnitSpawnerSystem : ISystem
         {
             CurrentPathIndex = 0,
             Target = float3.zero,
+        });
+        ecb.AddComponent(leader, new TeamData
+        {
+            Value = team,
         });
         SystemAPI.SetComponent(leader, LocalTransform.FromPosition(basePos));
 
@@ -72,6 +72,10 @@ partial struct UnitSpawnerSystem : ISystem
                 FormationOffset = pos - basePos,
                 ViewRadius = 5,
                 AvoidanceRadius = 1,
+            });
+            ecb.AddComponent(follower, new TeamData
+            {
+                Value = team,
             });
             SystemAPI.SetComponent(follower, LocalTransform.FromPosition(pos));
         }
