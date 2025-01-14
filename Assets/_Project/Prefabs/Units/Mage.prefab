@@ -106,8 +106,6 @@ MonoBehaviour:
   TurningSpeed: 0.5
   Acceleration: 10
   Health: 5
-  AttackStrength: 5
-  AttackRange: 5
 --- !u!114 &4802162064219697851
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,8 +121,7 @@ MonoBehaviour:
   Projectile: {fileID: 4860554062750913226, guid: fb41167a2d75f394a9cac4def8f58d1c, type: 3}
   Range: 10
   Cooldown: 5
-  Timer: 0
-  IsAttacking: 0
+  AttackDuration: 1
 --- !u!114 &707262546639704710
 MonoBehaviour:
   m_ObjectHideFlags: 0

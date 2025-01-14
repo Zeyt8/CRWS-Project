@@ -10,10 +10,10 @@ partial struct RangedAttackerSystem : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        foreach ((RefRW<RangedAttackerData> attack, RefRO<TeamData> team, RefRO<LocalTransform> localTransform, RefRW<AttackerData> attacker, Entity entity) in
-            SystemAPI.Query<RefRW<RangedAttackerData>, RefRO<TeamData>, RefRO<LocalTransform>, RefRW<AttackerData>>().WithEntityAccess())
+        foreach ((RefRW<AttackerData> attacker, RefRO<RangedAttackerData> rangedAttacker, RefRO<TeamData> team, RefRO<LocalTransform> localTransform, Entity entity) in
+            SystemAPI.Query<RefRW<AttackerData>, RefRO<RangedAttackerData>, RefRO<TeamData>, RefRO<LocalTransform>>().WithEntityAccess())
         {
-            if (attack.ValueRO.Timer >= attack.ValueRO.Cooldown)
+            if (attacker.ValueRO.Timer >= attacker.ValueRO.Cooldown)
             {
                 NativeList<DistanceHit> hits = new NativeList<DistanceHit>(100, Allocator.Temp);
                 CollisionFilter filter = new CollisionFilter()
@@ -21,7 +21,7 @@ partial struct RangedAttackerSystem : ISystem
                     BelongsTo = 1 << 3,
                     CollidesWith = 1 << 0
                 };
-                SystemAPI.GetSingleton<PhysicsWorldSingleton>().OverlapSphere(localTransform.ValueRO.Position, attack.ValueRO.Range, ref hits, filter);
+                SystemAPI.GetSingleton<PhysicsWorldSingleton>().OverlapSphere(localTransform.ValueRO.Position, rangedAttacker.ValueRO.Range, ref hits, filter);
                 if (hits.Length > 1)
                 {
                     foreach (DistanceHit unit in hits)
@@ -29,22 +29,23 @@ partial struct RangedAttackerSystem : ISystem
                         int otherUnitTeam = SystemAPI.GetComponent<TeamData>(unit.Entity).Value;
                         if (unit.Entity != entity && team.ValueRO.Value != otherUnitTeam)
                         {
-                            Entity projectile = state.EntityManager.Instantiate(attack.ValueRO.Projectile);
+                            Entity projectile = state.EntityManager.Instantiate(rangedAttacker.ValueRO.Projectile);
                             float3 forwardPosition = localTransform.ValueRO.Position + localTransform.ValueRO.Forward() + math.up() * 1.5f;
                             quaternion rotation = quaternion.LookRotationSafe(localTransform.ValueRO.Forward(), math.up());
                             state.EntityManager.SetComponentData(projectile, LocalTransform.FromPositionRotation(forwardPosition, rotation));
-                            attack.ValueRW.Timer -= attack.ValueRO.Cooldown;
+                            attacker.ValueRW.Timer -= attacker.ValueRO.Cooldown;
                             attacker.ValueRW.IsAttacking = true;
+                            attacker.ValueRW.AttackAnimTrigger = true;
                         }
                     }
                 }
                 hits.Dispose();
             }
-            else if (attack.ValueRO.Timer >= 0.5f)
+            else if (attacker.ValueRO.Timer >= 0.5f)
             {
                 attacker.ValueRW.IsAttacking = false;
             }
-            attack.ValueRW.Timer += SystemAPI.Time.DeltaTime;
+            attacker.ValueRW.Timer += SystemAPI.Time.DeltaTime;
         }
     }
 }

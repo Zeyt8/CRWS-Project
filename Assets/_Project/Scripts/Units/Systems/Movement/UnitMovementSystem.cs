@@ -46,8 +46,8 @@ partial struct UnitMovementSystem : ISystem
             quaternion targetRotation = quaternion.LookRotationSafe(new float3(direction.x, 0, direction.z), math.up());
             transform.Rotation = math.slerp(transform.Rotation, targetRotation, DeltaTime * movement.TurningSpeed);
 
-            Debug.DrawLine(transform.Position, transform.Position + movementVector, Color.green);
-            Debug.DrawLine(transform.Position, transform.Position + transform.Forward(), Color.blue);
+            Debug.DrawLine(transform.Position + new float3(0, 0.5f, 0), transform.Position + new float3(0, 0.5f, 0) + movementVector, Color.red);
+            Debug.DrawLine(transform.Position + new float3(0, 0.5f, 0), transform.Position + new float3(0, 0.5f, 0) + transform.Forward(), Color.blue);
         }
 
         private float SpeedBasedOnAngle(float3 forward, float3 direction, float maxAngle)
@@ -57,6 +57,10 @@ partial struct UnitMovementSystem : ISystem
             if (angle > maxAngle)
             {
                 return 0f;
+            }
+            else if (angle < 10f)
+            {
+                return 1f;
             }
             else
             {

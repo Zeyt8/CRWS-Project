@@ -114,10 +114,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 101580f6a562f884ebd0429d030462ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Damage: 1
   Range: 1
-  Cooldown: 1
-  Timer: 0
-  IsAttacking: 0
+  Cooldown: 0.5
+  AttackDuration: 0.5
 --- !u!114 &7940492035518197456
 MonoBehaviour:
   m_ObjectHideFlags: 0

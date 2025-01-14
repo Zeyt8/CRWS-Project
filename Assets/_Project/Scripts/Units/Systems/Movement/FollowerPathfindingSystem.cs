@@ -1,7 +1,6 @@
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
-using Unity.Entities.UniversalDelegates;
 using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Transforms;
@@ -12,24 +11,28 @@ using UnityEngine;
 partial struct FollowerPathfindingSystem : ISystem
 {
     private ComponentLookup<LocalTransform> _transforms;
+    private ComponentLookup<LeaderPathfinding> _leaders;
 
     [BurstCompile]
     public void OnCreate(ref SystemState state)
     {
         _transforms = state.GetComponentLookup<LocalTransform>(true);
+        _leaders = state.GetComponentLookup<LeaderPathfinding>(true);
     }
 
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
         _transforms.Update(ref state);
+        _leaders.Update(ref state);
         var physicsWorld = SystemAPI.GetSingleton<PhysicsWorldSingleton>();
 
         var job = new FollowerPathfindingJob
         {
             PhysicsWorld = physicsWorld,
             DeltaTime = SystemAPI.Time.DeltaTime,
-            Transforms = _transforms
+            Transforms = _transforms,
+            Leaders = _leaders
         };
 
         state.Dependency = job.ScheduleParallel(state.Dependency);
@@ -39,22 +42,24 @@ partial struct FollowerPathfindingSystem : ISystem
     private partial struct FollowerPathfindingJob : IJobEntity
     {
         [ReadOnly] public PhysicsWorldSingleton PhysicsWorld;
-        public float DeltaTime;
+        [ReadOnly] public float DeltaTime;
         [ReadOnly] public ComponentLookup<LocalTransform> Transforms;
+        [ReadOnly] public ComponentLookup<LeaderPathfinding> Leaders;
         private const float AvoidanceDistance = 3f; //lenght of ray cast (both thick and others)
         private const float BoundsRadius = 3f; //how thick the first one is, (might need to increase)
         private const float TargetWeight = 1f;
         private const float UnitAvoidanceWeight = 1f;
         private const float UnitAlignmentWeight = 1f;
         private const float TerrainAvoidanceWeight = 10f;
-        public void Execute(in FollowerPathfinding pf, ref MovementData movement, in TeamData team, Entity entity)
+
+        public void Execute(in LocalTransform selfTransform, in FollowerPathfinding pf, ref MovementData movement, in TeamData team, Entity entity)
         {
-            LocalTransform selfTransform = Transforms.GetRefRO(entity).ValueRO;
+            LeaderPathfinding leader = Leaders.GetRefRO(pf.Leader).ValueRO;
             float3 leaderPosition = Transforms.GetRefRO(pf.Leader).ValueRO.Position;
             float3 targetPosition = leaderPosition + pf.FormationOffset;
             
             float3 dir = targetPosition - selfTransform.Position;
-            if (math.length(dir) < 0.01f)
+            if (math.length(dir) < 0.01f && !leader.IsMoving)
             {
                 movement.IsMoving = false;
                 movement.DesiredVelocity = 0;
@@ -106,7 +111,6 @@ partial struct FollowerPathfindingSystem : ISystem
                 }
             }
 
-            //if (IsHeadingForCollision(PhysicsWorld, selfTransform.Position + new float3(0f, 1f, 0f), BoundsRadius, selfTransform.Forward(), AvoidanceDistance))
             {
                 float maxDistance = 0;
                 float3 collisionAvoidDir = float3.zero;
@@ -133,33 +137,30 @@ partial struct FollowerPathfindingSystem : ISystem
                         }
                     };
 
-                    Debug.DrawLine(selfTransform.Position + new float3(0f, 1f, 0f), selfTransform.Position + rayDirection * AvoidanceDistance + new float3(0f, 1f, 0f));
-
                     if (PhysicsWorld.CastRay(input, out Unity.Physics.RaycastHit hit))
                     {
                         float candidateDistance = math.distance(selfTransform.Position, hit.Position);
-                        Debug.DrawLine(selfTransform.Position + new float3(0f, 1f, 0f), hit.Position, Color.green);
                         castHit = true;
                         if (candidateDistance > maxDistance)
                         {
                             maxDistance = candidateDistance;
                             collisionAvoidDir = rayDirection;
                         }
+                        Debug.DrawLine(selfTransform.Position + new float3(0f, 1f, 0f), hit.Position, Color.green);
                     }
                     else if (maxDistance != float.MaxValue) 
                     {
                         collisionAvoidDir = rayDirection;
                         maxDistance = float.MaxValue;
+                        Debug.DrawLine(selfTransform.Position + new float3(0f, 1f, 0f), selfTransform.Position + new float3(0f, 1f, 0f) + rayDirection * AvoidanceDistance, Color.white);
                     }
                         
                 }
-
 
                 collisionAvoidDir.y = 0;
                 if (!collisionAvoidDir.Equals(float3.zero) && castHit)
                 {
                    dir += math.normalize(collisionAvoidDir) * TerrainAvoidanceWeight;
-                   //Debug.Log("Direction :: line 155 :: " + dir);
                 }
             }
 
@@ -169,17 +170,8 @@ partial struct FollowerPathfindingSystem : ISystem
             movement.Direction = dir;
             movement.IsMoving = true;
             hits.Dispose();
-        }
 
-        private bool IsHeadingForCollision(PhysicsWorldSingleton physicsWorld, float3 center, float radius, float3 direction, float distance)
-        {
-            CollisionFilter filter = new CollisionFilter()
-            {
-                BelongsTo = 1 << 0,
-                CollidesWith = 1 << 2
-            };
-            Debug.DrawLine(center, center + direction * distance, Color.red);
-            return physicsWorld.SphereCast(center, radius, direction, distance, filter);
+            Debug.DrawLine(selfTransform.Position, targetPosition, Color.cyan);
         }
     }
 }

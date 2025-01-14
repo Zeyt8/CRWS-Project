@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class MeleeAttackerDataAuthoring : MonoBehaviour
 {
+    public float Damage;
     public float Range;
     public float Cooldown;
-    public float Timer;
-    public bool IsAttacking;
+    public float AttackDuration;
 
     public class Baker : Baker<MeleeAttackerDataAuthoring>
     {
@@ -15,9 +15,16 @@ public class MeleeAttackerDataAuthoring : MonoBehaviour
             Entity entity = GetEntity(TransformUsageFlags.Dynamic);
             AddComponent(entity, new MeleeAttackerData
             {
-                Range = authoring.Range,
+                Damage = authoring.Damage,
+                Range = authoring.Range
+            });
+            AddComponent(entity, new AttackerData
+            {
                 Cooldown = authoring.Cooldown,
-                Timer = 0
+                Timer = 0,
+                AttackDuration = authoring.AttackDuration,
+                IsAttacking = false,
+                AttackAnimTrigger = false
             });
         }
     }
@@ -25,7 +32,6 @@ public class MeleeAttackerDataAuthoring : MonoBehaviour
 
 public struct MeleeAttackerData : IComponentData
 {
+    public float Damage;
     public float Range;
-    public float Cooldown;
-    public float Timer;
 }

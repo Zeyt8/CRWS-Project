@@ -24,6 +24,7 @@ partial struct LeaderPathfindingSystem : ISystem
             // Traverse path
             if (pf.ValueRW.CurrentPathIndex >= pathBuffer.Length)
             {
+                pf.ValueRW.IsMoving = false;
                 movement.ValueRW.IsMoving = false;
                 movement.ValueRW.DesiredVelocity = 0;
                 continue;
@@ -36,6 +37,7 @@ partial struct LeaderPathfindingSystem : ISystem
                 pf.ValueRW.CurrentPathIndex++;
 
             movement.ValueRW.Direction = direction;
+            pf.ValueRW.IsMoving = true;
             movement.ValueRW.IsMoving = true;
             movement.ValueRW.DesiredVelocity = 0.4f;
             // TODO: when detecting enemy, run at full speed towards them

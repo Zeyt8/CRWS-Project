@@ -7,8 +7,6 @@ public class UnitSpawnerAuthoring : MonoBehaviour
 {
     public List<GameObject> UnitPrefabs = new List<GameObject>();
     public List<int> UnitGroupCount = new List<int>();
-    public float SpawnWidth;
-    public float SpawnLength;
 
     public class Baker : Baker<UnitSpawnerAuthoring>
     {

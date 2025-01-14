@@ -9,10 +9,10 @@ partial struct MeleeAttackerSystem : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        foreach ((RefRW<MeleeAttackerData> attack, RefRO<TeamData> team, RefRO<LocalTransform> localTransform, RefRW<AttackerData> attacker, Entity entity) in
-            SystemAPI.Query<RefRW<MeleeAttackerData>, RefRO<TeamData>, RefRO<LocalTransform>, RefRW<AttackerData>>().WithEntityAccess())
+        foreach ((RefRW<AttackerData> attacker, RefRO<MeleeAttackerData> meleeAttacker, RefRO<TeamData> team, RefRO<LocalTransform> localTransform, Entity entity) in
+            SystemAPI.Query<RefRW<AttackerData>, RefRO<MeleeAttackerData>, RefRO<TeamData>, RefRO<LocalTransform>>().WithEntityAccess())
         {
-            if (attack.ValueRO.Timer >= attack.ValueRO.Cooldown)
+            if (attacker.ValueRO.Timer >= attacker.ValueRO.Cooldown)
             {
                 NativeList<DistanceHit> hits = new NativeList<DistanceHit>(100, Allocator.Temp);
                 CollisionFilter filter = new CollisionFilter()
@@ -20,7 +20,7 @@ partial struct MeleeAttackerSystem : ISystem
                     BelongsTo = 1 << 3,
                     CollidesWith = 1 << 0
                 };
-                SystemAPI.GetSingleton<PhysicsWorldSingleton>().OverlapSphere(localTransform.ValueRO.Position, attack.ValueRO.Range, ref hits, filter);
+                SystemAPI.GetSingleton<PhysicsWorldSingleton>().OverlapSphere(localTransform.ValueRO.Position, meleeAttacker.ValueRO.Range, ref hits, filter);
                 if (hits.Length > 1)
                 {
                     foreach (DistanceHit unit in hits)
@@ -28,18 +28,23 @@ partial struct MeleeAttackerSystem : ISystem
                         int otherUnitTeam = SystemAPI.GetComponent<TeamData>(unit.Entity).Value;
                         if (unit.Entity != entity && team.ValueRO.Value != otherUnitTeam)
                         {
-                            attack.ValueRW.Timer -= attack.ValueRO.Cooldown;
+                            HealthData otherUnitHealth = SystemAPI.GetComponent<HealthData>(unit.Entity);
+                            otherUnitHealth.Value -= meleeAttacker.ValueRO.Damage;
+                            SystemAPI.SetComponent(unit.Entity, otherUnitHealth);
+                            attacker.ValueRW.Timer -= attacker.ValueRO.Cooldown;
                             attacker.ValueRW.IsAttacking = true;
+                            attacker.ValueRW.AttackAnimTrigger = true;
+                            break;
                         }
                     }
                 }
                 hits.Dispose();
             }
-            else if (attack.ValueRO.Timer >= 0.5f)
+            else if (attacker.ValueRO.Timer >= attacker.ValueRO.AttackDuration)
             {
                 attacker.ValueRW.IsAttacking = false;
             }
-            attack.ValueRW.Timer += SystemAPI.Time.DeltaTime;
+            attacker.ValueRW.Timer += SystemAPI.Time.DeltaTime;
         }
     }
 }

@@ -58,6 +58,7 @@ partial struct EnemyUnitSpawnerSystem : ISystem
         {
             CurrentPathIndex = 0,
             Target = float3.zero,
+            IsMoving = false,
         });
         ecb.AddComponent(leader, new TeamData
         {

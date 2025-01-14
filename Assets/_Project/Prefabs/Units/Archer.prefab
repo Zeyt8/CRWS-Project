@@ -123,10 +123,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Projectile: {fileID: 4860554062750913226, guid: 7cb5c1a199d6c54498e9e3c29d45ef50, type: 3}
-  Range: 0
-  Cooldown: 0
-  Timer: 0
-  IsAttacking: 0
+  Range: 5
+  Cooldown: 2
+  AttackDuration: 1
 --- !u!114 &-8346393864674345758
 MonoBehaviour:
   m_ObjectHideFlags: 0

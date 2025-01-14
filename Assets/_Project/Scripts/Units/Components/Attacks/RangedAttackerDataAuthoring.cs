@@ -6,8 +6,7 @@ public class RangedAttackerDataAuthoring : MonoBehaviour
     public ProjectileInstaceAuthoring Projectile;
     public float Range;
     public float Cooldown;
-    public float Timer;
-    public bool IsAttacking;
+    public float AttackDuration;
 
     public class Baker : Baker<RangedAttackerDataAuthoring>
     {
@@ -18,8 +17,14 @@ public class RangedAttackerDataAuthoring : MonoBehaviour
             {
                 Projectile = GetEntity(authoring.Projectile, TransformUsageFlags.Dynamic),
                 Range = authoring.Range,
+            });
+            AddComponent(entity, new AttackerData
+            {
                 Cooldown = authoring.Cooldown,
                 Timer = 0,
+                AttackDuration = authoring.AttackDuration,
+                IsAttacking = false,
+                AttackAnimTrigger = false
             });
         }
     }
@@ -29,6 +34,4 @@ public struct RangedAttackerData : IComponentData
 {
     public Entity Projectile;
     public float Range;
-    public float Cooldown;
-    public float Timer;
 }

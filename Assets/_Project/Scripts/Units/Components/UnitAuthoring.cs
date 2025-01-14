@@ -27,7 +27,6 @@ public class UnitAuthoring : MonoBehaviour
                 CurrentVelocity = 0,
             });
             AddComponent(entity, new HealthData { Value = authoring.Health });
-            AddComponent(entity, new AttackerData { IsAttacking = false });
         }
     }
 }
@@ -41,6 +40,7 @@ public struct LeaderPathfinding : IComponentData
 {
     public int CurrentPathIndex;
     public float3 Target;
+    public bool IsMoving;
 }
 
 public struct FollowerPathfinding : IComponentData
@@ -65,11 +65,6 @@ public struct MovementData : IComponentData
 public struct HealthData : IComponentData
 {
     public float Value;
-}
-
-public struct AttackerData : IComponentData
-{
-    public bool IsAttacking;
 }
 
 public struct EnemyBaseReference : IComponentData

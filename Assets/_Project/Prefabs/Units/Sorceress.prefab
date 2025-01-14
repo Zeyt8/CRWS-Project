@@ -117,8 +117,7 @@ MonoBehaviour:
   Projectile: {fileID: 4860554062750913226, guid: 887442ecc16e6d3488eb4cbc6b80fcb1, type: 3}
   Range: 10
   Cooldown: 10
-  Timer: 0
-  IsAttacking: 0
+  AttackDuration: 1
 --- !u!114 &-5852833282123614887
 MonoBehaviour:
   m_ObjectHideFlags: 0
