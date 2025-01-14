@@ -7,6 +7,7 @@ public class RangedAttackerDataAuthoring : MonoBehaviour
     public float Range;
     public float Cooldown;
     public float AttackDuration;
+    public float AggroRange;
 
     public class Baker : Baker<RangedAttackerDataAuthoring>
     {
@@ -23,6 +24,7 @@ public class RangedAttackerDataAuthoring : MonoBehaviour
                 Cooldown = authoring.Cooldown,
                 Timer = 0,
                 AttackDuration = authoring.AttackDuration,
+                AggroRange = authoring.AggroRange,
                 IsAttacking = false,
                 AttackAnimTrigger = false
             });

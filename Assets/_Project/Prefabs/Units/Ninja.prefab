@@ -122,6 +122,7 @@ MonoBehaviour:
   Range: 1
   Cooldown: 1
   AttackDuration: 1
+  AggroRange: 20
 --- !u!114 &2897381319366672456
 MonoBehaviour:
   m_ObjectHideFlags: 0

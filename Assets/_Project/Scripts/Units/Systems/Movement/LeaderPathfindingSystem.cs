@@ -1,6 +1,9 @@
+using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
+using Unity.Physics;
 using Unity.Transforms;
+using UnityEngine;
 
 [UpdateInGroup(typeof(MovementSystemGroup))]
 partial struct LeaderPathfindingSystem : ISystem
@@ -8,10 +11,32 @@ partial struct LeaderPathfindingSystem : ISystem
     public void OnUpdate(ref SystemState state)
     {
         foreach (
-            (RefRO<LocalTransform> transform, RefRW<LeaderPathfinding> pf, RefRW<MovementData> movement, RefRO<EnemyBaseReference> ebr, DynamicBuffer<PathBufferElement> pathBuffer) in
-            SystemAPI.Query<RefRO<LocalTransform>, RefRW<LeaderPathfinding>, RefRW<MovementData>, RefRO<EnemyBaseReference>, DynamicBuffer<PathBufferElement>>())
+            (RefRO<LocalTransform> transform, RefRW<LeaderPathfinding> pf, RefRW<MovementData> movement, RefRO<EnemyBaseReference> ebr, DynamicBuffer<PathBufferElement> pathBuffer, RefRO<TeamData> team, RefRO<AttackerData> attacker) in
+            SystemAPI.Query<RefRO<LocalTransform>, RefRW<LeaderPathfinding>, RefRW<MovementData>, RefRO<EnemyBaseReference>, DynamicBuffer<PathBufferElement>, RefRO<TeamData>, RefRO<AttackerData>>())
         {
             float3 targetPosition = ebr.ValueRO.Location;
+            movement.ValueRW.DesiredVelocity = 0.4f;
+
+            NativeList<DistanceHit> hits = new NativeList<DistanceHit>(100, Allocator.Temp);
+            CollisionFilter filter = new CollisionFilter()
+            {
+                BelongsTo = 1 << 3,
+                CollidesWith = 1 << 0
+            };
+            SystemAPI.GetSingleton<PhysicsWorldSingleton>().OverlapSphere(transform.ValueRO.Position, attacker.ValueRO.AggroRange, ref hits, filter);
+            if (hits.Length > 1)
+            {
+                foreach (DistanceHit hit in hits)
+                {
+                    TeamData otherTeam = SystemAPI.GetComponent<TeamData>(hit.Entity);
+                    if (otherTeam.Value != team.ValueRO.Value)
+                    {
+                        targetPosition = hit.Position;
+                        movement.ValueRW.DesiredVelocity = 1f;
+                        break;
+                    }
+                }
+            }
 
             // Recalculate path if target has changed
             if (!pf.ValueRO.Target.Equals(targetPosition))
@@ -39,8 +64,6 @@ partial struct LeaderPathfindingSystem : ISystem
             movement.ValueRW.Direction = direction;
             pf.ValueRW.IsMoving = true;
             movement.ValueRW.IsMoving = true;
-            movement.ValueRW.DesiredVelocity = 0.4f;
-            // TODO: when detecting enemy, run at full speed towards them
         }
     }
 }
