@@ -41,12 +41,13 @@ partial struct FollowerPathfindingSystem : ISystem
         [ReadOnly] public PhysicsWorldSingleton PhysicsWorld;
         public float DeltaTime;
         [ReadOnly] public ComponentLookup<LocalTransform> Transforms;
-        private const float AvoidanceDistance = 3f; //lenght of ray cast (both thick and others)
+        private const float AvoidanceDistance = 5f; //lenght of ray cast (both thick and others)
         private const float BoundsRadius = 3f; //how thick the first one is, (might need to increase)
         private const float TargetWeight = 1f;
         private const float UnitAvoidanceWeight = 1f;
         private const float UnitAlignmentWeight = 1f;
         private const float TerrainAvoidanceWeight = 10f;
+        private const float oppositeAvoidForce = 5f;
         public void Execute(in FollowerPathfinding pf, ref MovementData movement, in TeamData team, Entity entity)
         {
             LocalTransform selfTransform = Transforms.GetRefRO(entity).ValueRO;
@@ -109,18 +110,20 @@ partial struct FollowerPathfindingSystem : ISystem
             //if (IsHeadingForCollision(PhysicsWorld, selfTransform.Position + new float3(0f, 1f, 0f), BoundsRadius, selfTransform.Forward(), AvoidanceDistance))
             {
                 float maxDistance = 0;
+                float minDistance = float.MaxValue;
                 float3 collisionAvoidDir = float3.zero;
-                float angleIncrement = 10f; // probably change this, not too small for optimization
+                float3 oppositeAvoidForceDir = float3.zero;
+                
+                float angle = 0;
                 bool castHit = false;
-                for (float angle = 0; angle <= 180; angle += angleIncrement) // Change to 90
+                float angleIncrement = 10.0f;
+                for (int step = 0; step <= 18; ++step)
                 {
-                    float realAngle = angle;
+                    angleIncrement *= -1;
+                    angle += angleIncrement * step;
 
-                    if(realAngle > 90)
-                    {
-                        realAngle = 90 - realAngle;
-                    }
-                    float3 rayDirection = math.mul(quaternion.AxisAngle(math.up(), math.radians(realAngle)), selfTransform.Forward());
+
+                    float3 rayDirection = math.mul(quaternion.AxisAngle(math.up(), math.radians(angle)), math.normalize(targetPosition - selfTransform.Position));
                     
                     RaycastInput input = new RaycastInput()
                     {
@@ -145,6 +148,11 @@ partial struct FollowerPathfindingSystem : ISystem
                             maxDistance = candidateDistance;
                             collisionAvoidDir = rayDirection;
                         }
+                        if(candidateDistance < minDistance )
+                        {
+                            minDistance = candidateDistance;
+                            oppositeAvoidForceDir = rayDirection;
+                        }
                     }
                     else if (maxDistance != float.MaxValue) 
                     {
@@ -156,9 +164,10 @@ partial struct FollowerPathfindingSystem : ISystem
 
 
                 collisionAvoidDir.y = 0;
-                if (!collisionAvoidDir.Equals(float3.zero) && castHit)
+                oppositeAvoidForceDir.y = 0;
+                if (!collisionAvoidDir.Equals(float3.zero) && castHit && !oppositeAvoidForceDir.Equals(float3.zero))
                 {
-                   dir += math.normalize(collisionAvoidDir) * TerrainAvoidanceWeight;
+                   dir += math.normalize(collisionAvoidDir) * TerrainAvoidanceWeight - math.normalize(oppositeAvoidForceDir) * oppositeAvoidForce;
                    //Debug.Log("Direction :: line 155 :: " + dir);
                 }
             }
