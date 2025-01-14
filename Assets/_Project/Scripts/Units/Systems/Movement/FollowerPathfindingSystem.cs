@@ -44,6 +44,7 @@ partial struct FollowerPathfindingSystem : ISystem
         [ReadOnly] public PhysicsWorldSingleton PhysicsWorld;
         [ReadOnly] public float DeltaTime;
         [ReadOnly] public ComponentLookup<LocalTransform> Transforms;
+        [ReadOnly] public ComponentLookup<LeaderPathfinding> Leaders;
         private const float AvoidanceDistance = 5f; //lenght of ray cast (both thick and others)
         private const float BoundsRadius = 3f; //how thick the first one is, (might need to increase)
         private const float TargetWeight = 1f;
