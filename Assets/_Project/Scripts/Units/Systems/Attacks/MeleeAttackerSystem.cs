@@ -1,6 +1,7 @@
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
+using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Transforms;
 
@@ -9,8 +10,8 @@ partial struct MeleeAttackerSystem : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        foreach ((RefRW<AttackerData> attacker, RefRO<MeleeAttackerData> meleeAttacker, RefRO<TeamData> team, RefRO<LocalTransform> localTransform, Entity entity) in
-            SystemAPI.Query<RefRW<AttackerData>, RefRO<MeleeAttackerData>, RefRO<TeamData>, RefRO<LocalTransform>>().WithEntityAccess())
+        foreach ((RefRW<AttackerData> attacker, RefRO<MeleeAttackerData> meleeAttacker, RefRO<TeamData> team, RefRW<LocalTransform> localTransform, Entity entity) in
+            SystemAPI.Query<RefRW<AttackerData>, RefRO<MeleeAttackerData>, RefRO<TeamData>, RefRW<LocalTransform>>().WithEntityAccess())
         {
             if (attacker.ValueRO.Timer >= attacker.ValueRO.Cooldown)
             {
@@ -28,6 +29,7 @@ partial struct MeleeAttackerSystem : ISystem
                         int otherUnitTeam = SystemAPI.GetComponent<TeamData>(unit.Entity).Value;
                         if (unit.Entity != entity && team.ValueRO.Value != otherUnitTeam)
                         {
+                            localTransform.ValueRW.Rotation = quaternion.LookRotationSafe(unit.Position - localTransform.ValueRO.Position, math.up());
                             HealthData otherUnitHealth = SystemAPI.GetComponent<HealthData>(unit.Entity);
                             otherUnitHealth.Value -= meleeAttacker.ValueRO.Damage;
                             SystemAPI.SetComponent(unit.Entity, otherUnitHealth);

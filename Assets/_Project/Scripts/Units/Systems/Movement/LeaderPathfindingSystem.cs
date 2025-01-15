@@ -56,15 +56,17 @@ partial struct LeaderPathfindingSystem : ISystem
             }
 
             float3 movementTarget = pathBuffer[pf.ValueRO.CurrentPathIndex].Position;
+            movementTarget.y = NavMeshUtility.SampleHeight(movementTarget);
             float3 direction = math.normalize(movementTarget - transform.ValueRO.Position);
 
-            movementTarget.y = transform.ValueRO.Position.y;
-            if (math.distance(transform.ValueRO.Position, movementTarget) < 0.01f)
+            if (math.distance(transform.ValueRO.Position, movementTarget) < 0.1f)
                 pf.ValueRW.CurrentPathIndex++;
 
             movement.ValueRW.Direction = direction;
             pf.ValueRW.IsMoving = true;
             movement.ValueRW.IsMoving = true;
+
+            Debug.DrawLine(transform.ValueRO.Position, movementTarget, Color.cyan);
         }
     }
 }

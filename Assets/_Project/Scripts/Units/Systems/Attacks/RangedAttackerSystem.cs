@@ -10,8 +10,8 @@ partial struct RangedAttackerSystem : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        foreach ((RefRW<AttackerData> attacker, RefRO<RangedAttackerData> rangedAttacker, RefRO<TeamData> team, RefRO<LocalTransform> localTransform, Entity entity) in
-            SystemAPI.Query<RefRW<AttackerData>, RefRO<RangedAttackerData>, RefRO<TeamData>, RefRO<LocalTransform>>().WithEntityAccess())
+        foreach ((RefRW<AttackerData> attacker, RefRO<RangedAttackerData> rangedAttacker, RefRO<TeamData> team, RefRW<LocalTransform> localTransform, Entity entity) in
+            SystemAPI.Query<RefRW<AttackerData>, RefRO<RangedAttackerData>, RefRO<TeamData>, RefRW<LocalTransform>>().WithEntityAccess())
         {
             if (attacker.ValueRO.Timer >= attacker.ValueRO.Cooldown)
             {
@@ -29,6 +29,7 @@ partial struct RangedAttackerSystem : ISystem
                         int otherUnitTeam = SystemAPI.GetComponent<TeamData>(unit.Entity).Value;
                         if (unit.Entity != entity && team.ValueRO.Value != otherUnitTeam)
                         {
+                            localTransform.ValueRW.Rotation = quaternion.LookRotationSafe(unit.Position - localTransform.ValueRO.Position, math.up());
                             Entity projectile = state.EntityManager.Instantiate(rangedAttacker.ValueRO.Projectile);
                             float3 forwardPosition = localTransform.ValueRO.Position + localTransform.ValueRO.Forward() + math.up() * 1.5f;
                             quaternion rotation = quaternion.LookRotationSafe(localTransform.ValueRO.Forward(), math.up());
@@ -36,6 +37,7 @@ partial struct RangedAttackerSystem : ISystem
                             attacker.ValueRW.Timer = 0;
                             attacker.ValueRW.IsAttacking = true;
                             attacker.ValueRW.AttackAnimTrigger = true;
+                            break;
                         }
                     }
                 }
