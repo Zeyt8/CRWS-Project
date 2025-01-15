@@ -58,6 +58,7 @@ partial struct LeaderPathfindingSystem : ISystem
             float3 movementTarget = pathBuffer[pf.ValueRO.CurrentPathIndex].Position;
             float3 direction = math.normalize(movementTarget - transform.ValueRO.Position);
 
+            movementTarget.y = transform.ValueRO.Position.y;
             if (math.distance(transform.ValueRO.Position, movementTarget) < 0.01f)
                 pf.ValueRW.CurrentPathIndex++;
 

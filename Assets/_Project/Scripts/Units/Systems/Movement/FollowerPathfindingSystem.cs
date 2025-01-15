@@ -27,15 +27,19 @@ partial struct FollowerPathfindingSystem : ISystem
         _leaders.Update(ref state);
         var physicsWorld = SystemAPI.GetSingleton<PhysicsWorldSingleton>();
 
+        var entityStorageInfoLookup = state.GetEntityStorageInfoLookup();
+
         var job = new FollowerPathfindingJob
         {
             PhysicsWorld = physicsWorld,
             DeltaTime = SystemAPI.Time.DeltaTime,
             Transforms = _transforms,
-            Leaders = _leaders
+            Leaders = _leaders,
+            EntityStorageInfoLookup = entityStorageInfoLookup
         };
 
         state.Dependency = job.ScheduleParallel(state.Dependency);
+        state.Dependency.Complete();
     }
 
     [BurstCompile]
@@ -45,6 +49,7 @@ partial struct FollowerPathfindingSystem : ISystem
         [ReadOnly] public float DeltaTime;
         [ReadOnly] public ComponentLookup<LocalTransform> Transforms;
         [ReadOnly] public ComponentLookup<LeaderPathfinding> Leaders;
+        [ReadOnly] public EntityStorageInfoLookup EntityStorageInfoLookup;
         private const float AvoidanceDistance = 5f; //lenght of ray cast (both thick and others)
         private const float BoundsRadius = 3f; //how thick the first one is, (might need to increase)
         private const float TargetWeight = 1f;
@@ -53,16 +58,25 @@ partial struct FollowerPathfindingSystem : ISystem
         private const float TerrainAvoidanceWeight = 15f;
         private const float oppositeAvoidForce = 10f;
 
-        public void Execute(in LocalTransform selfTransform, in FollowerPathfinding pf, ref MovementData movement, in TeamData team, Entity entity)
+        public void Execute(in LocalTransform selfTransform, in FollowerPathfinding pf, ref MovementData movement, in TeamData team, in EnemyBaseReference ebr, Entity entity)
         {
-            LeaderPathfinding leader = Leaders.GetRefRO(pf.Leader).ValueRO;
-            float3 leaderPosition = Transforms.GetRefRO(pf.Leader).ValueRO.Position;
-            float3 targetPosition = leaderPosition + pf.FormationOffset;
+            float3 targetPosition;
+            LeaderPathfinding? leader = null;
+            if (EntityStorageInfoLookup.Exists(pf.Leader))
+            {
+                leader = Leaders.GetRefRO(pf.Leader).ValueRO;
+                float3 leaderPosition = Transforms.GetRefRO(pf.Leader).ValueRO.Position;
+                targetPosition = leaderPosition + pf.FormationOffset;
+            }
+            else
+            {
+                targetPosition = ebr.Location;
+            }
             
             float3 dir = targetPosition - selfTransform.Position;
             if (math.length(dir) < 0.01f)
             {
-                if (!leader.IsMoving)
+                if (leader.HasValue && !leader.Value.IsMoving)
                 {
                     movement.IsMoving = false;
                     movement.DesiredVelocity = 0;
