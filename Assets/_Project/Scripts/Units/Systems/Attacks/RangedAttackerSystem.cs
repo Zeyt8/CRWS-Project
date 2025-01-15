@@ -5,6 +5,9 @@ using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Transforms;
 
+[UpdateInGroup(typeof(MovementSystemGroup))]
+[UpdateAfter(typeof(LeaderPathfindingSystem))]
+[UpdateAfter(typeof(FollowerPathfindingSystem))]
 partial struct RangedAttackerSystem : ISystem
 {
     [BurstCompile]
@@ -26,10 +29,14 @@ partial struct RangedAttackerSystem : ISystem
                 {
                     foreach (DistanceHit unit in hits)
                     {
+                        if (!SystemAPI.HasComponent<TeamData>(unit.Entity))
+                            continue;
                         int otherUnitTeam = SystemAPI.GetComponent<TeamData>(unit.Entity).Value;
                         if (unit.Entity != entity && team.ValueRO.Value != otherUnitTeam)
                         {
-                            localTransform.ValueRW.Rotation = quaternion.LookRotationSafe(unit.Position - localTransform.ValueRO.Position, math.up());
+                            float3 dir = unit.Position - localTransform.ValueRO.Position;
+                            dir.y = 0;
+                            localTransform.ValueRW.Rotation = quaternion.LookRotationSafe(dir, math.up());
                             Entity projectile = state.EntityManager.Instantiate(rangedAttacker.ValueRO.Projectile);
                             float3 forwardPosition = localTransform.ValueRO.Position + localTransform.ValueRO.Forward() + math.up() * 1.5f;
                             quaternion rotation = quaternion.LookRotationSafe(localTransform.ValueRO.Forward(), math.up());

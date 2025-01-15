@@ -12,12 +12,14 @@ partial struct FollowerPathfindingSystem : ISystem
 {
     private ComponentLookup<LocalTransform> _transforms;
     private ComponentLookup<LeaderPathfinding> _leaders;
+    private ComponentLookup<TeamData> _teams;
 
     [BurstCompile]
     public void OnCreate(ref SystemState state)
     {
         _transforms = state.GetComponentLookup<LocalTransform>(true);
         _leaders = state.GetComponentLookup<LeaderPathfinding>(true);
+        _teams = state.GetComponentLookup<TeamData>(true);
     }
 
     [BurstCompile]
@@ -25,9 +27,8 @@ partial struct FollowerPathfindingSystem : ISystem
     {
         _transforms.Update(ref state);
         _leaders.Update(ref state);
+        _teams.Update(ref state);
         var physicsWorld = SystemAPI.GetSingleton<PhysicsWorldSingleton>();
-
-        var entityStorageInfoLookup = state.GetEntityStorageInfoLookup();
 
         var job = new FollowerPathfindingJob
         {
@@ -35,7 +36,7 @@ partial struct FollowerPathfindingSystem : ISystem
             DeltaTime = SystemAPI.Time.DeltaTime,
             Transforms = _transforms,
             Leaders = _leaders,
-            EntityStorageInfoLookup = entityStorageInfoLookup
+            Teams = _teams
         };
 
         state.Dependency = job.ScheduleParallel(state.Dependency);
@@ -49,7 +50,7 @@ partial struct FollowerPathfindingSystem : ISystem
         [ReadOnly] public float DeltaTime;
         [ReadOnly] public ComponentLookup<LocalTransform> Transforms;
         [ReadOnly] public ComponentLookup<LeaderPathfinding> Leaders;
-        [ReadOnly] public EntityStorageInfoLookup EntityStorageInfoLookup;
+        [ReadOnly] public ComponentLookup<TeamData> Teams;
         private const float AvoidanceDistance = 5f; //lenght of ray cast (both thick and others)
         private const float BoundsRadius = 3f; //how thick the first one is, (might need to increase)
         private const float TargetWeight = 1f;
@@ -62,21 +63,53 @@ partial struct FollowerPathfindingSystem : ISystem
         {
             float3 targetPosition;
             LeaderPathfinding? leader = null;
-            if (EntityStorageInfoLookup.Exists(pf.Leader))
+            NativeList<DistanceHit> hits = new NativeList<DistanceHit>(100, Allocator.Temp);
+            CollisionFilter filter = new CollisionFilter()
+            {
+                BelongsTo = 1 << 3,
+                CollidesWith = 1 << 0
+            };
+            PhysicsWorld.OverlapSphere(selfTransform.Position, pf.ViewRadius, ref hits, filter);
+            if (Leaders.HasComponent(pf.Leader))
             {
                 leader = Leaders.GetRefRO(pf.Leader).ValueRO;
                 float3 leaderPosition = Transforms.GetRefRO(pf.Leader).ValueRO.Position;
-                targetPosition = leaderPosition + pf.FormationOffset;
+                quaternion leaderRotation = Transforms.GetRefRO(pf.Leader).ValueRO.Rotation;
+                float3 rotatedFormationOffset = math.rotate(leaderRotation, pf.FormationOffset);
+                targetPosition = leaderPosition + rotatedFormationOffset;
             }
             else
             {
+                Debug.Log("No leader found");
                 targetPosition = ebr.Location;
             }
-            
+            bool chargingEnemy = false;
+            if (hits.Length > 1)
+            {
+                float minDistance = float.MaxValue;
+                foreach (DistanceHit hit in hits)
+                {
+                    if (!Teams.HasComponent(hit.Entity))
+                        continue;
+                    TeamData otherTeam = Teams.GetRefRO(hit.Entity).ValueRO;
+                    if (team.Value != otherTeam.Value)
+                    {
+                        float dist = math.distance(selfTransform.Position, hit.Position);
+                        if (dist < minDistance)
+                        {
+                            minDistance = dist;
+                            targetPosition = hit.Position;
+                            movement.DesiredVelocity = 1f;
+                            chargingEnemy = true;
+                        }
+                    }
+                }
+            }
+
             float3 dir = targetPosition - selfTransform.Position;
             if (math.length(dir) < 0.01f)
             {
-                if (leader.HasValue && !leader.Value.IsMoving)
+                if ((leader.HasValue && !leader.Value.IsMoving) || chargingEnemy)
                 {
                     movement.IsMoving = false;
                     movement.DesiredVelocity = 0;
@@ -88,14 +121,6 @@ partial struct FollowerPathfindingSystem : ISystem
                 dir = math.normalize(dir) * TargetWeight;
             }
 
-            NativeList<DistanceHit> hits = new NativeList<DistanceHit>(100, Allocator.Temp);
-            CollisionFilter filter = new CollisionFilter()
-            {
-                BelongsTo = 1 << 3,
-                CollidesWith = 1 << 0
-            };
-
-            PhysicsWorld.OverlapSphere(selfTransform.Position, pf.ViewRadius, ref hits, filter);
             if (hits.Length > 1)
             {
                 float3 alignmentDir = float3.zero;
@@ -103,7 +128,10 @@ partial struct FollowerPathfindingSystem : ISystem
 
                 foreach (DistanceHit hit in hits)
                 {
-                    if (hit.Entity != entity)
+                    if (!Teams.HasComponent(hit.Entity))
+                        continue;
+                    TeamData otherTeam = Teams.GetRefRO(hit.Entity).ValueRO;
+                    if (hit.Entity != entity && team.Value == otherTeam.Value)
                     {
                         LocalTransform otherTransform = Transforms.GetRefRO(hit.Entity).ValueRO;
                         float3 offset = otherTransform.Position - selfTransform.Position;

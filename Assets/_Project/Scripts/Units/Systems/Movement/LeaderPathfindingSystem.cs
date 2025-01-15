@@ -26,14 +26,21 @@ partial struct LeaderPathfindingSystem : ISystem
             SystemAPI.GetSingleton<PhysicsWorldSingleton>().OverlapSphere(transform.ValueRO.Position, attacker.ValueRO.AggroRange, ref hits, filter);
             if (hits.Length > 1)
             {
+                float minDistance = float.MaxValue;
                 foreach (DistanceHit hit in hits)
                 {
+                    if (!SystemAPI.HasComponent<TeamData>(hit.Entity))
+                        continue;
                     TeamData otherTeam = SystemAPI.GetComponent<TeamData>(hit.Entity);
                     if (otherTeam.Value != team.ValueRO.Value)
                     {
-                        targetPosition = hit.Position;
-                        movement.ValueRW.DesiredVelocity = 1f;
-                        break;
+                        float dist = math.distance(transform.ValueRO.Position, hit.Position);
+                        if (dist < minDistance)
+                        {
+                            minDistance = dist;
+                            targetPosition = hit.Position;
+                            movement.ValueRW.DesiredVelocity = 1f;
+                        }
                     }
                 }
             }

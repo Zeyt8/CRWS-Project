@@ -7,6 +7,8 @@ using UnityEngine;
 [UpdateInGroup(typeof(MovementSystemGroup))]
 [UpdateAfter(typeof(LeaderPathfindingSystem))]
 [UpdateAfter(typeof(FollowerPathfindingSystem))]
+[UpdateAfter(typeof(MeleeAttackerSystem))]
+[UpdateAfter(typeof(RangedAttackerSystem))]
 partial struct UnitMovementSystem : ISystem
 {
     [BurstCompile]

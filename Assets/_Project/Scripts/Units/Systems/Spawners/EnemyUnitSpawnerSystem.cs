@@ -34,7 +34,7 @@ partial struct EnemyUnitSpawnerSystem : ISystem
 
                 // Update spawner
                 unitSpawner.Count -= unit.Count;
-
+                
                 SystemAPI.SetSingleton(unitSpawner);
             }
         }
