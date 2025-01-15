@@ -31,7 +31,7 @@ partial struct MeleeAttackerSystem : ISystem
                             HealthData otherUnitHealth = SystemAPI.GetComponent<HealthData>(unit.Entity);
                             otherUnitHealth.Value -= meleeAttacker.ValueRO.Damage;
                             SystemAPI.SetComponent(unit.Entity, otherUnitHealth);
-                            attacker.ValueRW.Timer -= attacker.ValueRO.Cooldown;
+                            attacker.ValueRW.Timer = 0;
                             attacker.ValueRW.IsAttacking = true;
                             attacker.ValueRW.AttackAnimTrigger = true;
                             break;

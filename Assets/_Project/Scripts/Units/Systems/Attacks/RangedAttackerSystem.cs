@@ -33,7 +33,7 @@ partial struct RangedAttackerSystem : ISystem
                             float3 forwardPosition = localTransform.ValueRO.Position + localTransform.ValueRO.Forward() + math.up() * 1.5f;
                             quaternion rotation = quaternion.LookRotationSafe(localTransform.ValueRO.Forward(), math.up());
                             state.EntityManager.SetComponentData(projectile, LocalTransform.FromPositionRotation(forwardPosition, rotation));
-                            attacker.ValueRW.Timer -= attacker.ValueRO.Cooldown;
+                            attacker.ValueRW.Timer = 0;
                             attacker.ValueRW.IsAttacking = true;
                             attacker.ValueRW.AttackAnimTrigger = true;
                         }
