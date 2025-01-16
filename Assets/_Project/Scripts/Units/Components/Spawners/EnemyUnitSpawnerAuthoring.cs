@@ -1,6 +1,7 @@
 using Unity.Entities;
 using UnityEngine;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 public class EnemyUnitSpawnerAuthoring : MonoBehaviour
 {
@@ -37,7 +38,7 @@ public class EnemyUnitSpawnerAuthoring : MonoBehaviour
 
 public struct EnemyUnitSpawner : IComponentData
 {
-    public Unity.Mathematics.float2 SpawnBounds;
+    [ReadOnly(true)] public Unity.Mathematics.float2 SpawnBounds;
     public Unity.Mathematics.Random Random;
     public int Count;
 }

@@ -15,10 +15,15 @@ partial struct UnitAnimationSystem : ISystem
     [BurstCompile]
     partial struct UnitAnimationJob : IJobEntity
     {
-        public void Execute(MecanimAspect anim, in MovementData mov)
+        public void Execute(MecanimAspect anim, in MovementData mov, ref AttackerData attacker)
         {
             anim.SetBool("IsMoving", mov.IsMoving);
             anim.SetFloat("Velocity", mov.CurrentVelocity);
+            if (attacker.AttackAnimTrigger)
+            {
+                anim.SetTrigger("Attack");
+                attacker.AttackAnimTrigger = false;
+            }
         }
     }
 }

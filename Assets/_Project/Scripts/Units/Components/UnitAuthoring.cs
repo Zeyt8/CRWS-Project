@@ -11,9 +11,6 @@ public class UnitAuthoring : MonoBehaviour
     public float Acceleration = 10f;
     [Header("Health")]
     public float Health = 5f;
-    [Header("Attack")]
-    public float AttackStrength = 5f;
-    public float AttackRange = 5f;
 
     public class Baker : Baker<UnitAuthoring>
     {
@@ -43,6 +40,7 @@ public struct LeaderPathfinding : IComponentData
 {
     public int CurrentPathIndex;
     public float3 Target;
+    public bool IsMoving;
 }
 
 public struct FollowerPathfinding : IComponentData

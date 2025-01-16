@@ -77,7 +77,7 @@ public class PlayerObject : MonoBehaviour
             UnitSpawner unitSpawner = entityManager.GetComponentData<UnitSpawner>(unitSpawnerEntity);
 
             unitSpawner.UnitToSpawn = _unitToSpawn;
-            unitSpawner.SpawnPosition = new float3(pos.x, -0.5f, pos.z);
+            unitSpawner.SpawnPosition = new float3(pos.x, 0, pos.z);
             entityManager.SetComponentData(unitSpawnerEntity, unitSpawner);
 
             _currentMoney -= _unitCosts[(int)_unitToSpawn];

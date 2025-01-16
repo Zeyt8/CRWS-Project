@@ -546,8 +546,8 @@ Transform:
   m_GameObject: {fileID: 311545499}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.4, z: -95}
-  m_LocalScale: {x: 16, y: 1, z: 4}
+  m_LocalPosition: {x: 0, y: 0.5, z: -95}
+  m_LocalScale: {x: 160, y: 1, z: 40}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -578,8 +578,6 @@ MonoBehaviour:
   - {fileID: 7848394168336743059, guid: ea52cdc281c9a6f4597d4914e32cf491, type: 3}
   - {fileID: 2983736419166168061, guid: 0bbc7ef6bb01ece478d0aa61502232ed, type: 3}
   UnitGroupCount: 080000000c000000040000000c0000000200000008000000080000000000000008000000000000000c00000008000000
-  SpawnWidth: 20
-  SpawnLength: 80
 --- !u!23 &311545503
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -632,7 +630,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 311545499}
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!64 &311545505
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -654,7 +652,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &400562032 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3455376343247692246, guid: be742898cbc53b141b795a4cfa43dcb4, type: 3}
@@ -1430,7 +1428,7 @@ MonoBehaviour:
   - {fileID: 2983736419166168061, guid: 0bbc7ef6bb01ece478d0aa61502232ed, type: 3}
   UnitGroupCount: 080000000c000000040000000c0000000200000008000000080000000000000008000000000000000c00000008000000
   SpawnBounds: {x: 80, y: 10}
-  Count: 50
+  Count: 200
 --- !u!4 &1045087738
 Transform:
   m_ObjectHideFlags: 0
@@ -1663,7 +1661,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3942704606515005957, guid: be742898cbc53b141b795a4cfa43dcb4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3942704606515005957, guid: be742898cbc53b141b795a4cfa43dcb4, type: 3}
       propertyPath: m_LocalPosition.z
