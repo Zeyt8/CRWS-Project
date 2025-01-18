@@ -21,7 +21,7 @@ partial struct MeleeAttackerSystem : ISystem
                 NativeList<DistanceHit> hits = new NativeList<DistanceHit>(100, Allocator.Temp);
                 CollisionFilter filter = new CollisionFilter()
                 {
-                    BelongsTo = 1 << 3,
+                    BelongsTo = ~0u,
                     CollidesWith = 1 << 0
                 };
                 SystemAPI.GetSingleton<PhysicsWorldSingleton>().OverlapSphere(localTransform.ValueRO.Position, meleeAttacker.ValueRO.Range, ref hits, filter);

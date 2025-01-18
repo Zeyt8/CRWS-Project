@@ -3,6 +3,7 @@ using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
+using UnityEngine;
 
 partial struct EnemyUnitSpawnerSystem : ISystem
 {
@@ -24,7 +25,8 @@ partial struct EnemyUnitSpawnerSystem : ISystem
                 Entity spawnerEntity = SystemAPI.GetSingletonEntity<EnemyUnitSpawner>();
                 // Spawn Unit
                 DynamicBuffer<UnitPrefabBufferElement> unitPrefabsBuffer = state.EntityManager.GetBuffer<UnitPrefabBufferElement>(spawnerEntity);
-                UnitPrefabBufferElement unit = unitPrefabsBuffer[unitSpawner.Random.NextInt(0, 12)];
+                int unitToSpawn = unitSpawner.Random.NextInt(0, 12);
+                UnitPrefabBufferElement unit = unitPrefabsBuffer[unitToSpawn];
 
                 // Set spawn position
                 float3 basePos = SystemAPI.GetComponent<LocalTransform>(spawnerEntity).Position;
