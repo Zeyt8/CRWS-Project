@@ -98,6 +98,11 @@ MonoBehaviour:
   TurningSpeed: 0.5
   Acceleration: 10
   Health: 5
+  Regen: 0
+  SlashResistance: 0.2
+  PierceResistance: 0.2
+  BluntResistance: 0.2
+  MagicResistance: 0
 --- !u!114 &2133721370959809417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,6 +120,7 @@ MonoBehaviour:
   Cooldown: 1
   AttackDuration: 1
   AggroRange: 20
+  AttackType: 2
 --- !u!114 &-8306397758237449058
 MonoBehaviour:
   m_ObjectHideFlags: 0

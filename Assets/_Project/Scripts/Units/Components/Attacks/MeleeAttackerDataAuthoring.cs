@@ -8,6 +8,7 @@ public class MeleeAttackerDataAuthoring : MonoBehaviour
     public float Cooldown;
     public float AttackDuration;
     public float AggroRange;
+    public DamageType AttackType;
 
     public class Baker : Baker<MeleeAttackerDataAuthoring>
     {
@@ -25,6 +26,7 @@ public class MeleeAttackerDataAuthoring : MonoBehaviour
                 Timer = 0,
                 AttackDuration = authoring.AttackDuration,
                 AggroRange = authoring.AggroRange,
+                AttackType = authoring.AttackType,
                 IsAttacking = false,
                 AttackAnimTrigger = false
             });

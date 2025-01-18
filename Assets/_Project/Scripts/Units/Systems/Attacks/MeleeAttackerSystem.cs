@@ -37,9 +37,11 @@ partial struct MeleeAttackerSystem : ISystem
                             float3 dir = unit.Position - localTransform.ValueRO.Position;
                             dir.y = 0;
                             localTransform.ValueRW.Rotation = quaternion.LookRotationSafe(dir, math.up());
-                            HealthData otherUnitHealth = SystemAPI.GetComponent<HealthData>(unit.Entity);
-                            otherUnitHealth.Value -= meleeAttacker.ValueRO.Damage;
-                            SystemAPI.SetComponent(unit.Entity, otherUnitHealth);
+                            state.EntityManager.AddComponentData(unit.Entity, new DamageInstanceData
+                            {
+                                Value = meleeAttacker.ValueRO.Damage,
+                                Type = attacker.ValueRO.AttackType
+                            });
                             attacker.ValueRW.Timer = 0;
                             attacker.ValueRW.IsAttacking = true;
                             attacker.ValueRW.AttackAnimTrigger = true;

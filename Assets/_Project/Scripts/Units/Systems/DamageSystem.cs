@@ -3,18 +3,16 @@ using Unity.Collections;
 using Unity.Entities;
 
 [UpdateInGroup(typeof(DamageSystemGroup))]
-[UpdateAfter(typeof(DamageSystem))]
-partial struct HealthSystem : ISystem
+partial struct DamageSystem : ISystem
 {
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
         EntityCommandBuffer ecb = new EntityCommandBuffer(Allocator.TempJob);
 
-        HealthJob job = new HealthJob
+        DamageJob job = new DamageJob
         {
             ECB = ecb.AsParallelWriter(),
-            DeltaTime = SystemAPI.Time.DeltaTime
         };
 
         state.Dependency = job.ScheduleParallel(state.Dependency);
@@ -25,18 +23,13 @@ partial struct HealthSystem : ISystem
     }
 
     [BurstCompile]
-    private partial struct HealthJob : IJobEntity
+    private partial struct DamageJob : IJobEntity
     {
         public EntityCommandBuffer.ParallelWriter ECB;
-        public float DeltaTime;
 
-        public void Execute([EntityIndexInQuery] int entityInQueryIndex, ref HealthData health, Entity entity)
+        public void Execute([EntityIndexInQuery] int entityInQueryIndex, in DamageInstanceData damage, ref HealthData health, in ArmourData armour, Entity entity)
         {
-            if (health.Value <= 0)
-            {
-                ECB.DestroyEntity(entityInQueryIndex, entity);
-            }
-            health.Value += health.Regen * DeltaTime;
+
         }
     }
 }
