@@ -48,7 +48,6 @@ partial struct LeaderPathfindingSystem : ISystem
             // Recalculate path if target has changed
             if (!pf.ValueRO.Target.Equals(targetPosition))
             {
-                Debug.Log("Path buffer recalculating");
                 pf.ValueRW.Target = targetPosition;
                 NavMeshUtility.CalculatePath(transform.ValueRO.Position, targetPosition, pathBuffer);
                 pf.ValueRW.CurrentPathIndex = 1;

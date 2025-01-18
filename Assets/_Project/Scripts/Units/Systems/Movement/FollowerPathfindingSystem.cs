@@ -80,7 +80,6 @@ partial struct FollowerPathfindingSystem : ISystem
             }
             else
             {
-                Debug.Log("No leader found");
                 targetPosition = ebr.Location;
             }
             bool chargingEnemy = false;
