@@ -31,7 +31,7 @@ partial struct EnemyUnitSpawnerSystem : ISystem
                 float3 basePos = SystemAPI.GetComponent<LocalTransform>(spawnerEntity).Position;
                 basePos.x += unitSpawner.Random.NextFloat(-unitSpawner.SpawnBounds.x, unitSpawner.SpawnBounds.x);
                 basePos.z += unitSpawner.Random.NextFloat(-unitSpawner.SpawnBounds.y, unitSpawner.SpawnBounds.y);
-                SpawnFormation(ref state, unit, basePos, 1);
+                SpawnFormation(ref state, unit, basePos, 1, (UnitTypes)unitToSpawn);
 
                 // Update spawner
                 unitSpawner.Count -= unit.Count;
@@ -42,7 +42,7 @@ partial struct EnemyUnitSpawnerSystem : ISystem
     }
 
     [BurstCompile]
-    private void SpawnFormation(ref SystemState state, UnitPrefabBufferElement unit, float3 basePos, int team)
+    private void SpawnFormation(ref SystemState state, UnitPrefabBufferElement unit, float3 basePos, int team, UnitTypes type)
     {
         Entity prefabElement = unit.UnitPrefabEntity;
         int count = unit.Count;
@@ -65,6 +65,10 @@ partial struct EnemyUnitSpawnerSystem : ISystem
         {
             Value = team,
         });
+        ecb.AddComponent(leader, new UnitTypeData
+        {
+            Value = type,
+        });
         SystemAPI.SetComponent(leader, LocalTransform.FromPosition(basePos));
 
         for (int i = 0; i < count; i++)
@@ -83,6 +87,10 @@ partial struct EnemyUnitSpawnerSystem : ISystem
             ecb.AddComponent(follower, new TeamData
             {
                 Value = team,
+            });
+            ecb.AddComponent(follower, new UnitTypeData
+            {
+                Value = type,
             });
             SystemAPI.SetComponent(follower, LocalTransform.FromPosition(pos));
         }

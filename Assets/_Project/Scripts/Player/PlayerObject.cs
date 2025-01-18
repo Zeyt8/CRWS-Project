@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using Unity.Physics;
 using Unity.Collections;
+using System.Xml.Linq;
 
 public class PlayerObject : MonoBehaviour
 {
@@ -74,8 +75,7 @@ public class PlayerObject : MonoBehaviour
             Filter = new CollisionFilter()
             {
                 BelongsTo = ~0u,
-                CollidesWith = 1 << 3, // all 1s, so all layers, collide with everything
-                GroupIndex = 0
+                CollidesWith = 1 << 3
             }
         };
 
@@ -89,7 +89,7 @@ public class PlayerObject : MonoBehaviour
             UnitSpawner unitSpawner = entityManager.GetComponentData<UnitSpawner>(unitSpawnerEntity);
 
             unitSpawner.UnitToSpawn = _unitToSpawn;
-            unitSpawner.SpawnPosition = new float3(pos.x, 0, pos.z);
+            unitSpawner.SpawnPosition = new float3(pos.x, pos.y, pos.z);
             entityManager.SetComponentData(unitSpawnerEntity, unitSpawner);
 
             _currentMoney -= _unitCosts[(int)_unitToSpawn];

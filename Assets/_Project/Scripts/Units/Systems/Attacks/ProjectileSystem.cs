@@ -46,26 +46,32 @@ partial struct ProjectileSystem : ISystem
     private struct CollisionJob : ICollisionEventsJob
     {
         [ReadOnly] public ComponentLookup<ProjectileInstanceData> ProjectileInstanceLookup;
-        public ComponentLookup<HealthData> HealthLookup;
+        [ReadOnly] public ComponentLookup<HealthData> HealthLookup;
         public EntityCommandBuffer.ParallelWriter CommandBuffer;
 
         public void Execute(CollisionEvent collisionEvent)
         {
-            if (ProjectileInstanceLookup.HasComponent(collisionEvent.EntityA))
+            if (ProjectileInstanceLookup.TryGetComponent(collisionEvent.EntityA, out ProjectileInstanceData projectile))
             {
-                if (HealthLookup.TryGetComponent(collisionEvent.EntityB, out HealthData health))
+                if (HealthLookup.HasComponent(collisionEvent.EntityB))
                 {
-                    health.Value = 0;
-                    HealthLookup[collisionEvent.EntityB] = health;
+                    CommandBuffer.AddComponent(collisionEvent.BodyIndexB, collisionEvent.EntityB, new DamageInstanceData
+                    {
+                        Value = projectile.Damage,
+                        Type = projectile.DamageType
+                    });
                 }
                 CommandBuffer.DestroyEntity(0, collisionEvent.EntityA);
             }
-            if (ProjectileInstanceLookup.HasComponent(collisionEvent.EntityB))
+            if (ProjectileInstanceLookup.TryGetComponent(collisionEvent.EntityB, out projectile))
             {
-                if (HealthLookup.TryGetComponent(collisionEvent.EntityA, out HealthData health))
+                if (HealthLookup.HasComponent(collisionEvent.EntityA))
                 {
-                    health.Value = 0;
-                    HealthLookup[collisionEvent.EntityA] = health;
+                    CommandBuffer.AddComponent(collisionEvent.BodyIndexA, collisionEvent.EntityA, new DamageInstanceData
+                    {
+                        Value = projectile.Damage,
+                        Type = projectile.DamageType
+                    });
                 }
                 CommandBuffer.DestroyEntity(0, collisionEvent.EntityB);
             }

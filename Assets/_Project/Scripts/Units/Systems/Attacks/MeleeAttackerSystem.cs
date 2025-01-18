@@ -10,13 +10,48 @@ using Unity.Transforms;
 [UpdateAfter(typeof(FollowerPathfindingSystem))]
 partial struct MeleeAttackerSystem : ISystem
 {
+    private ComponentLookup<TeamData> _teams;
+
+    [BurstCompile]
+    public void OnCreate(ref SystemState state)
+    {
+        _teams = state.GetComponentLookup<TeamData>(true);
+    }
+
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        foreach ((RefRW<AttackerData> attacker, RefRO<MeleeAttackerData> meleeAttacker, RefRO<TeamData> team, RefRW<LocalTransform> localTransform, Entity entity) in
-            SystemAPI.Query<RefRW<AttackerData>, RefRO<MeleeAttackerData>, RefRO<TeamData>, RefRW<LocalTransform>>().WithEntityAccess())
+        _teams.Update(ref state);
+
+        EntityCommandBuffer ecb = new EntityCommandBuffer(Allocator.TempJob);
+        var physicsWorld = SystemAPI.GetSingleton<PhysicsWorldSingleton>();
+
+        MeleeAttacker job = new MeleeAttacker
         {
-            if (attacker.ValueRO.Timer >= attacker.ValueRO.Cooldown)
+            ECB = ecb.AsParallelWriter(),
+            DeltaTime = SystemAPI.Time.DeltaTime,
+            PhysicsWorld = physicsWorld,
+            Teams = _teams
+        };
+
+        state.Dependency = job.ScheduleParallel(state.Dependency);
+        state.Dependency.Complete();
+
+        ecb.Playback(state.EntityManager);
+        ecb.Dispose();
+    }
+
+    [BurstCompile]
+    private partial struct MeleeAttacker : IJobEntity
+    {
+        public EntityCommandBuffer.ParallelWriter ECB;
+        public float DeltaTime;
+        [ReadOnly] public PhysicsWorldSingleton PhysicsWorld;
+        [ReadOnly] public ComponentLookup<TeamData> Teams;
+
+        public void Execute([EntityIndexInQuery] int entityInQueryIndex, ref AttackerData attacker, in MeleeAttackerData meleeAttacker, in TeamData team, ref LocalTransform localTransform, Entity entity)
+        {
+            if (attacker.Timer >= attacker.Cooldown)
             {
                 NativeList<DistanceHit> hits = new NativeList<DistanceHit>(100, Allocator.Temp);
                 CollisionFilter filter = new CollisionFilter()
@@ -24,36 +59,38 @@ partial struct MeleeAttackerSystem : ISystem
                     BelongsTo = ~0u,
                     CollidesWith = 1 << 0
                 };
-                SystemAPI.GetSingleton<PhysicsWorldSingleton>().OverlapSphere(localTransform.ValueRO.Position, meleeAttacker.ValueRO.Range, ref hits, filter);
+                PhysicsWorld.OverlapSphere(localTransform.Position, meleeAttacker.Range, ref hits, filter);
                 if (hits.Length > 1)
                 {
                     foreach (DistanceHit unit in hits)
                     {
-                        if (!SystemAPI.HasComponent<TeamData>(unit.Entity))
+                        if (!Teams.HasComponent(unit.Entity))
                             continue;
-                        int otherUnitTeam = SystemAPI.GetComponent<TeamData>(unit.Entity).Value;
-                        if (unit.Entity != entity && team.ValueRO.Value != otherUnitTeam)
+                        int otherUnitTeam = Teams.GetRefRO(unit.Entity).ValueRO.Value;
+                        if (unit.Entity != entity && team.Value != otherUnitTeam)
                         {
-                            float3 dir = unit.Position - localTransform.ValueRO.Position;
+                            float3 dir = unit.Position - localTransform.Position;
                             dir.y = 0;
-                            localTransform.ValueRW.Rotation = quaternion.LookRotationSafe(dir, math.up());
-                            HealthData otherUnitHealth = SystemAPI.GetComponent<HealthData>(unit.Entity);
-                            otherUnitHealth.Value -= meleeAttacker.ValueRO.Damage;
-                            SystemAPI.SetComponent(unit.Entity, otherUnitHealth);
-                            attacker.ValueRW.Timer = 0;
-                            attacker.ValueRW.IsAttacking = true;
-                            attacker.ValueRW.AttackAnimTrigger = true;
+                            localTransform.Rotation = quaternion.LookRotationSafe(dir, math.up());
+                            ECB.AddComponent(entityInQueryIndex, unit.Entity, new DamageInstanceData
+                            {
+                                Value = meleeAttacker.Damage,
+                                Type = attacker.AttackType
+                            });
+                            attacker.Timer = 0;
+                            attacker.IsAttacking = true;
+                            attacker.AttackAnimTrigger = true;
                             break;
                         }
                     }
                 }
                 hits.Dispose();
             }
-            if (attacker.ValueRO.Timer >= attacker.ValueRO.AttackDuration)
+            if (attacker.Timer >= attacker.AttackDuration)
             {
-                attacker.ValueRW.IsAttacking = false;
+                attacker.IsAttacking = false;
             }
-            attacker.ValueRW.Timer += SystemAPI.Time.DeltaTime;
+            attacker.Timer += DeltaTime;
         }
     }
 }
