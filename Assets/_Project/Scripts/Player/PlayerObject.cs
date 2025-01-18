@@ -79,13 +79,6 @@ public class PlayerObject : MonoBehaviour
             }
         };
 
-
-        if (Physics.Raycast(ray, out UnityEngine.RaycastHit hit, 500, LayerMask.GetMask("WorldMap")))
-        {
-            UnityEngine.MeshCollider mc = hit.collider as UnityEngine.MeshCollider;
-            mc.GetComponent<MapObject>().SelectRegion(hit.textureCoord);
-        }
-
         if (collisionWorld.CastRay(input, out Unity.Physics.RaycastHit h) && _currentMoney >= _unitCosts[(int)_unitToSpawn])
         {
             Vector3 pos = h.Position;
