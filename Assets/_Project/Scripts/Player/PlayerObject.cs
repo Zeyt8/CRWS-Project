@@ -4,7 +4,6 @@ using Unity.Mathematics;
 using System;
 using System.Collections.Generic;
 using Unity.Physics;
-using Unity.Physics.Systems;
 using Unity.Collections;
 
 public class PlayerObject : MonoBehaviour

@@ -1,6 +1,7 @@
 using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine.AI;
+using UnityEngine;
 
 [InternalBufferCapacity(8)]
 public struct PathBufferElement : IBufferElementData
@@ -13,6 +14,7 @@ public static class NavMeshUtility
     public static void CalculatePath(float3 start, float3 end, DynamicBuffer<PathBufferElement> pathBuffer)
     {
         NavMeshPath navPath = new NavMeshPath();
+        Debug.Log($"{start} {end}");
         if (NavMesh.CalculatePath(start, end, NavMesh.AllAreas, navPath))
         {
             pathBuffer.Clear();
