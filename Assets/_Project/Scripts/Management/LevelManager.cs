@@ -15,8 +15,8 @@ public class LevelManager : MonoBehaviour
     public GameObject panel;
     public Image panelImage;
     public TMP_Text panelText;
-
-    
+    public LevelsFinished levelsFinished;
+    public int levelNum;
 
 
     private void Awake()
@@ -68,7 +68,7 @@ public class LevelManager : MonoBehaviour
             panel.SetActive(true);
             panelImage.color = Color.green;
             panelText.text = "Allied units win!";
-
+            levelsFinished.LevelCompleted(levelNum);
 
             //Debug.Log("Allied units win!");
         }
@@ -78,6 +78,7 @@ public class LevelManager : MonoBehaviour
             panelImage.color = Color.red;
             panelText.text = "Enemy units win!";
             //Debug.Log("enemy units win!");
+            levelsFinished.LevelCompleted(levelNum);
         }
     }
 

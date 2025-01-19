@@ -8,14 +8,15 @@ public class MapObject : MonoBehaviour
     #region Editor Variables
     [SerializeField] private InputHandler _inputHandler;
     [SerializeField] private Button _startButton;
+    [SerializeField] LevelsFinished _levelFinished;
     #endregion
 
     #region Variables
     private Image _image;
     private Texture2D _texture;
     private Color _currentRegionColor;
-    private Dictionary<Color, bool> _regionsDefeated = new Dictionary<Color, bool>();
     private Color regionColor;
+    private int levelIndex;
     #endregion
 
     #region Lifecycle
@@ -49,17 +50,31 @@ public class MapObject : MonoBehaviour
             _currentRegionColor = regionColor;
         }
 
+        
+        
+        if (regionColor == Color.red)
+            levelIndex = 2;
+        else if (regionColor == Color.green)
+            levelIndex = 1;
+        else if (regionColor == Color.blue)
+            levelIndex = 3;
 
-        if (!_regionsDefeated.ContainsKey(_currentRegionColor))
+
+
+        if (_levelFinished.IsLevelCompleted(levelIndex))
         {
-            _regionsDefeated.Add(_currentRegionColor, false);
+            //Add pop up to say level is done;
+            Debug.Log("LEvel complete");
+            _startButton.interactable = false;
+
         }
-        _startButton.interactable = !_regionsDefeated[_currentRegionColor];
-        if (_regionsDefeated[_currentRegionColor])
+        else
         {
-            return;
+            _startButton.interactable = true;
+            _image.material.SetVector("_SelectPosition", mousePos);
         }
-        _image.material.SetVector("_SelectPosition", mousePos);
+
+        
     }
 
     public void StartGame()
@@ -67,17 +82,14 @@ public class MapObject : MonoBehaviour
 
         if (_currentRegionColor == Color.green)
         {
-            Debug.Log("Level 1");
             SceneManager.LoadScene("Level1");
         }
         else if (_currentRegionColor == Color.red)
         {
-            Debug.Log("Level 2");
             SceneManager.LoadScene("Level2");
         }
         else if (_currentRegionColor == Color.blue)
         {
-            Debug.Log("Level 3");
             SceneManager.LoadScene("Level3");
         }
     }
