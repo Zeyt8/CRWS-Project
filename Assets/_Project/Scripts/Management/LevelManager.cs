@@ -2,13 +2,19 @@ using System;
 using UnityEngine;
 using Unity.Entities;
 using Unity.Collections;
-
+using TMPro;
+using UnityEngine.UI;
+using UnityEditor;
+using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     public static Action<int, int> UnitCountUpdated { get; set; } = delegate { };
 
     private EntityManager _entityManager;
     private float _timeSinceLastUpdate;
+    public GameObject panel;
+    public Image panelImage;
+    public TMP_Text panelText;
 
     private void Awake()
     {
@@ -49,11 +55,25 @@ public class LevelManager : MonoBehaviour
 
         if (enemyUnits == 0)
         {
+            panel.SetActive(true);
+            panelImage.color = Color.green;
+            panelText.text = "Allied units win!";
+
+
             Debug.Log("Allied units win!");
         }
         else if (alliedUnits == 0)
         {
-            Debug.Log("Enemy units win!");
+            panel.SetActive(true);
+            panelImage.color = Color.red;
+            panelText.text = "Enemy units win!";
         }
     }
+
+    public void ChangeScene()
+    {
+        panel.SetActive(false);
+        SceneManager.LoadScene("WorldMap");
+    }
+
 }
