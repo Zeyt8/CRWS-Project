@@ -16,6 +16,9 @@ public class LevelManager : MonoBehaviour
     public Image panelImage;
     public TMP_Text panelText;
 
+    
+
+
     private void Awake()
     {
         _entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
@@ -23,6 +26,13 @@ public class LevelManager : MonoBehaviour
 
     void Update()
     {
+        EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
+        EntityQuery queryLevel = entityManager.CreateEntityQuery(typeof(Level));
+
+        Entity levelEntity = queryLevel.GetSingletonEntity();
+        Level level = entityManager.GetComponentData<Level>(levelEntity);
+
+
         if (_timeSinceLastUpdate > 0)
         {
             _timeSinceLastUpdate -= Time.deltaTime;
@@ -53,21 +63,22 @@ public class LevelManager : MonoBehaviour
 
         query.Dispose();
 
-        /*if (enemyUnits == 0)
+        if (level.HasStarted && enemyUnits == 0)
         {
             panel.SetActive(true);
             panelImage.color = Color.green;
             panelText.text = "Allied units win!";
 
 
-            Debug.Log("Allied units win!");
+            //Debug.Log("Allied units win!");
         }
-        else if (alliedUnits == 0)
+        else if(level.Lose && level.HasStarted)
         {
             panel.SetActive(true);
             panelImage.color = Color.red;
             panelText.text = "Enemy units win!";
-        }*/
+            //Debug.Log("enemy units win!");
+        }
     }
 
     public void ChangeScene()

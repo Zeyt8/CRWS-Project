@@ -12,6 +12,11 @@ public class Performance : MonoBehaviour
     private float updateInterval = 10f;
     private int ramSampleCount = 0;
     private float totalRAM;
+    private float maxRAM = 0;
+    private float MPF = 0;
+    private float maxMPF = 0;
+    private float VRAM = 0;
+    private float maxVRAM = 0;
 
     void Update()
     {
@@ -34,7 +39,7 @@ public class Performance : MonoBehaviour
             averageRam = totalRAM / ramSampleCount;
 
             // Update statsText safely
-            UpdateStatsText(averageFPS, convertedMemory, averageRam);
+            UpdateStatsText(averageFPS, averageRam);
 
             // Reset counters for the next interval
             timeElapsed = 0;
@@ -43,12 +48,11 @@ public class Performance : MonoBehaviour
         }
     }
 
-    private void UpdateStatsText(float averageFPS, float memoryUsage, float averageRAM)
+    private void UpdateStatsText(float averageFPS, float averageRAM)
     {
         if (statsText != null)
         {
-            statsText.text = $"Average FPS: {averageFPS:F1}\n" +
-                             $"RAM Usage: {memoryUsage:F1} MB\n" + 
+            statsText.text = $"Average FPS: {averageFPS:F1}\n" + 
                              $"Avg. RAM: {averageRAM:F1} MB";
         }
     }
