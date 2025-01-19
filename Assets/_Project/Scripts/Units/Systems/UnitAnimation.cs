@@ -17,11 +17,11 @@ partial struct UnitAnimationSystem : ISystem
     {
         public void Execute(MecanimAspect anim, in MovementData mov, ref AttackerData attacker)
         {
-            anim.SetBool("IsMoving", mov.IsMoving);
-            anim.SetFloat("Velocity", mov.CurrentVelocity);
+            anim.SetBool(0, mov.IsMoving);
+            anim.SetFloat(2, mov.CurrentVelocity);
             if (attacker.AttackAnimTrigger)
             {
-                anim.SetTrigger("Attack");
+                anim.SetTrigger(3);
                 attacker.AttackAnimTrigger = false;
             }
         }
