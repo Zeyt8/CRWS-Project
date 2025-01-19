@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.bustedbunny.pathfinding": "https://github.com/bustedbunny/Pathfinding.git",
     "com.latios.latiosframework": "https://github.com/Dreaming381/Latios-Framework.git",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.ai.navigation": "2.0.5",

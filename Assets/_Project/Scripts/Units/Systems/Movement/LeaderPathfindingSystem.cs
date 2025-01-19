@@ -4,18 +4,57 @@ using Unity.Mathematics;
 using Unity.Physics;
 using Unity.Transforms;
 using UnityEngine;
+using Unity.Burst;
+using Pathfinding.Aspects;
+using Pathfinding.Components;
 
 [UpdateInGroup(typeof(MovementSystemGroup))]
 partial struct LeaderPathfindingSystem : ISystem
 {
+    private ComponentLookup<TeamData> _teams;
+    private BufferLookup<PathBuffer> _pathBuffers;
+    private PathfinderAspect.Lookup _pathfinderLookup;
+
+    [BurstCompile]
+    public void OnCreate(ref SystemState state)
+    {
+        _teams = state.GetComponentLookup<TeamData>(true);
+        _pathBuffers = state.GetBufferLookup<PathBuffer>(false);
+        _pathfinderLookup = new PathfinderAspect.Lookup(ref state);
+    }
+
+    [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        foreach (
-            (RefRO<LocalTransform> transform, RefRW<LeaderPathfinding> pf, RefRW<MovementData> movement, RefRO<EnemyBaseReference> ebr, DynamicBuffer<PathBufferElement> pathBuffer, RefRO<TeamData> team, RefRO<AttackerData> attacker) in
-            SystemAPI.Query<RefRO<LocalTransform>, RefRW<LeaderPathfinding>, RefRW<MovementData>, RefRO<EnemyBaseReference>, DynamicBuffer<PathBufferElement>, RefRO<TeamData>, RefRO<AttackerData>>())
+        _teams.Update(ref state);
+        _pathBuffers.Update(ref state);
+        _pathfinderLookup.Update(ref state);
+        var physicsWorld = SystemAPI.GetSingleton<PhysicsWorldSingleton>();
+
+        var job = new LeaderPathfindingJob
         {
-            float3 targetPosition = ebr.ValueRO.Location;
-            movement.ValueRW.DesiredVelocity = 0.4f;
+            PhysicsWorld = physicsWorld,
+            Teams = _teams,
+            PathBuffers = _pathBuffers,
+            PathfinderLookup = _pathfinderLookup
+        };
+
+        state.Dependency = job.Schedule(state.Dependency);
+        state.Dependency.Complete();
+    }
+
+    [BurstCompile]
+    private partial struct LeaderPathfindingJob : IJobEntity
+    {
+        [ReadOnly] public PhysicsWorldSingleton PhysicsWorld;
+        [ReadOnly] public ComponentLookup<TeamData> Teams;
+        [ReadOnly] public BufferLookup<PathBuffer> PathBuffers;
+        public PathfinderAspect.Lookup PathfinderLookup;
+
+        public void Execute(in LocalTransform transform, ref LeaderPathfinding pf, ref MovementData movement, in EnemyBaseReference ebr, in TeamData team, in AttackerData attacker, Entity entity)
+        {
+            float3 targetPosition = ebr.Location;
+            movement.DesiredVelocity = 0.4f;
 
             NativeList<DistanceHit> hits = new NativeList<DistanceHit>(100, Allocator.Temp);
             CollisionFilter filter = new CollisionFilter()
@@ -23,57 +62,60 @@ partial struct LeaderPathfindingSystem : ISystem
                 BelongsTo = ~0u,
                 CollidesWith = 1 << 0
             };
-            SystemAPI.GetSingleton<PhysicsWorldSingleton>().OverlapSphere(transform.ValueRO.Position, attacker.ValueRO.AggroRange, ref hits, filter);
+            PhysicsWorld.OverlapSphere(transform.Position, attacker.AggroRange, ref hits, filter);
             if (hits.Length > 1)
             {
                 float minDistance = float.MaxValue;
                 foreach (DistanceHit hit in hits)
                 {
-                    if (!SystemAPI.HasComponent<TeamData>(hit.Entity))
+                    if (!Teams.HasComponent(hit.Entity))
                         continue;
-                    TeamData otherTeam = SystemAPI.GetComponent<TeamData>(hit.Entity);
-                    if (otherTeam.Value != team.ValueRO.Value)
+                    TeamData otherTeam = Teams.GetRefRO(hit.Entity).ValueRO;
+                    if (otherTeam.Value != team.Value)
                     {
-                        float dist = math.distance(transform.ValueRO.Position, hit.Position);
+                        float dist = math.distance(transform.Position, hit.Position);
                         if (dist < minDistance)
                         {
                             minDistance = dist;
                             targetPosition = hit.Position;
-                            movement.ValueRW.DesiredVelocity = 1f;
+                            movement.DesiredVelocity = 1f;
                         }
                     }
                 }
             }
 
             // Recalculate path if target has changed
-            if (!pf.ValueRO.Target.Equals(targetPosition))
+            if (!pf.Target.Equals(targetPosition))
             {
-                pf.ValueRW.Target = targetPosition;
-                NavMeshUtility.CalculatePath(transform.ValueRO.Position, targetPosition, pathBuffer);
-                pf.ValueRW.CurrentPathIndex = 1;
+                var pathfinderAspect = PathfinderLookup[entity];
+                pathfinderAspect.FindPath(transform.Position, targetPosition);
+                pf.CurrentPathIndex = 1;
             }
+
+            var pathBuffer = PathBuffers[entity];
 
             // Traverse path
-            if (pf.ValueRW.CurrentPathIndex >= pathBuffer.Length)
+            if (pf.CurrentPathIndex >= pathBuffer.Length)
             {
-                pf.ValueRW.IsMoving = false;
-                movement.ValueRW.IsMoving = false;
-                movement.ValueRW.DesiredVelocity = 0;
-                continue;
+                pf.IsMoving = false;
+                movement.IsMoving = false;
+                movement.DesiredVelocity = 0;
+                return;
             }
 
-            float3 movementTarget = pathBuffer[pf.ValueRO.CurrentPathIndex].Position;
-            movementTarget.y = NavMeshUtility.SampleHeight(movementTarget);
-            float3 direction = math.normalize(movementTarget - transform.ValueRO.Position);
+            float3 movementTarget = pathBuffer[pf.CurrentPathIndex].position;
+            //movementTarget.y = NavMeshUtility.SampleHeight(movementTarget);
+            movementTarget.y = transform.Position.y;
+            float3 direction = math.normalize(movementTarget - transform.Position);
 
-            if (math.distance(transform.ValueRO.Position, movementTarget) < 0.1f)
-                pf.ValueRW.CurrentPathIndex++;
+            if (math.distance(transform.Position, movementTarget) < 0.1f)
+                pf.CurrentPathIndex++;
 
-            movement.ValueRW.Direction = direction;
-            pf.ValueRW.IsMoving = true;
-            movement.ValueRW.IsMoving = true;
+            movement.Direction = direction;
+            pf.IsMoving = true;
+            movement.IsMoving = true;
 
-            Debug.DrawLine(transform.ValueRO.Position, movementTarget, Color.cyan);
+            Debug.DrawLine(transform.Position, movementTarget, Color.cyan);
         }
     }
 }

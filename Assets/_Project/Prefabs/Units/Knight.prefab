@@ -69,6 +69,9 @@ PrefabInstance:
       addedObject: {fileID: 8132311858542234158}
     - targetCorrespondingSourceObject: {fileID: 100102, guid: 417a287abb2cab94889f1f1ddd91f928, type: 3}
       insertIndex: 2
+      addedObject: {fileID: 6049374209924035228}
+    - targetCorrespondingSourceObject: {fileID: 100102, guid: 417a287abb2cab94889f1f1ddd91f928, type: 3}
+      insertIndex: 3
       addedObject: {fileID: -6736015614680610350}
     - targetCorrespondingSourceObject: {fileID: 100102, guid: 417a287abb2cab94889f1f1ddd91f928, type: 3}
       insertIndex: -1
@@ -103,6 +106,20 @@ MonoBehaviour:
   PierceResistance: 0.2
   BluntResistance: 0.1
   MagicResistance: 0
+--- !u!114 &6049374209924035228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7318604035045327491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8e33fd1df54458cb8245363b1815b44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minDistance: 1
+  agentId: 0
 --- !u!114 &-6736015614680610350
 MonoBehaviour:
   m_ObjectHideFlags: 0
