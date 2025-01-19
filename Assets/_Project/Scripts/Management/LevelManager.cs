@@ -53,7 +53,7 @@ public class LevelManager : MonoBehaviour
 
         query.Dispose();
 
-        if (enemyUnits == 0)
+        /*if (enemyUnits == 0)
         {
             panel.SetActive(true);
             panelImage.color = Color.green;
@@ -67,7 +67,7 @@ public class LevelManager : MonoBehaviour
             panel.SetActive(true);
             panelImage.color = Color.red;
             panelText.text = "Enemy units win!";
-        }
+        }*/
     }
 
     public void ChangeScene()
