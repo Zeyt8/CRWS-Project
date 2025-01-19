@@ -11,6 +11,12 @@ public class UnitAuthoring : MonoBehaviour
     public float Acceleration = 10f;
     [Header("Health")]
     public float Health = 5f;
+    public float Regen = 0f;
+    [Header("Armour")]
+    [Range(0, 1)] public float SlashResistance = 0;
+    [Range(0, 1)] public float PierceResistance = 0;
+    [Range(0, 1)] public float BluntResistance = 0;
+    [Range(0, 1)] public float MagicResistance = 0;
 
     public class Baker : Baker<UnitAuthoring>
     {
@@ -26,7 +32,18 @@ public class UnitAuthoring : MonoBehaviour
                 DesiredVelocity = 0,
                 CurrentVelocity = 0,
             });
-            AddComponent(entity, new HealthData { Value = authoring.Health });
+            AddComponent(entity, new HealthData
+            {
+                Value = authoring.Health,
+                Regen = authoring.Regen
+            });
+            AddComponent(entity, new ArmourData
+            {
+                SlashResistance = authoring.SlashResistance,
+                PierceResistance = authoring.PierceResistance,
+                BluntResistance = authoring.BluntResistance,
+                MagicResistance = authoring.MagicResistance
+            });
         }
     }
 }
@@ -65,9 +82,23 @@ public struct MovementData : IComponentData
 public struct HealthData : IComponentData
 {
     public float Value;
+    public float Regen;
 }
 
 public struct EnemyBaseReference : IComponentData
 {
     public float3 Location;
+}
+
+public struct UnitTypeData : IComponentData
+{
+    public UnitTypes Value;
+}
+
+public struct ArmourData : IComponentData
+{
+    public float SlashResistance;
+    public float PierceResistance;
+    public float BluntResistance;
+    public float MagicResistance;
 }

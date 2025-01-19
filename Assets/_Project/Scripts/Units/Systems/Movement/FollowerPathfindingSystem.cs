@@ -66,7 +66,7 @@ partial struct FollowerPathfindingSystem : ISystem
             NativeList<DistanceHit> hits = new NativeList<DistanceHit>(100, Allocator.Temp);
             CollisionFilter filter = new CollisionFilter()
             {
-                BelongsTo = 1 << 3,
+                BelongsTo = ~0u,
                 CollidesWith = 1 << 0
             };
             PhysicsWorld.OverlapSphere(selfTransform.Position, pf.ViewRadius, ref hits, filter);
@@ -80,7 +80,6 @@ partial struct FollowerPathfindingSystem : ISystem
             }
             else
             {
-                Debug.Log("No leader found");
                 targetPosition = ebr.Location;
             }
             bool chargingEnemy = false;
@@ -180,7 +179,7 @@ partial struct FollowerPathfindingSystem : ISystem
                         End = selfTransform.Position + rayDirection * AvoidanceDistance + new float3(0f, 1f, 0f),
                         Filter = new CollisionFilter()
                         {
-                            BelongsTo = 1 << 3,
+                            BelongsTo = ~0u,
                             CollidesWith = 1 << 2
                         }
                     };

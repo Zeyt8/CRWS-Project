@@ -27,7 +27,7 @@ partial struct UnitSpawnerSystem : ISystem
                 DynamicBuffer<UnitPrefabBufferElement> unitPrefabsBuffer = state.EntityManager.GetBuffer<UnitPrefabBufferElement>(spawnerEntity);
                 UnitPrefabBufferElement unit = unitPrefabsBuffer[(int)unitSpawner.UnitToSpawn];
 
-                SpawnFormation(ref state, unit, unitSpawner.SpawnPosition.Value, 0);
+                SpawnFormation(ref state, unit, unitSpawner.SpawnPosition.Value, 0, unitSpawner.UnitToSpawn);
 
                 unitSpawner.SpawnPosition = null;
                 SystemAPI.SetSingleton(unitSpawner);
@@ -36,7 +36,7 @@ partial struct UnitSpawnerSystem : ISystem
     }
 
     [BurstCompile]
-    private void SpawnFormation(ref SystemState state, UnitPrefabBufferElement unit, float3 basePos, int team)
+    private void SpawnFormation(ref SystemState state, UnitPrefabBufferElement unit, float3 basePos, int team, UnitTypes type)
     {
         Entity prefabElement = unit.UnitPrefabEntity;
         int count = unit.Count;
@@ -59,6 +59,10 @@ partial struct UnitSpawnerSystem : ISystem
         {
             Value = team,
         });
+        ecb.AddComponent(leader, new UnitTypeData
+        {
+            Value = type,
+        });
         SystemAPI.SetComponent(leader, LocalTransform.FromPosition(basePos));
 
         for (int i = 0; i < count; i++)
@@ -77,6 +81,10 @@ partial struct UnitSpawnerSystem : ISystem
             ecb.AddComponent(follower, new TeamData
             {
                 Value = team,
+            });
+            ecb.AddComponent(follower, new UnitTypeData
+            {
+                Value = type,
             });
             SystemAPI.SetComponent(follower, LocalTransform.FromPosition(pos));
         }

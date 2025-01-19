@@ -4,6 +4,7 @@ using UnityEngine;
 public class ProjectileInstaceAuthoring : MonoBehaviour
 {
     public float Damage;
+    public DamageType DamageType;
     public float Speed;
     public float Lifetime;
 
@@ -15,6 +16,7 @@ public class ProjectileInstaceAuthoring : MonoBehaviour
             AddComponent(entity, new ProjectileInstanceData()
             {
                 Damage = src.Damage,
+                DamageType = src.DamageType,
                 Speed = src.Speed,
                 Lifetime = src.Lifetime
             });
@@ -25,6 +27,7 @@ public class ProjectileInstaceAuthoring : MonoBehaviour
 public struct ProjectileInstanceData : IComponentData
 {
     public float Damage;
+    public DamageType DamageType;
     public float Speed;
     public float Lifetime;
 }

@@ -6,6 +6,7 @@ public struct AttackerData : IComponentData
     public float Timer;
     public float AttackDuration;
     public float AggroRange;
+    public DamageType AttackType;
     public bool IsAttacking;
     public bool AttackAnimTrigger;
 }
