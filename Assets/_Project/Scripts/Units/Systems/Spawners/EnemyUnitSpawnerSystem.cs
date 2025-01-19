@@ -53,8 +53,6 @@ partial struct EnemyUnitSpawnerSystem : ISystem
 
         // Spawn leader
         Entity leader = state.EntityManager.Instantiate(prefabElement);
-        if (!SystemAPI.HasBuffer<PathBufferElement>(leader))
-            state.EntityManager.AddBuffer<PathBufferElement>(leader);
         ecb.AddComponent(leader, new LeaderPathfinding
         {
             CurrentPathIndex = 0,
