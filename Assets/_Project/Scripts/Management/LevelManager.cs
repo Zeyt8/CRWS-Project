@@ -69,16 +69,15 @@ public class LevelManager : MonoBehaviour
             panelImage.color = Color.green;
             panelText.text = "Allied units win!";
             levelsFinished.LevelCompleted(levelNum);
-
-            //Debug.Log("Allied units win!");
+            Time.timeScale = 0f;
         }
         else if(level.Lose && level.HasStarted)
         {
             panel.SetActive(true);
             panelImage.color = Color.red;
             panelText.text = "Enemy units win!";
-            //Debug.Log("enemy units win!");
             levelsFinished.LevelCompleted(levelNum);
+            Time.timeScale = 0f;
         }
     }
 

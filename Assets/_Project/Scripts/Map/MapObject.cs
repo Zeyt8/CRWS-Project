@@ -40,6 +40,7 @@ public class MapObject : MonoBehaviour
     #region Public Methods
     public void SelectRegion()
     {
+        Time.timeScale = 1.0f;
         Vector2 mousePos = _inputHandler.MousePosition;
         mousePos.x /= Screen.width;
         mousePos.y /= Screen.height;
