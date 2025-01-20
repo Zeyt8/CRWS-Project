@@ -14,9 +14,6 @@ public class Performance : MonoBehaviour
     private float totalRAM;
     private float maxRAM = 0;
     private float MPF = 0;
-    private float maxMPF = 0;
-    private float VRAM = 0;
-    private float maxVRAM = 0;
 
     void Update()
     {
@@ -24,35 +21,38 @@ public class Performance : MonoBehaviour
         float currentFPS = 1.0f / Time.deltaTime;
         totalFPS += currentFPS;
         frameCount++;
+        MPF = Time.deltaTime * 1000.0f;
 
         timeElapsed += Time.deltaTime;
+        float averageFPS = totalFPS / frameCount;
+        
         if (timeElapsed >= updateInterval)
         {
-
-            // Calculate averages and reset stats
-            float averageFPS = totalFPS / frameCount;
             long allocatedMemory = Profiler.GetTotalReservedMemoryLong();
             float convertedMemory = allocatedMemory / (1024f * 1024f);
+
+            if (convertedMemory > maxRAM)
+                maxRAM = convertedMemory;
 
             totalRAM += convertedMemory;
             ramSampleCount++;
             averageRam = totalRAM / ramSampleCount;
 
-            // Update statsText safely
-            UpdateStatsText(averageFPS, averageRam);
-
-            // Reset counters for the next interval
             timeElapsed = 0;
-            totalFPS = 0;
-            frameCount = 0;
         }
+        
+        UpdateStatsText(averageFPS, averageRam, maxRAM, MPF);
+        totalFPS = 0;
+        frameCount = 0;
     }
 
-    private void UpdateStatsText(float averageFPS, float averageRAM)
+    private void UpdateStatsText(float averageFPS, float averageRAM, float maxRAM, float MPF)
     {
         if (statsText != null)
         {
-            statsText.text = $"Average FPS: {averageFPS:F1}\n" + 
+            statsText.text = $"Average FPS: {averageFPS:F1}\n" +
+                             $"MPF: {MPF:F1}\n" +
+                             $"Max RAM: {maxRAM:F1}\n" +
                              $"Avg. RAM: {averageRAM:F1} MB";
         }
     }
