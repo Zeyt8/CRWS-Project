@@ -1206,7 +1206,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 31.05
+  m_fontSize: 34.55
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1825,7 +1825,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32.55
+  m_fontSize: 34.55
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2319,7 +2319,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32
+  m_fontSize: 34.55
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2577,7 +2577,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18.2
+  m_fontSize: 24.5
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3884,15 +3884,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45a335734b1572644a6a5d09d87adc65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _SceneAsset: {fileID: 102900000, guid: b1a7273dc89eba448a3fe3a2164ba348, type: 3}
+  _SceneAsset: {fileID: 102900000, guid: 76f174b1809a5aa4e936001ae2749639, type: 3}
   _HierarchyColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   AutoLoadScene: 1
   _SceneGUID:
     Value:
-      x: 3547494939
-      y: 1152117132
-      z: 708768680
-      w: 2218439777
+      x: 457645927
+      y: 1252370696
+      z: 2701157278
+      w: 2473150254
 --- !u!4 &1504343662
 Transform:
   m_ObjectHideFlags: 0
@@ -4181,7 +4181,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.26666668
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 52d21c60490df3e47a3b63728bc87f9f, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: f904e95584547f543b73f941d44af4ed, type: 2}
   m_BuildHeightMesh: 1
 --- !u!1 &1816942787
 GameObject:
@@ -4267,7 +4267,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 27.25
+  m_fontSize: 34.55
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
