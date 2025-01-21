@@ -63,7 +63,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - _SelectPosition: {r: 0.5022051, g: 0.011056511, b: 0, a: 0}
+    - _SelectPosition: {r: 0.52680653, g: 0.012285012, b: 0, a: 0}
     - _SelectedRegionColor: {r: 0, g: 0, b: 1, a: 1}
     - _SelectionColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
