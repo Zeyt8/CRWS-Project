@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1e447fc41536174183805f414e152e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementSpeed: 10
+  MovementSpeed: 9
   TurningSpeed: 0.5
   Acceleration: 10
   Health: 5
@@ -137,10 +137,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Projectile: {fileID: 4860554062750913226, guid: 887442ecc16e6d3488eb4cbc6b80fcb1, type: 3}
-  Range: 10
-  Cooldown: 10
+  Range: 5
+  Cooldown: 8
   AttackDuration: 1
-  AggroRange: 0
+  AggroRange: 30
   AttackType: 3
 --- !u!114 &-5852833282123614887
 MonoBehaviour:

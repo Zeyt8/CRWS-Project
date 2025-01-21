@@ -107,7 +107,7 @@ MonoBehaviour:
   Health: 5
   Regen: 0.1
   SlashResistance: 0
-  PierceResistance: 0
+  PierceResistance: 0.1
   BluntResistance: 0
   MagicResistance: 0
 --- !u!114 &1701231757928757795
@@ -140,7 +140,7 @@ MonoBehaviour:
   Range: 1
   Cooldown: 0.5
   AttackDuration: 0.5
-  AggroRange: 20
+  AggroRange: 30
   AttackType: 2
 --- !u!114 &7940492035518197456
 MonoBehaviour:

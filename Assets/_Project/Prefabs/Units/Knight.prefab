@@ -97,10 +97,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1e447fc41536174183805f414e152e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementSpeed: 5
+  MovementSpeed: 4
   TurningSpeed: 0.5
   Acceleration: 10
-  Health: 5
+  Health: 15
   Regen: 0
   SlashResistance: 0.5
   PierceResistance: 0.2
@@ -133,10 +133,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damage: 1
-  Range: 1
-  Cooldown: 1
+  Range: 1.5
+  Cooldown: 1.5
   AttackDuration: 1
-  AggroRange: 20
+  AggroRange: 30
   AttackType: 0
 --- !u!114 &-7273216905028959281
 MonoBehaviour:

@@ -108,7 +108,7 @@ MonoBehaviour:
   MovementSpeed: 6
   TurningSpeed: 0.5
   Acceleration: 10
-  Health: 5
+  Health: 6
   Regen: 0
   SlashResistance: 0
   PierceResistance: 0
@@ -141,10 +141,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Projectile: {fileID: 4860554062750913226, guid: e1a183d2d2fbab44c8d9d9506a86e2dc, type: 3}
-  Range: 5
-  Cooldown: 4
+  Range: 4
+  Cooldown: 2
   AttackDuration: 1
-  AggroRange: 0
+  AggroRange: 30
   AttackType: 1
 --- !u!114 &-3071530337099397018
 MonoBehaviour:

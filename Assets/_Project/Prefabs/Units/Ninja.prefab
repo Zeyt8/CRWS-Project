@@ -108,7 +108,7 @@ MonoBehaviour:
   MovementSpeed: 8
   TurningSpeed: 0.5
   Acceleration: 10
-  Health: 5
+  Health: 6
   Regen: 0
   SlashResistance: 0
   PierceResistance: 0
@@ -141,10 +141,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damage: 1
-  Range: 1
+  Range: 1.5
   Cooldown: 1
   AttackDuration: 1
-  AggroRange: 20
+  AggroRange: 30
   AttackType: 0
 --- !u!114 &2897381319366672456
 MonoBehaviour:

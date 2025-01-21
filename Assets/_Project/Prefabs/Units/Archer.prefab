@@ -145,10 +145,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Projectile: {fileID: 4860554062750913226, guid: 7cb5c1a199d6c54498e9e3c29d45ef50, type: 3}
-  Range: 5
-  Cooldown: 2
+  Range: 6
+  Cooldown: 1
   AttackDuration: 1
-  AggroRange: 0
+  AggroRange: 30
   AttackType: 1
 --- !u!114 &-8346393864674345758
 MonoBehaviour:

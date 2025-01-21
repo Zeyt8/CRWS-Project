@@ -1,14 +1,11 @@
-using System.Diagnostics;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
-using UnityEngine;
 
 partial struct TargetReachSystem : ISystem
 {
-
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
@@ -28,8 +25,6 @@ partial struct TargetReachSystem : ISystem
         {
             level.Lose |= jobResult.Value;
             SystemAPI.SetSingleton<Level>(level);
-            UnityEngine.Debug.Log("Job restul value: " + jobResult.Value);
-            UnityEngine.Debug.Log("Level.lose: " + level.Lose);
         }
             
         jobResult.Dispose();
