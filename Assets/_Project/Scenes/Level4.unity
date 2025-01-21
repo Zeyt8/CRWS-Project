@@ -200,7 +200,7 @@ MonoBehaviour:
   panelImage: {fileID: 1105626132}
   panelText: {fileID: 1872615224}
   levelsFinished: {fileID: 11400000, guid: 121fda757309890409ddeb015e4fe7bf, type: 2}
-  levelNum: 1
+  levelNum: 4
 --- !u!4 &546284463
 Transform:
   m_ObjectHideFlags: 0
@@ -557,15 +557,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45a335734b1572644a6a5d09d87adc65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _SceneAsset: {fileID: 102900000, guid: b1a7273dc89eba448a3fe3a2164ba348, type: 3}
+  _SceneAsset: {fileID: 102900000, guid: 01e06f045d522ab4bac03a96ccef3085, type: 3}
   _HierarchyColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   AutoLoadScene: 1
   _SceneGUID:
     Value:
-      x: 3547494939
-      y: 1152117132
-      z: 708768680
-      w: 2218439777
+      x: 1089867280
+      y: 1268917717
+      z: 1772293291
+      w: 1476656844
 --- !u!4 &1504343662
 Transform:
   m_ObjectHideFlags: 0
@@ -591,12 +591,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1772350912}
   - component: {fileID: 1772350913}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Navmesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1772350912
 Transform:
@@ -643,7 +643,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.26666668
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 52d21c60490df3e47a3b63728bc87f9f, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 8469311fb7157eb4096606c085593beb, type: 2}
   m_BuildHeightMesh: 1
 --- !u!114 &1872615224 stripped
 MonoBehaviour:
