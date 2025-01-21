@@ -49,7 +49,7 @@ public class LatiosBootstrap : ICustomBootstrap
         BootstrapTools.InjectUnitySystems(systems, world, world.simulationSystemGroup);
 
         //Latios.Transforms.TransformsBootstrap.InstallTransforms(world, world.simulationSystemGroup);
-        Latios.Myri.MyriBootstrap.InstallMyri(world);
+        //Latios.Myri.MyriBootstrap.InstallMyri(world);
         Latios.Kinemation.KinemationBootstrap.InstallKinemation(world);
         Latios.Mimic.MimicBootstrap.InstallMecanimAddon(world);
         //Latios.Calligraphics.CalligraphicsBootstrap.InstallCalligraphics(world);
