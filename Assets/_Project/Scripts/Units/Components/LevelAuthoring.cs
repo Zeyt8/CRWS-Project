@@ -11,6 +11,7 @@ public class LevelAuthoring : MonoBehaviour
             AddComponent(entity, new Level
             {
                 HasStarted = false,
+                Lose = false
             });
         }
     }
@@ -19,4 +20,5 @@ public class LevelAuthoring : MonoBehaviour
 public struct Level : IComponentData
 {
     public bool HasStarted;
+    public bool Lose;
 }

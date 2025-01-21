@@ -28,9 +28,15 @@ partial struct EnemyUnitSpawnerSystem : ISystem
                 UnitPrefabBufferElement unit = unitPrefabsBuffer[unitToSpawn];
 
                 // Set spawn position
-                float3 basePos = SystemAPI.GetComponent<LocalTransform>(spawnerEntity).Position;
-                basePos.x += unitSpawner.Random.NextFloat(-unitSpawner.SpawnBounds.x, unitSpawner.SpawnBounds.x);
-                basePos.z += unitSpawner.Random.NextFloat(-unitSpawner.SpawnBounds.y, unitSpawner.SpawnBounds.y);
+                LocalTransform spawnerTransform = SystemAPI.GetComponent<LocalTransform>(spawnerEntity);
+                float3 basePos = spawnerTransform.Position;
+                quaternion rotation = spawnerTransform.Rotation;
+                float3 localOffset = new float3(
+                    unitSpawner.Random.NextFloat(-unitSpawner.SpawnBounds.x, unitSpawner.SpawnBounds.x),
+                    0,
+                    unitSpawner.Random.NextFloat(-unitSpawner.SpawnBounds.y, unitSpawner.SpawnBounds.y)
+                );
+                basePos += math.mul(rotation, localOffset);
                 SpawnFormation(ref state, unit, basePos, 1, (UnitTypes)unitToSpawn);
 
                 // Update spawner
@@ -53,8 +59,6 @@ partial struct EnemyUnitSpawnerSystem : ISystem
 
         // Spawn leader
         Entity leader = state.EntityManager.Instantiate(prefabElement);
-        if (!SystemAPI.HasBuffer<PathBufferElement>(leader))
-            state.EntityManager.AddBuffer<PathBufferElement>(leader);
         ecb.AddComponent(leader, new LeaderPathfinding
         {
             CurrentPathIndex = 0,

@@ -77,6 +77,9 @@ PrefabInstance:
       addedObject: {fileID: 4427704183153597793}
     - targetCorrespondingSourceObject: {fileID: 100102, guid: ec9ce9573683d684aa75013daec3884d, type: 3}
       insertIndex: 2
+      addedObject: {fileID: -1284578424925935659}
+    - targetCorrespondingSourceObject: {fileID: 100102, guid: ec9ce9573683d684aa75013daec3884d, type: 3}
+      insertIndex: 3
       addedObject: {fileID: -7847110806763980572}
     - targetCorrespondingSourceObject: {fileID: 100102, guid: ec9ce9573683d684aa75013daec3884d, type: 3}
       insertIndex: -1
@@ -105,12 +108,26 @@ MonoBehaviour:
   MovementSpeed: 6
   TurningSpeed: 0.5
   Acceleration: 10
-  Health: 5
+  Health: 10
   Regen: 0
   SlashResistance: 0
   PierceResistance: 0
   BluntResistance: 0
   MagicResistance: 0
+--- !u!114 &-1284578424925935659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7848394168336743059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8e33fd1df54458cb8245363b1815b44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minDistance: 1
+  agentId: 0
 --- !u!114 &-7847110806763980572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,10 +141,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damage: 1
-  Range: 1.5
-  Cooldown: 1
+  Range: 2
+  Cooldown: 1.5
   AttackDuration: 1
-  AggroRange: 20
+  AggroRange: 30
   AttackType: 1
 --- !u!114 &-4605617870758013820
 MonoBehaviour:
