@@ -9,12 +9,6 @@ partial struct UnitSpawnerSystem : ISystem
     private const float DISTANCE_IN_FORMATION = 2;
 
     [BurstCompile]
-    public void OnCreate(ref SystemState state)
-    {
-        state.RequireForUpdate<UnitSpawner>();
-    }
-
-    [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
         if (SystemAPI.TryGetSingleton(out UnitSpawner unitSpawner))

@@ -29,9 +29,12 @@ public class LevelManager : MonoBehaviour
         EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
         EntityQuery queryLevel = entityManager.CreateEntityQuery(typeof(Level));
 
+        if (queryLevel.CalculateEntityCount() == 0)
+        {
+            return;
+        }
         Entity levelEntity = queryLevel.GetSingletonEntity();
         Level level = entityManager.GetComponentData<Level>(levelEntity);
-
 
         if (_timeSinceLastUpdate > 0)
         {
