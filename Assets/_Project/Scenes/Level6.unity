@@ -931,7 +931,7 @@ MonoBehaviour:
   panelImage: {fileID: 285185246}
   panelText: {fileID: 285185244}
   levelsFinished: {fileID: 11400000, guid: 121fda757309890409ddeb015e4fe7bf, type: 2}
-  levelNum: 3
+  levelNum: 6
 --- !u!4 &1001348304
 Transform:
   m_ObjectHideFlags: 0
