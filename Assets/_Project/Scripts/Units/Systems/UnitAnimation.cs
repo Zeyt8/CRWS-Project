@@ -2,7 +2,6 @@ using Latios.Mimic.Addons.Mecanim;
 using Unity.Burst;
 using Unity.Entities;
 
-[BurstCompile]
 partial struct UnitAnimationSystem : ISystem
 {
     [BurstCompile]

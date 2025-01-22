@@ -4,6 +4,7 @@ using Unity.Transforms;
 using Unity.Mathematics;
 using Unity.Collections;
 
+[UpdateAfter(typeof(EnemyUnitSpawnerSystem))]
 partial struct UnitSpawnerSystem : ISystem
 {
     private const float DISTANCE_IN_FORMATION = 2;
