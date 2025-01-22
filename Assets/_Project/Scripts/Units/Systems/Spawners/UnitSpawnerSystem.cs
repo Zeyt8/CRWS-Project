@@ -13,13 +13,11 @@ partial struct UnitSpawnerSystem : ISystem
     public void OnUpdate(ref SystemState state)
     {
         EntityCommandBuffer ecb = new EntityCommandBuffer(Allocator.Temp);
-        foreach (RefRW<UnitSpawner> unitSpawner in SystemAPI.Query<RefRW<UnitSpawner>>())
+        foreach ((RefRW<UnitSpawner> unitSpawner, Entity entity) in SystemAPI.Query<RefRW<UnitSpawner>>().WithEntityAccess())
         {
             if (unitSpawner.ValueRO.SpawnPosition.HasValue)
             {
-                Entity spawnerEntity = SystemAPI.GetSingletonEntity<UnitSpawner>();
-
-                DynamicBuffer<UnitPrefabBufferElement> unitPrefabsBuffer = state.EntityManager.GetBuffer<UnitPrefabBufferElement>(spawnerEntity);
+                DynamicBuffer<UnitPrefabBufferElement> unitPrefabsBuffer = state.EntityManager.GetBuffer<UnitPrefabBufferElement>(entity);
                 UnitPrefabBufferElement unit = unitPrefabsBuffer[(int)unitSpawner.ValueRO.UnitToSpawn];
 
                 SpawnFormation(ecb, ref state, unit, unitSpawner.ValueRO.SpawnPosition.Value, 0, unitSpawner.ValueRO.UnitToSpawn);

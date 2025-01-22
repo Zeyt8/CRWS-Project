@@ -13,18 +13,17 @@ partial struct EnemyUnitSpawnerSystem : ISystem
     public void OnUpdate(ref SystemState state)
     {
         EntityCommandBuffer ecb = new EntityCommandBuffer(Allocator.Temp);
-        foreach (RefRW<EnemyUnitSpawner> unitSpawner in SystemAPI.Query<RefRW<EnemyUnitSpawner>>())
+        foreach ((RefRW<EnemyUnitSpawner> unitSpawner, Entity entity) in SystemAPI.Query<RefRW<EnemyUnitSpawner>>().WithEntityAccess())
         {
             if (unitSpawner.ValueRO.Count > 0)
             {
-                Entity spawnerEntity = SystemAPI.GetSingletonEntity<EnemyUnitSpawner>();
                 // Spawn Unit
-                DynamicBuffer<UnitPrefabBufferElement> unitPrefabsBuffer = state.EntityManager.GetBuffer<UnitPrefabBufferElement>(spawnerEntity);
+                DynamicBuffer<UnitPrefabBufferElement> unitPrefabsBuffer = state.EntityManager.GetBuffer<UnitPrefabBufferElement>(entity);
                 int unitToSpawn = unitSpawner.ValueRO.Random.NextInt(0, 12);
                 UnitPrefabBufferElement unit = unitPrefabsBuffer[unitToSpawn];
 
                 // Set spawn position
-                LocalTransform spawnerTransform = SystemAPI.GetComponent<LocalTransform>(spawnerEntity);
+                LocalTransform spawnerTransform = SystemAPI.GetComponent<LocalTransform>(entity);
                 float3 basePos = spawnerTransform.Position;
                 quaternion rotation = spawnerTransform.Rotation;
                 float3 localOffset = new float3(
