@@ -7,6 +7,7 @@ using UnityEngine;
 using Unity.Burst;
 using Pathfinding.Aspects;
 using Pathfinding.Components;
+using UnityEngine.Experimental.AI;
 
 [UpdateInGroup(typeof(MovementSystemGroup))]
 partial struct LeaderPathfindingSystem : ISystem
@@ -40,6 +41,7 @@ partial struct LeaderPathfindingSystem : ISystem
         };
 
         state.Dependency = job.Schedule(state.Dependency);
+        NavMeshWorld.GetDefaultWorld().AddDependency(state.Dependency);
         state.Dependency.Complete();
     }
 

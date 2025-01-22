@@ -3,28 +3,24 @@ using Unity.Collections;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
+using UnityEngine;
 
 partial struct EnemyUnitSpawnerSystem : ISystem
 {
     private const float DISTANCE_IN_FORMATION = 2;
 
     [BurstCompile]
-    public void OnCreate(ref SystemState state)
-    {
-        state.RequireForUpdate<EnemyUnitSpawner>();
-    }
-
-    [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        if (SystemAPI.TryGetSingleton(out EnemyUnitSpawner unitSpawner))
+        EntityCommandBuffer ecb = new EntityCommandBuffer(Allocator.Temp);
+        foreach (RefRW<EnemyUnitSpawner> unitSpawner in SystemAPI.Query<RefRW<EnemyUnitSpawner>>())
         {
-            if (unitSpawner.Count > 0)
+            if (unitSpawner.ValueRO.Count > 0)
             {
                 Entity spawnerEntity = SystemAPI.GetSingletonEntity<EnemyUnitSpawner>();
                 // Spawn Unit
                 DynamicBuffer<UnitPrefabBufferElement> unitPrefabsBuffer = state.EntityManager.GetBuffer<UnitPrefabBufferElement>(spawnerEntity);
-                int unitToSpawn = unitSpawner.Random.NextInt(0, 12);
+                int unitToSpawn = unitSpawner.ValueRO.Random.NextInt(0, 12);
                 UnitPrefabBufferElement unit = unitPrefabsBuffer[unitToSpawn];
 
                 // Set spawn position
@@ -32,33 +28,32 @@ partial struct EnemyUnitSpawnerSystem : ISystem
                 float3 basePos = spawnerTransform.Position;
                 quaternion rotation = spawnerTransform.Rotation;
                 float3 localOffset = new float3(
-                    unitSpawner.Random.NextFloat(-unitSpawner.SpawnBounds.x, unitSpawner.SpawnBounds.x),
+                    unitSpawner.ValueRW.Random.NextFloat(-unitSpawner.ValueRO.SpawnBounds.x, unitSpawner.ValueRO.SpawnBounds.x),
                     0,
-                    unitSpawner.Random.NextFloat(-unitSpawner.SpawnBounds.y, unitSpawner.SpawnBounds.y)
+                    unitSpawner.ValueRW.Random.NextFloat(-unitSpawner.ValueRO.SpawnBounds.y, unitSpawner.ValueRO.SpawnBounds.y)
                 );
                 basePos += math.mul(rotation, localOffset);
-                SpawnFormation(ref state, unit, basePos, 1, (UnitTypes)unitToSpawn);
+                SpawnFormation(ecb, ref state, unit, basePos, 1, (UnitTypes)unitToSpawn);
 
                 // Update spawner
-                unitSpawner.Count -= unit.Count;
-                
-                SystemAPI.SetSingleton(unitSpawner);
+                unitSpawner.ValueRW.Count -= unit.Count;
             }
         }
+        ecb.Playback(state.EntityManager);
+        ecb.Dispose();
     }
 
     [BurstCompile]
-    private void SpawnFormation(ref SystemState state, UnitPrefabBufferElement unit, float3 basePos, int team, UnitTypes type)
+    private void SpawnFormation(EntityCommandBuffer ecb, ref SystemState state, UnitPrefabBufferElement unit, float3 basePos, int team, UnitTypes type)
     {
         Entity prefabElement = unit.UnitPrefabEntity;
         int count = unit.Count;
         int length = (int)math.ceil(math.sqrt(count / 2.0f));
         int width = length * 2;
 
-        EntityCommandBuffer ecb = new EntityCommandBuffer(Allocator.Temp);
 
         // Spawn leader
-        Entity leader = state.EntityManager.Instantiate(prefabElement);
+        Entity leader = ecb.Instantiate(prefabElement);
         ecb.AddComponent(leader, new LeaderPathfinding
         {
             CurrentPathIndex = 0,
@@ -73,11 +68,11 @@ partial struct EnemyUnitSpawnerSystem : ISystem
         {
             Value = type,
         });
-        SystemAPI.SetComponent(leader, LocalTransform.FromPosition(basePos));
+        ecb.SetComponent(leader, LocalTransform.FromPosition(basePos));
 
         for (int i = 0; i < count; i++)
         {
-            Entity follower = state.EntityManager.Instantiate(prefabElement);
+            Entity follower = ecb.Instantiate(prefabElement);
             float3 pos = basePos;
             pos.x += (i % width) * DISTANCE_IN_FORMATION - (width - 1) * DISTANCE_IN_FORMATION / 2;
             pos.z -= (i / width) * DISTANCE_IN_FORMATION + DISTANCE_IN_FORMATION;
@@ -96,10 +91,7 @@ partial struct EnemyUnitSpawnerSystem : ISystem
             {
                 Value = type,
             });
-            SystemAPI.SetComponent(follower, LocalTransform.FromPosition(pos));
+            ecb.SetComponent(follower, LocalTransform.FromPosition(pos));
         }
-
-        ecb.Playback(state.EntityManager);
-        ecb.Dispose();
     }
 }

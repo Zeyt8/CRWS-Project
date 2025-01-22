@@ -12,7 +12,7 @@ public class UnitSpawnerAuthoring : MonoBehaviour
     {
         public override void Bake(UnitSpawnerAuthoring authoring)
         {
-            Entity entity = GetEntity(TransformUsageFlags.Renderable);
+            Entity entity = GetEntity(TransformUsageFlags.Dynamic);
             DynamicBuffer<UnitPrefabBufferElement> buffer = AddBuffer<UnitPrefabBufferElement>(entity);
 
             for (int i = 0; i < authoring.UnitPrefabs.Count; i++)

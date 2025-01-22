@@ -11,36 +11,35 @@ partial struct UnitSpawnerSystem : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        if (SystemAPI.TryGetSingleton(out UnitSpawner unitSpawner))
+        EntityCommandBuffer ecb = new EntityCommandBuffer(Allocator.Temp);
+        foreach (RefRW<UnitSpawner> unitSpawner in SystemAPI.Query<RefRW<UnitSpawner>>())
         {
-            if (unitSpawner.SpawnPosition.HasValue)
+            if (unitSpawner.ValueRO.SpawnPosition.HasValue)
             {
                 Entity spawnerEntity = SystemAPI.GetSingletonEntity<UnitSpawner>();
-                float3 basePos = SystemAPI.GetComponent<LocalTransform>(spawnerEntity).Position;
 
                 DynamicBuffer<UnitPrefabBufferElement> unitPrefabsBuffer = state.EntityManager.GetBuffer<UnitPrefabBufferElement>(spawnerEntity);
-                UnitPrefabBufferElement unit = unitPrefabsBuffer[(int)unitSpawner.UnitToSpawn];
+                UnitPrefabBufferElement unit = unitPrefabsBuffer[(int)unitSpawner.ValueRO.UnitToSpawn];
 
-                SpawnFormation(ref state, unit, unitSpawner.SpawnPosition.Value, 0, unitSpawner.UnitToSpawn);
+                SpawnFormation(ecb, ref state, unit, unitSpawner.ValueRO.SpawnPosition.Value, 0, unitSpawner.ValueRO.UnitToSpawn);
 
-                unitSpawner.SpawnPosition = null;
-                SystemAPI.SetSingleton(unitSpawner);
+                unitSpawner.ValueRW.SpawnPosition = null;
             }
         }
+        ecb.Playback(state.EntityManager);
+        ecb.Dispose();
     }
 
     [BurstCompile]
-    private void SpawnFormation(ref SystemState state, UnitPrefabBufferElement unit, float3 basePos, int team, UnitTypes type)
+    private void SpawnFormation(EntityCommandBuffer ecb, ref SystemState state, UnitPrefabBufferElement unit, float3 basePos, int team, UnitTypes type)
     {
         Entity prefabElement = unit.UnitPrefabEntity;
         int count = unit.Count;
         int length = (int)math.ceil(math.sqrt(count / 2.0f));
         int width = length * 2;
 
-        EntityCommandBuffer ecb = new EntityCommandBuffer(Allocator.Temp);
-
         // Spawn leader
-        Entity leader = state.EntityManager.Instantiate(prefabElement);
+        Entity leader = ecb.Instantiate(prefabElement);
         ecb.AddComponent(leader, new LeaderPathfinding
         {
             CurrentPathIndex = 0,
@@ -55,11 +54,11 @@ partial struct UnitSpawnerSystem : ISystem
         {
             Value = type,
         });
-        SystemAPI.SetComponent(leader, LocalTransform.FromPosition(basePos));
+        ecb.SetComponent(leader, LocalTransform.FromPosition(basePos));
 
         for (int i = 0; i < count; i++)
         {
-            Entity follower = state.EntityManager.Instantiate(prefabElement);
+            Entity follower = ecb.Instantiate(prefabElement);
             float3 pos = basePos;
             pos.x += (i % width) * DISTANCE_IN_FORMATION - (width - 1) * DISTANCE_IN_FORMATION / 2;
             pos.z -= (i / width) * DISTANCE_IN_FORMATION + DISTANCE_IN_FORMATION;
@@ -78,10 +77,7 @@ partial struct UnitSpawnerSystem : ISystem
             {
                 Value = type,
             });
-            SystemAPI.SetComponent(follower, LocalTransform.FromPosition(pos));
+            ecb.SetComponent(follower, LocalTransform.FromPosition(pos));
         }
-
-        ecb.Playback(state.EntityManager);
-        ecb.Dispose();
     }
 }

@@ -85,12 +85,11 @@ public class PlayerObject : MonoBehaviour
             EntityManager entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
             EntityQuery query = entityManager.CreateEntityQuery(typeof(UnitSpawner));
 
-            Entity unitSpawnerEntity = query.GetSingletonEntity();
-            UnitSpawner unitSpawner = entityManager.GetComponentData<UnitSpawner>(unitSpawnerEntity);
+            UnitSpawner unitSpawner = entityManager.GetComponentData<UnitSpawner>(h.Entity);
 
             unitSpawner.UnitToSpawn = _unitToSpawn;
             unitSpawner.SpawnPosition = new float3(pos.x, pos.y, pos.z);
-            entityManager.SetComponentData(unitSpawnerEntity, unitSpawner);
+            entityManager.SetComponentData(h.Entity, unitSpawner);
 
             _currentMoney -= _unitCosts[(int)_unitToSpawn];
             OnMoneyChanged.Invoke(_currentMoney);
