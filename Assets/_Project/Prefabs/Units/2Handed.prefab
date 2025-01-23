@@ -729,6 +729,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 608677668845418294, guid: 781a15e490c144941adf6440cf6b6cdd, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -3697692154921258158, guid: 781a15e490c144941adf6440cf6b6cdd, type: 3}
+    - target: {fileID: 608677668845418294, guid: 781a15e490c144941adf6440cf6b6cdd, type: 3}
       propertyPath: m_SkinnedMotionVectors
       value: 0
       objectReference: {fileID: 0}
@@ -1065,7 +1069,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 0
-  m_Mesh: {fileID: 3901361789478242391, guid: 781a15e490c144941adf6440cf6b6cdd, type: 3}
+  m_Mesh: {fileID: 260664681176391459, guid: 81dcbeb9d174f4c4d93002fc05db598b, type: 3}
   m_Bones: []
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
