@@ -1,0 +1,22 @@
+
+Model: Brute
+Skin: 0, Root Bone: Motion
+  1fps, 128x128, 262KB
+Play Shader: AnimationCooker/VtxAnimSimpleLit
+
+Enum Declaration: enabled
+Reset Rotation Before Bake: disabled
+Reset Position Before Bake: disabled
+Reset Scale Before Bake: disabled
+Ignore Bone Meshes: disabled
+Bone Adjust: disabled
+
+Post Domain Reload: enabled
+R10G11B11: enabled
+
+
+Started: 1/29/2025 10:25:55 PM
+Art files were saved to: Assets/_Project/Baked/Brute
+Animation enums saved to: Assets/_Project/Scripts/Generated/AnimEnums.cs
+Baked Prefab saved to: Assets/_Project/Baked/Brute/Brute.prefab
+Completed in 6,3328 seconds.

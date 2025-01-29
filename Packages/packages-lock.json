@@ -1,5 +1,14 @@
 {
   "dependencies": {
+    "com.animationcooker": {
+      "version": "https://gitlab.com/lclemens/animationcooker.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.entities": "1.2.3"
+      },
+      "hash": "a02f70b42aab5fb838f64744af1db7d6e37366f1"
+    },
     "com.bustedbunny.pathfinding": {
       "version": "https://github.com/bustedbunny/Pathfinding.git",
       "depth": 0,
@@ -234,11 +243,10 @@
       }
     },
     "com.unity.splines": {
-      "version": "2.6.1",
+      "version": "2.7.2",
       "depth": 1,
       "source": "registry",
       "dependencies": {
-        "com.unity.ugui": "1.0.0",
         "com.unity.mathematics": "1.2.1",
         "com.unity.settings-manager": "1.0.3"
       },

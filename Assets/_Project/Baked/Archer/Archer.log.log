@@ -1,0 +1,26 @@
+
+Model: Archer
+Skin: 0, Root Bone: Motion
+  1fps, 128x128, 262KB
+Skin: 1, Root Bone: B_R_Hand
+  1fps, 64x32, 32KB
+Skin: 2, Root Bone: B_L_Forearm
+  1fps, 64x32, 32KB
+Play Shader: AnimationCooker/VtxAnimSimpleLit
+
+Enum Declaration: enabled
+Reset Rotation Before Bake: disabled
+Reset Position Before Bake: disabled
+Reset Scale Before Bake: disabled
+Ignore Bone Meshes: disabled
+Bone Adjust: disabled
+
+Post Domain Reload: enabled
+R10G11B11: enabled
+
+
+Started: 1/29/2025 10:55:34 PM
+Art files were saved to: Assets/_Project/Baked/Archer
+Animation enums saved to: Assets/_Project/Scripts/Generated/AnimEnums.cs
+Baked Prefab saved to: Assets/_Project/Baked/Archer/Archer.prefab
+Completed in 4,3452 seconds.

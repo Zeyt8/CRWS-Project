@@ -1,98 +1,145 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &5513281784901451085
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 100106, guid: bb5ada740cae9e749a27ebcf41af0d85, type: 3}
-      propertyPath: m_Name
-      value: Sorceress
-      objectReference: {fileID: 0}
-    - target: {fileID: 400106, guid: bb5ada740cae9e749a27ebcf41af0d85, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400106, guid: bb5ada740cae9e749a27ebcf41af0d85, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400106, guid: bb5ada740cae9e749a27ebcf41af0d85, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400106, guid: bb5ada740cae9e749a27ebcf41af0d85, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400106, guid: bb5ada740cae9e749a27ebcf41af0d85, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400106, guid: bb5ada740cae9e749a27ebcf41af0d85, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400106, guid: bb5ada740cae9e749a27ebcf41af0d85, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400106, guid: bb5ada740cae9e749a27ebcf41af0d85, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400106, guid: bb5ada740cae9e749a27ebcf41af0d85, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400106, guid: bb5ada740cae9e749a27ebcf41af0d85, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9500000, guid: bb5ada740cae9e749a27ebcf41af0d85, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 22100000, guid: 2e08b3c7a9886c047bba75bf1f8d9620, type: 2}
-    - target: {fileID: 9500000, guid: bb5ada740cae9e749a27ebcf41af0d85, type: 3}
-      propertyPath: m_ApplyRootMotion
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 13700004, guid: bb5ada740cae9e749a27ebcf41af0d85, type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 6955678496815314773, guid: 7cd96cdf4dc0b5749a320d9ad748fc2b, type: 3}
-    - target: {fileID: 13700004, guid: bb5ada740cae9e749a27ebcf41af0d85, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: b214cd353f2ca524fbffd040bb0465f9, type: 2}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 100106, guid: bb5ada740cae9e749a27ebcf41af0d85, type: 3}
-      insertIndex: 1
-      addedObject: {fileID: 5188326395457674060}
-    - targetCorrespondingSourceObject: {fileID: 100106, guid: bb5ada740cae9e749a27ebcf41af0d85, type: 3}
-      insertIndex: 2
-      addedObject: {fileID: -6824869691877706631}
-    - targetCorrespondingSourceObject: {fileID: 100106, guid: bb5ada740cae9e749a27ebcf41af0d85, type: 3}
-      insertIndex: 3
-      addedObject: {fileID: 7510761503573040699}
-    - targetCorrespondingSourceObject: {fileID: 100106, guid: bb5ada740cae9e749a27ebcf41af0d85, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: -5852833282123614887}
-    - targetCorrespondingSourceObject: {fileID: 100106, guid: bb5ada740cae9e749a27ebcf41af0d85, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: -9363090768579353}
-  m_SourcePrefab: {fileID: 100100000, guid: bb5ada740cae9e749a27ebcf41af0d85, type: 3}
---- !u!1 &5513281784901483079 stripped
+--- !u!1 &5513281784901483075
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 100106, guid: bb5ada740cae9e749a27ebcf41af0d85, type: 3}
-  m_PrefabInstance: {fileID: 5513281784901451085}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5513281784901052323}
+  - component: {fileID: 8518313603004167055}
+  - component: {fileID: 1999142015152802288}
+  - component: {fileID: 1662624665238469102}
+  m_Layer: 0
+  m_Name: Mesh_Sorceress
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5513281784901052323
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5513281784901483075}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5513281784901052327}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &8518313603004167055
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5513281784901483075}
+  m_Mesh: {fileID: 4300000, guid: 672a871d29de9614497ea378f3149e4f, type: 2}
+--- !u!23 &1999142015152802288
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5513281784901483075}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a19729a47cbdf2441af98b6aa295cca9, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1662624665238469102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5513281784901483075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31ad6fab447edd745985a8123b81e8cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AnimationModelName: Mesh-Sorceress
+  DefaultClipName: Idle
+  DefaultPlaySpeed: 1
+  AnimationDb: {fileID: 11400000, guid: 68ef287937a7bfd4095950c8c8692db3, type: 2}
+--- !u!1 &5513281784901483079
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5513281784901052327}
+  - component: {fileID: 5188326395457674060}
+  - component: {fileID: -6824869691877706631}
+  - component: {fileID: 7510761503573040699}
+  - component: {fileID: -5852833282123614887}
+  - component: {fileID: -9363090768579353}
+  m_Layer: 0
+  m_Name: Sorceress
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5513281784901052327
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5513281784901483079}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5513281784901052323}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5188326395457674060
 MonoBehaviour:
   m_ObjectHideFlags: 0
