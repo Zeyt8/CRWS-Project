@@ -1,7 +1,7 @@
 
 Model: Brute
 Skin: 0, Root Bone: Motion
-  1fps, 128x128, 262KB
+  1fps, 256x128, 524KB
 Play Shader: AnimationCooker/VtxAnimSimpleLit
 
 Enum Declaration: enabled
@@ -15,8 +15,8 @@ Post Domain Reload: enabled
 R10G11B11: enabled
 
 
-Started: 1/29/2025 10:25:55 PM
+Started: 1/30/2025 2:47:52 AM
 Art files were saved to: Assets/_Project/Baked/Brute
 Animation enums saved to: Assets/_Project/Scripts/Generated/AnimEnums.cs
 Baked Prefab saved to: Assets/_Project/Baked/Brute/Brute.prefab
-Completed in 6,3328 seconds.
+Completed in 4,0192 seconds.

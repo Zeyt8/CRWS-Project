@@ -26,12 +26,12 @@ MonoBehaviour:
         EndFrame: 4
       - BeginFrame: 5
         EndFrame: 4
-      Width: 128
+      Width: 256
       Height: 128
       Interval: 1
-      Pow2: 7
+      Pow2: 8
       FrameRate: 1
-      VertCount: 2060
+      VertCount: 3184
     Clips:
     - ClipName: Attack1
       Length: 1.5000001
@@ -56,12 +56,12 @@ MonoBehaviour:
         EndFrame: 1
       - BeginFrame: 2
         EndFrame: 1
-      Width: 128
+      Width: 256
       Height: 128
       Interval: 1
-      Pow2: 7
+      Pow2: 8
       FrameRate: 1
-      VertCount: 1802
+      VertCount: 3655
     - SkinClips:
       - BeginFrame: 0
         EndFrame: 0
@@ -103,12 +103,12 @@ MonoBehaviour:
         EndFrame: 5
       - BeginFrame: 6
         EndFrame: 5
-      Width: 128
+      Width: 256
       Height: 128
       Interval: 1
-      Pow2: 7
+      Pow2: 8
       FrameRate: 1
-      VertCount: 1165
+      VertCount: 3148
     - SkinClips:
       - BeginFrame: 0
         EndFrame: 0
@@ -150,12 +150,12 @@ MonoBehaviour:
         EndFrame: 3
       - BeginFrame: 4
         EndFrame: 3
-      Width: 128
+      Width: 256
       Height: 128
       Interval: 1
-      Pow2: 7
+      Pow2: 8
       FrameRate: 1
-      VertCount: 1572
+      VertCount: 2930
     Clips:
     - ClipName: Attack1
       Length: 1.1333334
@@ -180,12 +180,12 @@ MonoBehaviour:
         EndFrame: 2
       - BeginFrame: 3
         EndFrame: 2
-      Width: 128
-      Height: 64
+      Width: 256
+      Height: 128
       Interval: 1
-      Pow2: 7
+      Pow2: 8
       FrameRate: 1
-      VertCount: 1351
+      VertCount: 3898
     - SkinClips:
       - BeginFrame: 0
         EndFrame: -1
@@ -244,12 +244,12 @@ MonoBehaviour:
         EndFrame: 3
       - BeginFrame: 4
         EndFrame: 3
-      Width: 128
+      Width: 256
       Height: 128
       Interval: 1
-      Pow2: 7
+      Pow2: 8
       FrameRate: 1
-      VertCount: 1458
+      VertCount: 3534
     - SkinClips:
       - BeginFrame: 0
         EndFrame: 0
@@ -292,11 +292,11 @@ MonoBehaviour:
       - BeginFrame: 2
         EndFrame: 1
       Width: 128
-      Height: 64
+      Height: 128
       Interval: 1
       Pow2: 7
       FrameRate: 1
-      VertCount: 1557
+      VertCount: 3034
     - SkinClips:
       - BeginFrame: 0
         EndFrame: -1
@@ -336,16 +336,20 @@ MonoBehaviour:
         EndFrame: 4
       - BeginFrame: 5
         EndFrame: 6
-      Width: 128
+      - BeginFrame: 7
+        EndFrame: 8
+      Width: 256
       Height: 128
       Interval: 1
-      Pow2: 7
+      Pow2: 8
       FrameRate: 1
-      VertCount: 1662
+      VertCount: 3409
     Clips:
     - ClipName: Attack1
       Length: 1.3333334
     - ClipName: Idle
+      Length: 2
+    - ClipName: WalkSlow
       Length: 2
     - ClipName: Walk
       Length: 2
@@ -364,12 +368,12 @@ MonoBehaviour:
         EndFrame: 3
       - BeginFrame: 4
         EndFrame: 3
-      Width: 128
+      Width: 256
       Height: 128
       Interval: 1
-      Pow2: 7
+      Pow2: 8
       FrameRate: 1
-      VertCount: 1744
+      VertCount: 3224
     - SkinClips:
       - BeginFrame: 0
         EndFrame: 0
@@ -411,12 +415,12 @@ MonoBehaviour:
         EndFrame: 3
       - BeginFrame: 4
         EndFrame: 3
-      Width: 128
+      Width: 256
       Height: 128
       Interval: 1
-      Pow2: 7
+      Pow2: 8
       FrameRate: 1
-      VertCount: 1744
+      VertCount: 3224
     - SkinClips:
       - BeginFrame: 0
         EndFrame: 0
@@ -458,12 +462,12 @@ MonoBehaviour:
         EndFrame: 3
       - BeginFrame: 4
         EndFrame: 3
-      Width: 128
+      Width: 256
       Height: 128
       Interval: 1
-      Pow2: 7
+      Pow2: 8
       FrameRate: 1
-      VertCount: 1693
+      VertCount: 3218
     - SkinClips:
       - BeginFrame: 0
         EndFrame: 0

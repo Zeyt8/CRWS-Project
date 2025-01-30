@@ -1,7 +1,7 @@
 
 Model: Archer
 Skin: 0, Root Bone: Motion
-  1fps, 128x128, 262KB
+  1fps, 256x128, 524KB
 Skin: 1, Root Bone: B_R_Hand
   1fps, 64x32, 32KB
 Skin: 2, Root Bone: B_L_Forearm
@@ -19,8 +19,8 @@ Post Domain Reload: enabled
 R10G11B11: enabled
 
 
-Started: 1/29/2025 10:55:34 PM
+Started: 1/30/2025 2:41:16 AM
 Art files were saved to: Assets/_Project/Baked/Archer
 Animation enums saved to: Assets/_Project/Scripts/Generated/AnimEnums.cs
 Baked Prefab saved to: Assets/_Project/Baked/Archer/Archer.prefab
-Completed in 4,3452 seconds.
+Completed in 5,7488 seconds.

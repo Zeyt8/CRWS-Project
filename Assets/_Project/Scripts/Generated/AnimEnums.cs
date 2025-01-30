@@ -15,8 +15,8 @@ public enum Mage : byte { Attack1, Idle, WalkSlow, Walk, Run }
 public static class MageSize { public const byte Size = 5; }
 public enum Ninja : byte { Attack1, Idle, WalkSlow, Walk, Run }
 public static class NinjaSize { public const byte Size = 5; }
-public enum Sorceress : byte { Attack1, Idle, Walk, Run }
-public static class SorceressSize { public const byte Size = 4; }
+public enum Sorceress : byte { Attack1, Idle, WalkSlow, Walk, Run }
+public static class SorceressSize { public const byte Size = 5; }
 public enum Spearman : byte { Attack1, Idle, WalkSlow, Walk, Run }
 public static class SpearmanSize { public const byte Size = 5; }
 public enum Swordsman : byte { Attack1, Idle, WalkSlow, Walk, Run }
