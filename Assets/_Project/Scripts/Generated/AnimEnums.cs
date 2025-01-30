@@ -1,5 +1,5 @@
-public enum Model : short { Brute, Crossbow, Hammer, Karate, Knight, Mage, Ninja, Sorceress, Spearman, Swordsman, Archer }
-public static class ModelSize { public const short Size = 11; }
+public enum Model : short { Brute, Crossbow, Hammer, Karate, Knight, Mage, Ninja, Sorceress, Spearman, Swordsman, Archer, TwoHanded }
+public static class ModelSize { public const short Size = 12; }
 
 public enum Brute : byte { Attack1, Idle, WalkSlow, Walk, Run }
 public static class BruteSize { public const byte Size = 5; }
@@ -23,3 +23,5 @@ public enum Swordsman : byte { Attack1, Idle, WalkSlow, Walk, Run }
 public static class SwordsmanSize { public const byte Size = 5; }
 public enum Archer : byte { Attack1, Idle1, WalkSlow, Walk, Run }
 public static class ArcherSize { public const byte Size = 5; }
+public enum TwoHanded : byte { Attack1, Idle, WalkSlow, Walk, Run }
+public static class TwoHandedSize { public const byte Size = 5; }

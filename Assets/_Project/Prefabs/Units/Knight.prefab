@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31ad6fab447edd745985a8123b81e8cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimationModelName: Mesh-Knight
+  AnimationModelName: Knight
   DefaultClipName: Idle
   DefaultPlaySpeed: 1
   AnimationDb: {fileID: 11400000, guid: 68ef287937a7bfd4095950c8c8692db3, type: 2}

@@ -509,3 +509,50 @@ MonoBehaviour:
       Length: 0.8000001
     - ClipName: Run
       Length: 0.53333336
+  - ModelName: TwoHanded
+    Skins:
+    - SkinClips:
+      - BeginFrame: 0
+        EndFrame: 0
+      - BeginFrame: 1
+        EndFrame: 2
+      - BeginFrame: 3
+        EndFrame: 3
+      - BeginFrame: 4
+        EndFrame: 3
+      - BeginFrame: 4
+        EndFrame: 3
+      Width: 256
+      Height: 128
+      Interval: 1
+      Pow2: 8
+      FrameRate: 1
+      VertCount: 2904
+    - SkinClips:
+      - BeginFrame: 0
+        EndFrame: 0
+      - BeginFrame: 1
+        EndFrame: 2
+      - BeginFrame: 3
+        EndFrame: 3
+      - BeginFrame: 4
+        EndFrame: 3
+      - BeginFrame: 4
+        EndFrame: 3
+      Width: 64
+      Height: 32
+      Interval: 1
+      Pow2: 6
+      FrameRate: 1
+      VertCount: 180
+    Clips:
+    - ClipName: Attack1
+      Length: 1.3333334
+    - ClipName: Idle
+      Length: 2
+    - ClipName: WalkSlow
+      Length: 1.6000001
+    - ClipName: Walk
+      Length: 0.8000001
+    - ClipName: Run
+      Length: 0.53333336
