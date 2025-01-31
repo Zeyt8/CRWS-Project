@@ -1,0 +1,562 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5db671430d248e499a2437884636ff0, type: 3}
+  m_Name: New Animation Database
+  m_EditorClassIdentifier: 
+  Models:
+  - ModelName: TwoHanded
+    Skins:
+    - SkinClips:
+      - BeginFrame: 0
+        EndFrame: 8
+      - BeginFrame: 9
+        EndFrame: 22
+      - BeginFrame: 23
+        EndFrame: 33
+      - BeginFrame: 34
+        EndFrame: 38
+      - BeginFrame: 39
+        EndFrame: 41
+      Width: 512
+      Height: 256
+      Interval: 0.14285715
+      Pow2: 9
+      FrameRate: 7
+      VertCount: 2904
+    - SkinClips:
+      - BeginFrame: 0
+        EndFrame: 8
+      - BeginFrame: 9
+        EndFrame: 22
+      - BeginFrame: 23
+        EndFrame: 33
+      - BeginFrame: 34
+        EndFrame: 38
+      - BeginFrame: 39
+        EndFrame: 41
+      Width: 128
+      Height: 64
+      Interval: 0.14285715
+      Pow2: 7
+      FrameRate: 7
+      VertCount: 180
+    Clips:
+    - ClipName: Attack1
+      Length: 1.3333334
+    - ClipName: Idle
+      Length: 2
+    - ClipName: WalkSlow
+      Length: 1.6000001
+    - ClipName: Walk
+      Length: 0.8000001
+    - ClipName: Run
+      Length: 0.53333336
+  - ModelName: Hammer
+    Skins:
+    - SkinClips:
+      - BeginFrame: 0
+        EndFrame: 7
+      - BeginFrame: 8
+        EndFrame: 17
+      - BeginFrame: 18
+        EndFrame: 27
+      - BeginFrame: 28
+        EndFrame: 32
+      - BeginFrame: 33
+        EndFrame: 36
+      Width: 512
+      Height: 256
+      Interval: 0.2
+      Pow2: 9
+      FrameRate: 5
+      VertCount: 3148
+    - SkinClips:
+      - BeginFrame: 0
+        EndFrame: 9
+      - BeginFrame: 10
+        EndFrame: 21
+      - BeginFrame: 22
+        EndFrame: 33
+      - BeginFrame: 34
+        EndFrame: 39
+      - BeginFrame: 40
+        EndFrame: 43
+      Width: 128
+      Height: 64
+      Interval: 0.16666667
+      Pow2: 7
+      FrameRate: 6
+      VertCount: 168
+    Clips:
+    - ClipName: Attack1
+      Length: 1.7333335
+    - ClipName: Idle
+      Length: 2
+    - ClipName: WalkSlow
+      Length: 2.1333334
+    - ClipName: Walk
+      Length: 1.0666667
+    - ClipName: Run
+      Length: 0.8000001
+  - ModelName: Archer
+    Skins:
+    - SkinClips:
+      - BeginFrame: 0
+        EndFrame: 5
+      - BeginFrame: 6
+        EndFrame: 17
+      - BeginFrame: 18
+        EndFrame: 26
+      - BeginFrame: 27
+        EndFrame: 30
+      - BeginFrame: 31
+        EndFrame: 33
+      Width: 512
+      Height: 256
+      Interval: 0.16666667
+      Pow2: 9
+      FrameRate: 6
+      VertCount: 3218
+    - SkinClips:
+      - BeginFrame: 0
+        EndFrame: 4
+      - BeginFrame: 5
+        EndFrame: 14
+      - BeginFrame: 15
+        EndFrame: 22
+      - BeginFrame: 23
+        EndFrame: 26
+      - BeginFrame: 27
+        EndFrame: 28
+      Width: 128
+      Height: 64
+      Interval: 0.2
+      Pow2: 7
+      FrameRate: 5
+      VertCount: 244
+    - SkinClips:
+      - BeginFrame: 0
+        EndFrame: 6
+      - BeginFrame: 7
+        EndFrame: 20
+      - BeginFrame: 21
+        EndFrame: 31
+      - BeginFrame: 32
+        EndFrame: 36
+      - BeginFrame: 37
+        EndFrame: 39
+      Width: 128
+      Height: 64
+      Interval: 0.14285715
+      Pow2: 7
+      FrameRate: 7
+      VertCount: 176
+    Clips:
+    - ClipName: Attack1
+      Length: 1
+    - ClipName: Idle1
+      Length: 2
+    - ClipName: WalkSlow
+      Length: 1.6000001
+    - ClipName: Walk
+      Length: 0.8000001
+    - ClipName: Run
+      Length: 0.53333336
+  - ModelName: Brute
+    Skins:
+    - SkinClips:
+      - BeginFrame: 0
+        EndFrame: 8
+      - BeginFrame: 9
+        EndFrame: 14
+      - BeginFrame: 15
+        EndFrame: 26
+      - BeginFrame: 27
+        EndFrame: 32
+      - BeginFrame: 33
+        EndFrame: 36
+      Width: 512
+      Height: 256
+      Interval: 0.16666667
+      Pow2: 9
+      FrameRate: 6
+      VertCount: 3184
+    Clips:
+    - ClipName: Attack1
+      Length: 1.5000001
+    - ClipName: Idle
+      Length: 1
+    - ClipName: WalkSlow
+      Length: 2.1333334
+    - ClipName: Walk
+      Length: 1.0666667
+    - ClipName: Run
+      Length: 0.6666667
+  - ModelName: Crossbow
+    Skins:
+    - SkinClips:
+      - BeginFrame: 0
+        EndFrame: 6
+      - BeginFrame: 7
+        EndFrame: 11
+      - BeginFrame: 12
+        EndFrame: 22
+      - BeginFrame: 23
+        EndFrame: 27
+      - BeginFrame: 28
+        EndFrame: 31
+      Width: 512
+      Height: 256
+      Interval: 0.14285715
+      Pow2: 9
+      FrameRate: 7
+      VertCount: 3655
+    - SkinClips:
+      - BeginFrame: 0
+        EndFrame: 3
+      - BeginFrame: 4
+        EndFrame: 6
+      - BeginFrame: 7
+        EndFrame: 12
+      - BeginFrame: 13
+        EndFrame: 15
+      - BeginFrame: 16
+        EndFrame: 17
+      Width: 128
+      Height: 64
+      Interval: 0.25
+      Pow2: 7
+      FrameRate: 4
+      VertCount: 348
+    Clips:
+    - ClipName: Attack1
+      Length: 1.1333334
+    - ClipName: Idle
+      Length: 0.8000001
+    - ClipName: WalkSlow
+      Length: 1.6000001
+    - ClipName: Walk
+      Length: 0.8000001
+    - ClipName: Run
+      Length: 0.6
+  - ModelName: Karate
+    Skins:
+    - SkinClips:
+      - BeginFrame: 0
+        EndFrame: 6
+      - BeginFrame: 7
+        EndFrame: 20
+      - BeginFrame: 21
+        EndFrame: 31
+      - BeginFrame: 32
+        EndFrame: 36
+      - BeginFrame: 37
+        EndFrame: 39
+      Width: 512
+      Height: 256
+      Interval: 0.14285715
+      Pow2: 9
+      FrameRate: 7
+      VertCount: 2930
+    Clips:
+    - ClipName: Attack1
+      Length: 1.1333334
+    - ClipName: Idle
+      Length: 2
+    - ClipName: WalkSlow
+      Length: 1.6000001
+    - ClipName: Walk
+      Length: 0.8000001
+    - ClipName: Run
+      Length: 0.53333336
+  - ModelName: Knight
+    Skins:
+    - SkinClips:
+      - BeginFrame: 0
+        EndFrame: 3
+      - BeginFrame: 4
+        EndFrame: 13
+      - BeginFrame: 14
+        EndFrame: 21
+      - BeginFrame: 22
+        EndFrame: 25
+      - BeginFrame: 26
+        EndFrame: 27
+      Width: 512
+      Height: 256
+      Interval: 0.2
+      Pow2: 9
+      FrameRate: 5
+      VertCount: 3898
+    - SkinClips:
+      - BeginFrame: 0
+        EndFrame: 3
+      - BeginFrame: 4
+        EndFrame: 13
+      - BeginFrame: 14
+        EndFrame: 21
+      - BeginFrame: 22
+        EndFrame: 25
+      - BeginFrame: 26
+        EndFrame: 27
+      Width: 64
+      Height: 64
+      Interval: 0.2
+      Pow2: 6
+      FrameRate: 5
+      VertCount: 122
+    - SkinClips:
+      - BeginFrame: 0
+        EndFrame: 3
+      - BeginFrame: 4
+        EndFrame: 13
+      - BeginFrame: 14
+        EndFrame: 21
+      - BeginFrame: 22
+        EndFrame: 25
+      - BeginFrame: 26
+        EndFrame: 27
+      Width: 128
+      Height: 64
+      Interval: 0.2
+      Pow2: 7
+      FrameRate: 5
+      VertCount: 258
+    Clips:
+    - ClipName: Attack1
+      Length: 0.8333334
+    - ClipName: Idle
+      Length: 2
+    - ClipName: WalkSlow
+      Length: 1.6000001
+    - ClipName: Walk
+      Length: 0.8000001
+    - ClipName: Run
+      Length: 0.53333336
+  - ModelName: Mage
+    Skins:
+    - SkinClips:
+      - BeginFrame: 0
+        EndFrame: 5
+      - BeginFrame: 6
+        EndFrame: 15
+      - BeginFrame: 16
+        EndFrame: 23
+      - BeginFrame: 24
+        EndFrame: 27
+      - BeginFrame: 28
+        EndFrame: 29
+      Width: 512
+      Height: 256
+      Interval: 0.2
+      Pow2: 9
+      FrameRate: 5
+      VertCount: 3534
+    - SkinClips:
+      - BeginFrame: 0
+        EndFrame: 4
+      - BeginFrame: 5
+        EndFrame: 12
+      - BeginFrame: 13
+        EndFrame: 18
+      - BeginFrame: 19
+        EndFrame: 21
+      - BeginFrame: 22
+        EndFrame: 23
+      Width: 64
+      Height: 64
+      Interval: 0.25
+      Pow2: 6
+      FrameRate: 4
+      VertCount: 160
+    Clips:
+    - ClipName: Attack1
+      Length: 1.3333334
+    - ClipName: Idle
+      Length: 2
+    - ClipName: WalkSlow
+      Length: 1.6000001
+    - ClipName: Walk
+      Length: 0.8000001
+    - ClipName: Run
+      Length: 0.53333336
+  - ModelName: Ninja
+    Skins:
+    - SkinClips:
+      - BeginFrame: 0
+        EndFrame: 2
+      - BeginFrame: 3
+        EndFrame: 7
+      - BeginFrame: 8
+        EndFrame: 13
+      - BeginFrame: 14
+        EndFrame: 16
+      - BeginFrame: 17
+        EndFrame: 18
+      Width: 256
+      Height: 256
+      Interval: 0.25
+      Pow2: 8
+      FrameRate: 4
+      VertCount: 3034
+    - SkinClips:
+      - BeginFrame: 0
+        EndFrame: 3
+      - BeginFrame: 4
+        EndFrame: 9
+      - BeginFrame: 10
+        EndFrame: 17
+      - BeginFrame: 18
+        EndFrame: 21
+      - BeginFrame: 22
+        EndFrame: 23
+      Width: 128
+      Height: 64
+      Interval: 0.2
+      Pow2: 7
+      FrameRate: 5
+      VertCount: 288
+    Clips:
+    - ClipName: Attack1
+      Length: 0.86666673
+    - ClipName: Idle
+      Length: 1.3333334
+    - ClipName: WalkSlow
+      Length: 1.6000001
+    - ClipName: Walk
+      Length: 0.8000001
+    - ClipName: Run
+      Length: 0.53333336
+  - ModelName: Sorceress
+    Skins:
+    - SkinClips:
+      - BeginFrame: 0
+        EndFrame: 4
+      - BeginFrame: 5
+        EndFrame: 12
+      - BeginFrame: 13
+        EndFrame: 20
+      - BeginFrame: 21
+        EndFrame: 28
+      - BeginFrame: 29
+        EndFrame: 36
+      Width: 512
+      Height: 256
+      Interval: 0.25
+      Pow2: 9
+      FrameRate: 4
+      VertCount: 3409
+    Clips:
+    - ClipName: Attack1
+      Length: 1.3333334
+    - ClipName: Idle
+      Length: 2
+    - ClipName: WalkSlow
+      Length: 2
+    - ClipName: Walk
+      Length: 2
+    - ClipName: Run
+      Length: 2
+  - ModelName: Spearman
+    Skins:
+    - SkinClips:
+      - BeginFrame: 0
+        EndFrame: 5
+      - BeginFrame: 6
+        EndFrame: 17
+      - BeginFrame: 18
+        EndFrame: 26
+      - BeginFrame: 27
+        EndFrame: 30
+      - BeginFrame: 31
+        EndFrame: 33
+      Width: 512
+      Height: 256
+      Interval: 0.16666667
+      Pow2: 9
+      FrameRate: 6
+      VertCount: 3224
+    - SkinClips:
+      - BeginFrame: 0
+        EndFrame: 4
+      - BeginFrame: 5
+        EndFrame: 14
+      - BeginFrame: 15
+        EndFrame: 22
+      - BeginFrame: 23
+        EndFrame: 26
+      - BeginFrame: 27
+        EndFrame: 28
+      Width: 64
+      Height: 64
+      Interval: 0.2
+      Pow2: 6
+      FrameRate: 5
+      VertCount: 124
+    Clips:
+    - ClipName: Attack1
+      Length: 1.1333334
+    - ClipName: Idle
+      Length: 2
+    - ClipName: WalkSlow
+      Length: 1.6000001
+    - ClipName: Walk
+      Length: 0.8000001
+    - ClipName: Run
+      Length: 0.53333336
+  - ModelName: Swordsman
+    Skins:
+    - SkinClips:
+      - BeginFrame: 0
+        EndFrame: 6
+      - BeginFrame: 7
+        EndFrame: 18
+      - BeginFrame: 19
+        EndFrame: 27
+      - BeginFrame: 28
+        EndFrame: 31
+      - BeginFrame: 32
+        EndFrame: 34
+      Width: 512
+      Height: 256
+      Interval: 0.16666667
+      Pow2: 9
+      FrameRate: 6
+      VertCount: 3224
+    - SkinClips:
+      - BeginFrame: 0
+        EndFrame: 4
+      - BeginFrame: 5
+        EndFrame: 14
+      - BeginFrame: 15
+        EndFrame: 22
+      - BeginFrame: 23
+        EndFrame: 26
+      - BeginFrame: 27
+        EndFrame: 28
+      Width: 128
+      Height: 128
+      Interval: 0.2
+      Pow2: 7
+      FrameRate: 5
+      VertCount: 516
+    Clips:
+    - ClipName: Attack1
+      Length: 1.1666667
+    - ClipName: Idle
+      Length: 2
+    - ClipName: WalkSlow
+      Length: 1.6000001
+    - ClipName: Walk
+      Length: 0.8000001
+    - ClipName: Run
+      Length: 0.53333336

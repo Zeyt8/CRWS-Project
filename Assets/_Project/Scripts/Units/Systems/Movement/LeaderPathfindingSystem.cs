@@ -27,6 +27,11 @@ partial struct LeaderPathfindingSystem : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
+        if (SystemAPI.TryGetSingleton(out Level level))
+        {
+            if (!level.HasStarted)
+                return;
+        }
         _teams.Update(ref state);
         _pathBuffers.Update(ref state);
         _pathfinderLookup.Update(ref state);
