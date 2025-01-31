@@ -1,0 +1,23 @@
+
+Model: Swordsman
+Skin: 0, Root Bone: Motion
+  6fps, 512x256, 2097KB
+Skin: 1, Root Bone: B_L_Hand
+  5fps, 128x128, 262KB
+Play Shader: AnimationCooker/VtxAnimSimpleLit
+
+Enum Declaration: enabled
+Reset Rotation Before Bake: enabled
+Reset Position Before Bake: enabled
+Reset Scale Before Bake: enabled
+Ignore Bone Meshes: disabled
+Bone Adjust: enabled
+Post Domain Reload: enabled
+R10G11B11: enabled
+
+
+Started: 1/31/2025 2:34:28 AM
+Art files were saved to: Assets/_Project/Baked/Swordsman
+Animation enums saved to: Assets/_Project/Scripts/Generated/AnimEnums.cs
+Baked Prefab saved to: Assets/_Project/Baked/Swordsman/Swordsman.prefab
+Completed in 15,8001 seconds.

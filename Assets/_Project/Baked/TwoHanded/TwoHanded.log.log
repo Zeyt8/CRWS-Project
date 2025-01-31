@@ -1,24 +1,23 @@
 
 Model: TwoHanded
 Skin: 0, Root Bone: Motion
-  1fps, 256x128, 524KB
+  7fps, 512x256, 2097KB
 Skin: 1, Root Bone: B_R_Hand
-  1fps, 64x32, 32KB
+  7fps, 128x64, 131KB
 Play Shader: AnimationCooker/VtxAnimSimpleLit
 
 Enum Declaration: enabled
-Reset Rotation Before Bake: disabled
-Reset Position Before Bake: disabled
-Reset Scale Before Bake: disabled
+Reset Rotation Before Bake: enabled
+Reset Position Before Bake: enabled
+Reset Scale Before Bake: enabled
 Ignore Bone Meshes: disabled
-Bone Adjust: disabled
-
+Bone Adjust: enabled
 Post Domain Reload: enabled
 R10G11B11: enabled
 
 
-Started: 1/30/2025 1:06:49 AM
+Started: 1/31/2025 2:46:33 AM
 Art files were saved to: Assets/_Project/Baked/TwoHanded
 Animation enums saved to: Assets/_Project/Scripts/Generated/AnimEnums.cs
 Baked Prefab saved to: Assets/_Project/Baked/TwoHanded/TwoHanded.prefab
-Completed in 2,651 seconds.
+Completed in 17,6639 seconds.

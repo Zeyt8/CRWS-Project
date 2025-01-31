@@ -1,0 +1,25 @@
+
+Model: Knight
+Skin: 0, Root Bone: Motion
+  5fps, 512x256, 2097KB
+Skin: 1, Root Bone: B_L_Hand
+  5fps, 64x64, 65KB
+Skin: 2, Root Bone: B_R_Hand
+  5fps, 128x64, 131KB
+Play Shader: AnimationCooker/VtxAnimSimpleLit
+
+Enum Declaration: enabled
+Reset Rotation Before Bake: enabled
+Reset Position Before Bake: enabled
+Reset Scale Before Bake: enabled
+Ignore Bone Meshes: disabled
+Bone Adjust: enabled
+Post Domain Reload: enabled
+R10G11B11: enabled
+
+
+Started: 1/31/2025 2:38:48 AM
+Art files were saved to: Assets/_Project/Baked/Knight
+Animation enums saved to: Assets/_Project/Scripts/Generated/AnimEnums.cs
+Baked Prefab saved to: Assets/_Project/Baked/Knight/Knight.prefab
+Completed in 20,018 seconds.

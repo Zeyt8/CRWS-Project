@@ -1,0 +1,23 @@
+
+Model: Ninja
+Skin: 0, Root Bone: Motion
+  4fps, 256x256, 1048KB
+Skin: 1, Root Bone: B_L_Hand
+  5fps, 128x64, 131KB
+Play Shader: AnimationCooker/VtxAnimSimpleLit
+
+Enum Declaration: enabled
+Reset Rotation Before Bake: enabled
+Reset Position Before Bake: enabled
+Reset Scale Before Bake: enabled
+Ignore Bone Meshes: disabled
+Bone Adjust: enabled
+Post Domain Reload: enabled
+R10G11B11: enabled
+
+
+Started: 1/31/2025 2:35:21 AM
+Art files were saved to: Assets/_Project/Baked/Ninja
+Animation enums saved to: Assets/_Project/Scripts/Generated/AnimEnums.cs
+Baked Prefab saved to: Assets/_Project/Baked/Ninja/Ninja.prefab
+Completed in 10,7725 seconds.
