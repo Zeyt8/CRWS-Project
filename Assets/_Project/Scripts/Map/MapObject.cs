@@ -51,14 +51,22 @@ public class MapObject : MonoBehaviour
             _currentRegionColor = regionColor;
         }
 
-        
-        
+
+
         if (regionColor == Color.red)
-            levelIndex = 2;
-        else if (regionColor == Color.green)
             levelIndex = 1;
+        else if (regionColor == Color.green)
+            levelIndex = 2;
         else if (regionColor == Color.blue)
             levelIndex = 3;
+        else if (regionColor == Color.cyan)
+            levelIndex = 4;
+        else if (regionColor == Color.gray)
+            levelIndex = 5;
+        else if (regionColor == Color.magenta)
+            levelIndex = 6;
+        else if (regionColor == Color.black)
+            levelIndex = 7;
 
 
 
@@ -80,18 +88,33 @@ public class MapObject : MonoBehaviour
 
     public void StartGame()
     {
-
-        if (_currentRegionColor == Color.green)
+        if (_currentRegionColor == Color.red)
         {
             SceneManager.LoadScene("Level1");
         }
-        else if (_currentRegionColor == Color.red)
+        else if (_currentRegionColor == Color.green)
         {
             SceneManager.LoadScene("Level2");
         }
         else if (_currentRegionColor == Color.blue)
         {
             SceneManager.LoadScene("Level3");
+        }
+        else if (_currentRegionColor == Color.cyan)
+        {
+            SceneManager.LoadScene("Level4");
+        }
+        else if (_currentRegionColor == Color.gray)
+        {
+            SceneManager.LoadScene("Level5");
+        }
+        else if (_currentRegionColor == Color.magenta)
+        {
+            SceneManager.LoadScene("Level6");
+        }
+        else if (_currentRegionColor == Color.black)
+        {
+            SceneManager.LoadScene("Level7");
         }
     }
     #endregion

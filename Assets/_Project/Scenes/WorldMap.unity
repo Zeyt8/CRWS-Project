@@ -2236,7 +2236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inputHandler: {fileID: 11400000, guid: 388994a0f63dccb4596231f028bcf1c5, type: 2}
-  _startingMoney: 1000
+  _startingMoney: 10000
   _unitCosts: 0a0000000a000000140000000a0000001e0000000f000000140000001e000000140000001e0000000a0000000f000000
 --- !u!4 &1826428296
 Transform:

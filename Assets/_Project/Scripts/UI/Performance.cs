@@ -90,7 +90,7 @@ public class Performance : MonoBehaviour
             float averageRAM = totalMemory / memorySamples.Count;
             float averageVRAM = totalVRAM / vramSamples.Count;
 
-            UpdateStatsText(averageFPS, averageRAM, maxRAM, averageFrameTime, maxFrameTime, averageVRAM, maxVRAM);
+            UpdateStatsText(averageFPS, averageRAM, averageVRAM, averageFrameTime, maxFrameTime, 0, 0);
         }
     }
 
@@ -100,11 +100,7 @@ public class Performance : MonoBehaviour
         {
             statsText.text = $"Average FPS (last minute): {averageFPS:F1}\n" +
                              $"Avg. Frame Time (last minute): {averageFrameTime:F1} ms\n" +
-                             $"Max Frame Time (last minute): {maxFrameTime:F1} ms\n" +
-                             $"Avg. RAM: {averageRAM:F1} MB\n" +
-                             $"Max RAM: {maxRAM:F1} MB\n" +
-                             $"Avg. VRAM: {averageVRAM:F1} MB\n" +
-                             $"Max VRAM: {maxVRAM:F1} MB";
+                             $"Max Frame Time (last minute): {maxFrameTime:F1} ms\n";
         }
     }
 
